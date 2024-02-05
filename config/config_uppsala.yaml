@@ -33,10 +33,10 @@ cnvkit_batch:
   method: hybrid
 
 filter_vcf:
-  germline: "config/config_hard_filter_germline.yaml"
-  somatic: "config/config_soft_filter_somatic.yaml"
-  cnv_hard_filter_amp: "config/config_hard_filter_cnv_amp.yaml"
-  cnv_hard_filter_loh: "config/config_hard_filter_cnv_loh.yaml"
+  germline: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/config_hard_filter_germline.yaml"
+  somatic: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/config_soft_filter_somatic.yaml"
+  cnv_hard_filter_amp: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/config_hard_filter_cnv_amp.yaml"
+  cnv_hard_filter_loh: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/config_hard_filter_cnv_loh.yaml"
 
 merge_cnv_json:
   cytobands: workflow.source_path("../../config/cytoBand.hg38.txt")
@@ -54,22 +54,6 @@ mosdepth_bed:
 multiqc:
   container: "docker://hydragenetics/multiqc:1.11"
   config: "config/multiqc.yaml"
-  reports:
-    DNA:
-      included_unit_types:
-        - T
-        - N
-      qc_files:
-        - "qc/fastqc/{sample}_{type}_{flowcell}_{lane}_{barcode}_{read}_fastqc.zip"
-        - "prealignment/fastp_pe/{sample}_{type}_{flowcell}_{lane}_{barcode}_fastp.json"
-        - "qc/mosdepth_bed/{sample}_{type}.mosdepth.summary.txt"
-        - "qc/mosdepth_bed/{sample}_{type}.per-base.bed.gz"
-        - "qc/picard_collect_hs_metrics/{sample}_{type}.HsMetrics.txt"
-        - "qc/picard_collect_alignment_summary_metrics/{sample}_{type}.alignment_summary_metrics.txt"
-        - "qc/picard_collect_duplication_metrics/{sample}_{type}.duplication_metrics.txt"
-        - "qc/picard_collect_insert_size_metrics/{sample}_{type}.insert_size_metrics.txt"
-        - "qc/picard_collect_gc_bias_metrics/{sample}_{type}.gc_bias.summary_metrics"
-        - "qc/samtools_stats/{sample}_{type}.samtools-stats.txt"
 
 gatk_collect_allelic_counts:
   SNP_interval: "FILL_ME_IN"
