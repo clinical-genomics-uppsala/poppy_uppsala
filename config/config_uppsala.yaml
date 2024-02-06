@@ -10,7 +10,7 @@ reference:
   fai: "/data/ref_genomes/GRCh38_p14/homo_sapiens.fasta.fai"
   design_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.bed"
   design_intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.intervals" #hsmetrics
-  design_intervals_gatk_cnv: ""
+  design_intervals_gatk_cnv: "/data/ref_genomes/GRCh38/gatk/hg38.preprocessed.interval_list" #Correct??
   skip_chrs:
   - "chrM"
 
@@ -29,7 +29,7 @@ cnv_html_report:
   show_table: true
 
 cnvkit_batch:
-  normal_reference: "FILL_ME_IN.cnn"
+  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240205/reference_files/cnvkit.PoN.cnn"
   method: hybrid
 
 filter_vcf:
@@ -41,7 +41,7 @@ filter_vcf:
 merge_cnv_json:
   cytobands: workflow.source_path("../../config/cytoBand.hg38.txt")
   annotations:
-    - config/cnv_genes.hg19.bed
+    - "/data/ref_genomes/GRCh38/gene_lists/hg38_CNA.bed"
   germline_vcf: snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.filter.germline.vcf.gz
   filtered_cnv_vcfs:
     - cnv_sv/svdb_query/{sample}_{type}.{tc_method}.svdb_query.annotate_cnv.cnv_genes.filter.cnv_hard_filter_amp.vcf.gz
@@ -52,14 +52,13 @@ mosdepth_bed:
   thresholds: ""
 
 multiqc:
-  container: "docker://hydragenetics/multiqc:1.11"
   config: "config/multiqc.yaml"
 
 gatk_collect_allelic_counts:
-  SNP_interval: "FILL_ME_IN"
+  SNP_interval: "/data/ref_genomes/GNOMAD/gnomad.genomes.r3.0.sites.maf001.snv-only.hg38.sorted.vcf"
 
 gatk_denoise_read_counts:
-  normal_reference: "FILL_ME_IN.hdf5"
+  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240205/reference_files/gatk.PoN.hdf5"
 
 pindel_call:
   extra: "-x 2 -B 60" #x och B?
@@ -71,14 +70,7 @@ pindel2vcf:
   refdate: "2022"
 
 svdb_query:
-  db_string: "FILL_ME_IN"
-
-vardict:
-  container: "docker://hydragenetics/vardict:1.8.3"
-  bed_columns: "-c 1 -S 2 -E 3"
+  db_string: "--db /projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240205/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_240205"
 
 vep:
-  container: docker://hydragenetics/vep:109
   vep_cache: "/data/ref_genomes/VEP"
-  mode: --offline --cache
-  extra: " --assembly GRCh38 --check_existing --pick --variant_class --everything"
