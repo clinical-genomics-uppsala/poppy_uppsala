@@ -11,6 +11,7 @@ reference:
   design_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.bed"
   design_intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.intervals" #hsmetrics
   design_intervals_gatk_cnv: "/data/ref_genomes/GRCh38/gatk/hg38.preprocessed.interval_list" #Correct??
+  artifacts: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240205/reference_files/artifact_panel.tsv"
   skip_chrs:
   - "chrM"
 
@@ -48,8 +49,8 @@ merge_cnv_json:
   unfiltered_cnv_vcfs:
     - cnv_sv/svdb_query/{sample}_{type}.{tc_method}.svdb_query.annotate_cnv.cnv_genes.vcf.gz
 
-mosdepth_bed:
-  thresholds: ""
+# mosdepth_bed:
+#   thresholds: "100,200,1000"
 
 multiqc:
   config: "config/multiqc.yaml"
