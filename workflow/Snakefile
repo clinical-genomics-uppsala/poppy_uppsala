@@ -6,6 +6,7 @@ __license__ = "GPL-3"
 
 # Include pipeline specific rules
 include: "rules/common.smk"
+include: "rules/results_report.smk"
 
 
 # 'All' rule, must be specified before any other modules are
@@ -16,3 +17,13 @@ rule all:
 
 
 # Include modules
+module poppy:
+    snakefile: 
+        "../../poppy/workflow/Snakefile"
+    config:
+        config
+
+
+use rule * from poppy exclude all
+
+
