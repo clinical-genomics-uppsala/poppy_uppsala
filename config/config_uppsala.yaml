@@ -9,8 +9,8 @@ reference:
   fasta: "/data/ref_genomes/GRCh38_p14/homo_sapiens.fasta"
   fai: "/data/ref_genomes/GRCh38_p14/homo_sapiens.fasta.fai"
   design_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.bed"
-  design_intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.intervals" #hsmetrics
-  design_intervals_gatk_cnv: "/data/ref_genomes/GRCh38/gatk/hg38.preprocessed.interval_list" #Correct??
+  design_intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.interval_list" #hsmetrics
+  design_intervals_gatk_cnv: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.interval_list" #Correct
   artifacts: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240205/reference_files/artifact_panel.tsv"
   skip_chrs:
   - "chrM"
@@ -36,11 +36,12 @@ cnvkit_batch:
 filter_vcf:
   germline: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/config_hard_filter_germline.yaml"
   somatic: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/config_soft_filter_somatic.yaml"
+  pindel: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/config_soft_filter_pindel.yaml"
   cnv_hard_filter_amp: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/config_hard_filter_cnv_amp.yaml"
   cnv_hard_filter_loh: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/config_hard_filter_cnv_loh.yaml"
 
 merge_cnv_json:
-  cytobands: workflow.source_path("../../config/cytoBand.hg38.txt")
+  cytobands: "cytoBand.hg38.txt"
   annotations:
     - "/data/ref_genomes/GRCh38/gene_lists/hg38_CNA.bed"
   germline_vcf: snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.filter.germline.vcf.gz
@@ -56,7 +57,7 @@ multiqc:
   config: "config/multiqc.yaml"
 
 gatk_collect_allelic_counts:
-  SNP_interval: "/data/ref_genomes/GNOMAD/gnomad.genomes.r3.0.sites.maf001.snv-only.hg38.sorted.vcf"
+  SNP_interval: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv100.240208.interval_list" 
 
 gatk_denoise_read_counts:
   normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240205/reference_files/gatk.PoN.hdf5"
