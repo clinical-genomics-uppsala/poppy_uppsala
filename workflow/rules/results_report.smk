@@ -6,23 +6,25 @@ __license__ = "GPL-3"
 
 rule results_report_xlsx:
     input:
-        vcf="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.filter.somatic.vcf",
+        vcf="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.filter.somatic.vcf.gz",
+        vcf_tbi="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.filter.somatic.vcf.gz.tbi",
         pindel="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.vep_annotated.filtered.pindel.vcf.gz",
+        pindel_tbi="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.vep_annotated.filtered.pindel.vcf.gz.tbi",
     output:
         xlsx="results_report/xlsx/{sample}_{type}.xlsx",
     params:
+        sample=lambda wildcards: wildcards.sample,
         sequenceid=config["sequenceid"],
         poppy_version="test",
         uppsala_version="test",
-        ref=config["references"]["fasta"],
+        ref=config["reference"]["fasta"],
         pindel_bed=config["pindel_call"]["include_bed"],
         extra=config.get("results_report", {}).get("extra", ""),
     log:
         "results_report/xlsx/{sample}_{type}.xlsx.log",
     benchmark:
         repeat(
-            "results_report/xlsx/{sample}_{type}.xlsx.benchmark.tsv",
-            config.get("results_report", {}).get("benchmark_repeats", 1)
+            "results_report/xlsx/{sample}_{type}.xlsx.benchmark.tsv", config.get("results_report", {}).get("benchmark_repeats", 1)
         )
     threads: config.get("results_report", {}).get("threads", config["default_resources"]["threads"])
     resources:

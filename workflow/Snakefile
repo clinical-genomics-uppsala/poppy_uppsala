@@ -18,12 +18,10 @@ rule all:
 
 # Include modules
 module poppy:
-    snakefile: 
+    snakefile:
         "../../poppy/workflow/Snakefile"
     config:
         config
 
 
 use rule * from poppy exclude all
-
-
