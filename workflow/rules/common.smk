@@ -5,15 +5,17 @@ __license__ = "GPL-3"
 
 import itertools
 import numpy as np
-import pathlib
 import pandas as pd
-import yaml
+import pathlib
+import re
 from snakemake.utils import validate
 from snakemake.utils import min_version
+import yaml
 
 from hydra_genetics.utils.resources import load_resources
 from hydra_genetics.utils.samples import *
 from hydra_genetics.utils.units import *
+from hydra_genetics import min_version as hydra_min_version
 
 min_version("6.8.0")
 
@@ -78,20 +80,21 @@ wildcard_constraints:
 
 
 def compile_output_file_list(wildcards):
-    outdir = pathlib.Path(output_spec.get("directory", "./"))
+    outdir = pathlib.Path(output_spec["directory"])
     output_files = []
 
-    for f in output_spec["files"]:
-        # Please remember to add any additional values down below
-        # that the output strings should be formatted with.
-        outputpaths = set(
-            [
-                f["output"].format(sample=sample, type=unit_type)
-                for sample in get_samples(samples)
-                for unit_type in get_unit_types(units, sample)
-            ]
-        )
+    callers = config["bcbio_variation_recall_ensemble"]["callers"]
+    wc_df = pd.DataFrame(np.repeat(units.values, len(callers), axis=0))
+    wc_df.columns = units.columns
+    caller_gen = itertools.cycle(callers)
+    wc_df = wc_df.assign(caller=[next(caller_gen) for i in range(wc_df.shape[0])])
 
+    for f in output_spec["files"]:
+        outputpaths = set(expand(f["output"], zip, **wc_df.to_dict("list")))
+        if len(outputpaths) == 0:
+            # Using expand with zip on a pattern without any wildcards results
+            # in an empty list. Then just add the output filename as it is.
+            outputpaths = [f["output"]]
         for op in outputpaths:
             output_files.append(outdir / Path(op))
 
@@ -99,14 +102,14 @@ def compile_output_file_list(wildcards):
 
 
 def generate_copy_rules(output_spec):
-    output_directory = pathlib.Path(output_spec.get("directory", "./"))
+    output_directory = pathlib.Path(output_spec["directory"])
     rulestrings = []
 
     for f in output_spec["files"]:
         if f["input"] is None:
             continue
 
-        rule_name = "_copy_{}".format("_".join(re.split(r"\W{1,}", f["name"].strip().lower())))
+        rule_name = "copy_{}".format("_".join(re.sub(r"[\"'-.,]", "", f["name"].strip().lower()).split()))
         input_file = pathlib.Path(f["input"])
         output_file = output_directory / pathlib.Path(f["output"])
 
@@ -133,7 +136,7 @@ def generate_copy_rules(output_spec):
                 "env_modules, bench_record, jobid, is_shell, bench_iteration, cleanup_scripts, "
                 "shadow_dir, edit_notebook, conda_base_path, basedir, runtime_sourcecache_path, "
                 "__is_snakemake_rule_func=True):",
-                '\tshell("(cp --preserve=timestamps {input[0]} {output[0]}) &> {log}", bench_record=bench_record, '
+                '\tshell("(cp {input[0]} {output[0]}) &> {log}", bench_record=bench_record, '
                 "bench_iteration=bench_iteration)\n\n",
             ]
         )
