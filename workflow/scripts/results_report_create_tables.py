@@ -37,7 +37,7 @@ def extract_vcf_values(record, csq_index):
 
     try:
         return_dict["artifact_callers"] = ";".join(record.info["Artifact"])
-        return_dict["artifact_median"] = ";".join(record.info["ArtifactMedian"])
+        return_dict["artifact_median"] = ";".join([str(round(float(x), 3)) for x in record.info["ArtifactMedian"] ])
         return_dict["artifact_nr_sd"] = ";".join(record.info["ArtifactNrSD"])
     except KeyError:
         pass
