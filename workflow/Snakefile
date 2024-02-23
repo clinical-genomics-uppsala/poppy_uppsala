@@ -48,11 +48,12 @@ use rule mosdepth_bed from qc as qc_mosdepth_bed_coding with:
         bed_csi=temp("qc/mosdepth_bed_coding/{sample}_{type}.regions.bed.gz.csi"),
         coverage=temp("qc/mosdepth_bed_coding/{sample}_{type}.per-base.bed.gz"),
         coverage_csi=temp("qc/mosdepth_bed_coding/{sample}_{type}.per-base.bed.gz.csi"),
+        thresholds=temp("qc/mosdepth_bed_coding/{sample}_{type}.thresholds.bed.gz"),
         glob=temp("qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.global.dist.txt"),
         region=temp("qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.region.dist.txt"),
         summary=temp("qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.summary.txt"),
     params:
-        extra=config.get("mosdepth_bed", {}).get("extra", ""),
+        thresholds=config["mosdepth_bed"]["thresholds"],
     log:
         "qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.summary.txt.log",
     benchmark:
