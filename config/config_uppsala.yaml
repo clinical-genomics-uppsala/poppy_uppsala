@@ -6,8 +6,8 @@ units: "units.tsv"
 output: "output_files.yaml"
 
 reference:
-  fasta: "/data/ref_genomes/GRCh38_p14/homo_sapiens.fasta"
-  fai: "/data/ref_genomes/GRCh38_p14/homo_sapiens.fasta.fai"
+  fasta: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
+  fai: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"
   exon_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_coding_exons_added_regions.240220.bed"
   design_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.bed"
   design_intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.interval_list" #hsmetrics
@@ -20,11 +20,11 @@ annotate_cnv:
   cnv_genes: "/data/ref_genomes/GRCh38/gene_lists/hg38_CNA.bed"
 
 bwa_mem:
-  amb: "/data/ref_genomes/GRCh38_p14/homo_sapiens.fasta.amb"
-  ann: "/data/ref_genomes/GRCh38_p14/homo_sapiens.fasta.ann"
-  bwt: "/data/ref_genomes/GRCh38_p14/homo_sapiens.fasta.bwt"
-  pac: "/data/ref_genomes/GRCh38_p14/homo_sapiens.fasta.pac"
-  sa: "/data/ref_genomes/GRCh38_p14/homo_sapiens.fasta.sa"
+  amb: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb"
+  ann: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.ann"
+  bwt: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.bwt"
+  pac: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.pac"
+  sa: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.sa"
 
 cnv_html_report:
   cytobands: true
@@ -44,7 +44,7 @@ filter_vcf:
 merge_cnv_json:
   cytobands: "cytoBand.hg38.txt"
   annotations:
-    - "/data/ref_genomes/GRCh38/gene_lists/hg38_CNA.bed"
+    - "/data/ref_genomes/GRCh38/gene_lists/hg38_CNA.bed" #updatera till hela gener, exon for tp53 och runx1
   germline_vcf: snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.filter.germline.vcf.gz
   filtered_cnv_vcfs:
     - cnv_sv/svdb_query/{sample}_{type}.{tc_method}.svdb_query.annotate_cnv.cnv_genes.filter.cnv_hard_filter_amp.vcf.gz
@@ -69,7 +69,7 @@ pindel_call:
 
 pindel2vcf:
   extra: "-e 10 -mc 10 -is 5 -he 0.01 -G" # num reads support
-  refname: "GRCh38_p14"
+  refname: "GCA_000001405.15_GRCh38_no_alt"
   refdate: "2022"
 
 svdb_query:
