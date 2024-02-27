@@ -88,6 +88,7 @@ def compile_output_file_list(wildcards):
     wc_df.columns = units.columns
     caller_gen = itertools.cycle(callers)
     wc_df = wc_df.assign(caller=[next(caller_gen) for i in range(wc_df.shape[0])])
+    wc_df = wc_df.assign(sequenceid=[config["sequenceid"] for i in range(wc_df.shape[0])])
 
     for f in output_spec["files"]:
         outputpaths = set(expand(f["output"], zip, **wc_df.to_dict("list")))
@@ -142,7 +143,6 @@ def generate_copy_rules(output_spec):
         )
 
         rulestrings.append(rule_code)
-
     exec(compile("\n".join(rulestrings), "copy_result_files", "exec"), workflow.globals)
 
 
