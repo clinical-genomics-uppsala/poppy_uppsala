@@ -16,6 +16,40 @@ properties:
     type: string
     description: name or path to a default docker/singularity container
 
+
+
+# Entry added using Hydra-Genetics CLI - please move it into alphabetically sorted order
+  results_report:
+    type: object
+    description: parameters for results_report
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      extra:
+        type: string
+        description: parameters that should be forwarded
+
+
+
+# Entry added using Hydra-Genetics CLI - please move it into alphabetically sorted order
+  bcftools_filtering:
+    type: object
+    description: parameters for bcftools_filtering
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      extra:
+        type: string
+        description: parameters that should be forwarded
+
 required:
   - samples
   - units

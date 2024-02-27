@@ -2,3 +2,51 @@ $schema: "http://json-schema.org/draft-04/schema#"
 description: snakemake rule input and output files description file
 type: object
 properties:
+
+
+# Entry added using Hydra-Genetics CLI - please move it into alphabetically sorted order
+  results_report:
+    type: object
+    description: input and output parameters for results_report
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          input1:
+            type: string
+            description: description input1
+            #value: set to override value in table, else remove
+
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          output1:
+            type: string
+            description: description output1
+            #value: set to override value in table, else remove
+
+
+# Entry added using Hydra-Genetics CLI - please move it into alphabetically sorted order
+  bcftools_filtering:
+    type: object
+    description: input and output parameters for bcftools_filtering
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          input1:
+            type: string
+            description: description input1
+            #value: set to override value in table, else remove
+
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          output1:
+            type: string
+            description: description output1
+            #value: set to override value in table, else remove
