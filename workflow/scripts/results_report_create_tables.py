@@ -37,7 +37,7 @@ def extract_vcf_values(record, csq_index):
 
     try:
         return_dict["artifact_callers"] = ";".join(record.info["Artifact"])
-        return_dict["artifact_median"] = ";".join([str(round(float(x), 3)) for x in record.info["ArtifactMedian"] ])
+        return_dict["artifact_median"] = ";".join([str(round(float(x), 3)) for x in record.info["ArtifactMedian"]])
         return_dict["artifact_nr_sd"] = ";".join(record.info["ArtifactNrSD"])
     except KeyError:
         pass
@@ -74,6 +74,10 @@ def extract_vcf_values(record, csq_index):
     return_dict["max_pop_af"] = csq[csq_index.index("MAX_AF")]
     return_dict["max_pops"] = csq[csq_index.index("MAX_AF_POPS")]
     return_dict["filter_flag"] = ",".join(record.filter.keys())
+    if return_dict["af"] >= 0.05:
+        return_dict["igv"] = "pathpath"
+    else:
+        return_dict["igv"] = ""
     # normal freq or, background
 
     return return_dict
@@ -108,6 +112,7 @@ def create_snv_table(vcf_input, sequenceid):
         {"header": "Artifact Medians"},
         {"header": "Artifact calls (Mutect, Vardict, TotNormals)"},
         {"header": "Callers"},
+        {"header": "IGV screenshot"}
     ]
     for record in vcf_file.fetch():
         record_values = extract_vcf_values(record, csq_index)

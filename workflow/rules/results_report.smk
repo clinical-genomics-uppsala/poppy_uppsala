@@ -44,8 +44,11 @@ rule results_report_xlsx:
         pindel="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.vep_annotated.vcf.gz",
         pindel_tbi="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.vep_annotated.vcf.gz.tbi",
         pindel_bed=config["pindel_call"]["include_bed"],
+        mosdepth_summary="qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.summary.txt",
         mosdepth_perbase="qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.per-base.exon_bed.txt",
         mosdepth_regions="qc/mosdepth_bed_coding/{sample}_{type}.regions.bed.gz",
+        mosdepth_thresholds="qc/mosdepth_bed_coding/{sample}_{type}.thresholds.bed.gz",
+        picard_dupl="qc/picard_collect_duplication_metrics/{sample}_{type}.duplication_metrics.txt",
         # wanted_transcripts=config["xlsx_report"]["wanted_transcripts"],
     output:
         xlsx="results_report/xlsx/{sample}_{type}.xlsx",
@@ -59,6 +62,7 @@ rule results_report_xlsx:
         pindelbed=config["pindel_call"]["include_bed"],
         ref=config["reference"]["fasta"],
         artifact=config["reference"]["artifacts"],
+        thresholds=config["mosdepth_bed"]["thresholds"],
         extra=config.get("results_report", {}).get("extra", ""),
     log:
         "results_report/xlsx/{sample}_{type}.xlsx.log",
