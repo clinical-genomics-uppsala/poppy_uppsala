@@ -14,8 +14,7 @@ def index_vep(variantfile):
     return csq_index
 
 
-# Extract table columns from vcf record
-# af, dp, gene, transcipt, coding_name, ensp, consequence, cosmic, clinical, rs, max_pop_af, max_pops, filter_flag, svlen
+# Extract table columns from vcf records
 def extract_vcf_values(record, csq_index):
     return_dict = {}
     csq = record.info["CSQ"][0].split("|")
@@ -109,10 +108,9 @@ def create_snv_table(vcf_input, sequenceid):
         {"header": "dbSNP"},
         {"header": "Max Pop AF"},
         {"header": "Max Pop"},
-        {"header": "Artifact Medians"},
-        {"header": "Artifact calls (Mutect, Vardict, TotNormals)"},
+        {"header": "Artifact Medians (Mutect; Vardict)"},
+        {"header": "Artifact calls (Mutect; Vardict; TotNormals)"},
         {"header": "Callers"},
-        {"header": "IGV screenshot"}
     ]
     for record in vcf_file.fetch():
         record_values = extract_vcf_values(record, csq_index)

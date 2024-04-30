@@ -114,18 +114,21 @@ def generate_copy_rules(output_spec):
         input_file = pathlib.Path(f["input"])
         output_file = output_directory / pathlib.Path(f["output"])
 
-        mem_mb = config.get("_copy", {}).get("mem_mb", config["default_resources"]["mem_mb"])
-        mem_per_cpu = config.get("_copy", {}).get("mem_per_cpu", config["default_resources"]["mem_per_cpu"])
-        partition = config.get("_copy", {}).get("partition", config["default_resources"]["partition"])
-        threads = config.get("_copy", {}).get("threads", config["default_resources"]["threads"])
-        time = config.get("_copy", {}).get("time", config["default_resources"]["time"])
+        mem_mb = config.get("copy", {}).get("mem_mb", config["default_resources"]["mem_mb"])
+        mem_per_cpu = config.get("copy", {}).get("mem_per_cpu", config["default_resources"]["mem_per_cpu"])
+        partition = config.get("copy", {}).get("partition", config["default_resources"]["partition"])
+        threads = config.get("copy", {}).get("threads", config["default_resources"]["threads"])
+        time = config.get("copy", {}).get("time", config["default_resources"]["time"])
         copy_container = config.get("_copy", {}).get("container", config["default_container"])
 
-        rule_code = "\n".join(
+        if rule_name == "copy_bamsnap":  # handle rule that has directory as output
+            rule_code = f'@workflow.output(directory("{output_file}"))\n'
+        else:
+            rule_code = f'@workflow.output("{output_file}")\n'
+        rule_code += "\n".join(
             [
                 f'@workflow.rule(name="{rule_name}")',
                 f'@workflow.input("{input_file}")',
-                f'@workflow.output("{output_file}")',
                 f'@workflow.log("logs/{rule_name}_{output_file.name}.log")',
                 f'@workflow.container("{copy_container}")',
                 f'@workflow.resources(time="{time}", threads={threads}, mem_mb="{mem_mb}", '
@@ -137,10 +140,12 @@ def generate_copy_rules(output_spec):
                 "env_modules, bench_record, jobid, is_shell, bench_iteration, cleanup_scripts, "
                 "shadow_dir, edit_notebook, conda_base_path, basedir, runtime_sourcecache_path, "
                 "__is_snakemake_rule_func=True):",
-                '\tshell("(cp {input[0]} {output[0]}) &> {log}", bench_record=bench_record, '
+                '\tshell("(cp -r {input[0]} {output[0]}) &> {log}", bench_record=bench_record, '
                 "bench_iteration=bench_iteration)\n\n",
             ]
         )
+        print(rule_code)
+
 
         rulestrings.append(rule_code)
     exec(compile("\n".join(rulestrings), "copy_result_files", "exec"), workflow.globals)

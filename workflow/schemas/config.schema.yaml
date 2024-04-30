@@ -16,13 +16,13 @@ properties:
     type: string
     description: name or path to a default docker/singularity container
 
-
-
-# Entry added using Hydra-Genetics CLI - please move it into alphabetically sorted order
-  results_report:
+  bamsnap_create_pos_list:
     type: object
-    description: parameters for results_report
+    description: parameters for bamsnap_create_pos_list
     properties:
+      af:
+        type: float
+        description: variant > af to include in position list for bamsnap
       benchmark_repeats:
         type: integer
         description: set number of times benchmark should be repeated
@@ -33,12 +33,37 @@ properties:
         type: string
         description: parameters that should be forwarded
 
-
-
-# Entry added using Hydra-Genetics CLI - please move it into alphabetically sorted order
-  bcftools_filtering:
+  bamsnap:
     type: object
-    description: parameters for bcftools_filtering
+    description: parameters to run bamsnap
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      margin:
+        type: string
+        description: margin surrounding variant in snapshot, default 50
+      extra:
+        type: string
+        description: extra paramters for bamsnap, default -show_soft_clipped
+  
+  bamsnap_hd829:
+    type: object
+    description: dummy rult to create empty dir for hd829 samples
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+
+  results_report_bedtools_intersect:
+    type: object
+    description: parameters for bedtools intersect 
     properties:
       benchmark_repeats:
         type: integer
@@ -48,7 +73,22 @@ properties:
         description: name or path to docker/singularity container
       extra:
         type: string
-        description: parameters that should be forwarded
+        description: extra parameters to be forwarded
+
+  results_report_xlsx:
+    type: object
+    description: parameters for results_report_xlsx to summarize sample
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      wanted_transcripts:
+        type: string
+        description: txt file with interested transcripts (matching NM- annotation in config["reference"]["exon_bed"])
+
 
 required:
   - samples
@@ -56,4 +96,5 @@ required:
   - output
   - resources
   - default_container
+  - results_report_xlsx
 

@@ -1,33 +1,11 @@
 samples: samples_references.tsv
 units: units_references.tsv
 resources_references: config/resources_references.yaml
+output: output_files_references.yaml
 
 reference:
   mappability: "/data/ref_genomes/GRCh38/cnvkit/access-10kb.mm10.bed"
 
-bed_to_interval_list:
-  container: docker://hydragenetics/gatk4:4.2.2.0
+purecn_interval_file:
+  genome: "GRCh38"
 
-cnvkit_build_normal_reference:
-  container: docker://hydragenetics/cnvkit:0.9.9
-
-cnvkit_create_targets:
-  container: docker://hydragenetics/cnvkit:0.9.9
-
-cnvkit_create_anti_targets:
-  container: docker://hydragenetics/cnvkit:0.9.9
-
-collect_read_counts:
-  container: docker://hydragenetics/gatk4:4.2.2.0
-
-create_read_count_panel_of_normals:
-  container: docker://hydragenetics/gatk4:4.2.2.0
-
-preprocess_intervals:
-  container: docker://hydragenetics/gatk4:4.2.2.0
-
-svdb_build:
-  container: docker://hydragenetics/svdb:2.6.0
-
-svdb_export:
-  container: docker://hydragenetics/svdb:2.6.0

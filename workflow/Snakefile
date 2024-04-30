@@ -6,6 +6,7 @@ __license__ = "GPL-3"
 
 # Include pipeline specific rules
 include: "rules/common.smk"
+include: "rules/bamsnap.smk"
 include: "rules/results_report.smk"
 
 

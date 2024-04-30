@@ -1,5 +1,4 @@
 ---
-
 resources: "resources.yaml"
 samples: "samples.tsv"
 units: "units.tsv"
@@ -11,14 +10,189 @@ reference:
   exon_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_coding_exons_added_regions.240220.bed"
   design_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.bed"
   design_intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.interval_list" #hsmetrics
-  design_intervals_gatk_cnv: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240205/reference_files/design.preprocessed.interval_list" #"/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.interval_list" #Correct?
-  artifacts: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240205/reference_files/artifact_panel.tsv"
+  design_intervals_gatk_cnv: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240227/reference_files/design.preprocessed.interval_list" #"/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.interval_list" #Correct?
+  artifacts: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240227/reference_files/artifact_panel.tsv"
   skip_chrs:
-  - "chrM"
+    - "chrM"
+    - "chr1_KI270706v1_random"
+    - "chr1_KI270707v1_random"
+    - "chr1_KI270708v1_random"
+    - "chr1_KI270709v1_random"
+    - "chr1_KI270710v1_random"
+    - "chr1_KI270711v1_random"
+    - "chr1_KI270712v1_random"
+    - "chr1_KI270713v1_random"
+    - "chr1_KI270714v1_random"
+    - "chr2_KI270715v1_random"
+    - "chr2_KI270716v1_random"
+    - "chr3_GL000221v1_random"
+    - "chr4_GL000008v2_random"
+    - "chr5_GL000208v1_random"
+    - "chr9_KI270717v1_random"
+    - "chr9_KI270718v1_random"
+    - "chr9_KI270719v1_random"
+    - "chr9_KI270720v1_random"
+    - "chr11_KI270721v1_random"
+    - "chr14_GL000009v2_random"
+    - "chr14_GL000225v1_random"
+    - "chr14_KI270722v1_random"
+    - "chr14_GL000194v1_random"
+    - "chr14_KI270723v1_random"
+    - "chr14_KI270724v1_random"
+    - "chr14_KI270725v1_random"
+    - "chr14_KI270726v1_random"
+    - "chr15_KI270727v1_random"
+    - "chr16_KI270728v1_random"
+    - "chr17_GL000205v2_random"
+    - "chr17_KI270729v1_random"
+    - "chr17_KI270730v1_random"
+    - "chr22_KI270731v1_random"
+    - "chr22_KI270732v1_random"
+    - "chr22_KI270733v1_random"
+    - "chr22_KI270734v1_random"
+    - "chr22_KI270735v1_random"
+    - "chr22_KI270736v1_random"
+    - "chr22_KI270737v1_random"
+    - "chr22_KI270738v1_random"
+    - "chr22_KI270739v1_random"
+    - "chrY_KI270740v1_random"
+    - "chrUn_KI270302v1"
+    - "chrUn_KI270304v1"
+    - "chrUn_KI270303v1"
+    - "chrUn_KI270305v1"
+    - "chrUn_KI270322v1"
+    - "chrUn_KI270320v1"
+    - "chrUn_KI270310v1"
+    - "chrUn_KI270316v1"
+    - "chrUn_KI270315v1"
+    - "chrUn_KI270312v1"
+    - "chrUn_KI270311v1"
+    - "chrUn_KI270317v1"
+    - "chrUn_KI270412v1"
+    - "chrUn_KI270411v1"
+    - "chrUn_KI270414v1"
+    - "chrUn_KI270419v1"
+    - "chrUn_KI270418v1"
+    - "chrUn_KI270420v1"
+    - "chrUn_KI270424v1"
+    - "chrUn_KI270417v1"
+    - "chrUn_KI270422v1"
+    - "chrUn_KI270423v1"
+    - "chrUn_KI270425v1"
+    - "chrUn_KI270429v1"
+    - "chrUn_KI270442v1"
+    - "chrUn_KI270466v1"
+    - "chrUn_KI270465v1"
+    - "chrUn_KI270467v1"
+    - "chrUn_KI270435v1"
+    - "chrUn_KI270438v1"
+    - "chrUn_KI270468v1"
+    - "chrUn_KI270510v1"
+    - "chrUn_KI270509v1"
+    - "chrUn_KI270518v1"
+    - "chrUn_KI270508v1"
+    - "chrUn_KI270516v1"
+    - "chrUn_KI270512v1"
+    - "chrUn_KI270519v1"
+    - "chrUn_KI270522v1"
+    - "chrUn_KI270511v1"
+    - "chrUn_KI270515v1"
+    - "chrUn_KI270507v1"
+    - "chrUn_KI270517v1"
+    - "chrUn_KI270529v1"
+    - "chrUn_KI270528v1"
+    - "chrUn_KI270530v1"
+    - "chrUn_KI270539v1"
+    - "chrUn_KI270538v1"
+    - "chrUn_KI270544v1"
+    - "chrUn_KI270548v1"
+    - "chrUn_KI270583v1"
+    - "chrUn_KI270587v1"
+    - "chrUn_KI270580v1"
+    - "chrUn_KI270581v1"
+    - "chrUn_KI270579v1"
+    - "chrUn_KI270589v1"
+    - "chrUn_KI270590v1"
+    - "chrUn_KI270584v1"
+    - "chrUn_KI270582v1"
+    - "chrUn_KI270588v1"
+    - "chrUn_KI270593v1"
+    - "chrUn_KI270591v1"
+    - "chrUn_KI270330v1"
+    - "chrUn_KI270329v1"
+    - "chrUn_KI270334v1"
+    - "chrUn_KI270333v1"
+    - "chrUn_KI270335v1"
+    - "chrUn_KI270338v1"
+    - "chrUn_KI270340v1"
+    - "chrUn_KI270336v1"
+    - "chrUn_KI270337v1"
+    - "chrUn_KI270363v1"
+    - "chrUn_KI270364v1"
+    - "chrUn_KI270362v1"
+    - "chrUn_KI270366v1"
+    - "chrUn_KI270378v1"
+    - "chrUn_KI270379v1"
+    - "chrUn_KI270389v1"
+    - "chrUn_KI270390v1"
+    - "chrUn_KI270387v1"
+    - "chrUn_KI270395v1"
+    - "chrUn_KI270396v1"
+    - "chrUn_KI270388v1"
+    - "chrUn_KI270394v1"
+    - "chrUn_KI270386v1"
+    - "chrUn_KI270391v1"
+    - "chrUn_KI270383v1"
+    - "chrUn_KI270393v1"
+    - "chrUn_KI270384v1"
+    - "chrUn_KI270392v1"
+    - "chrUn_KI270381v1"
+    - "chrUn_KI270385v1"
+    - "chrUn_KI270382v1"
+    - "chrUn_KI270376v1"
+    - "chrUn_KI270374v1"
+    - "chrUn_KI270372v1"
+    - "chrUn_KI270373v1"
+    - "chrUn_KI270375v1"
+    - "chrUn_KI270371v1"
+    - "chrUn_KI270448v1"
+    - "chrUn_KI270521v1"
+    - "chrUn_GL000195v1"
+    - "chrUn_GL000219v1"
+    - "chrUn_GL000220v1"
+    - "chrUn_GL000224v1"
+    - "chrUn_KI270741v1"
+    - "chrUn_GL000226v1"
+    - "chrUn_GL000213v1"
+    - "chrUn_KI270743v1"
+    - "chrUn_KI270744v1"
+    - "chrUn_KI270745v1"
+    - "chrUn_KI270746v1"
+    - "chrUn_KI270747v1"
+    - "chrUn_KI270748v1"
+    - "chrUn_KI270749v1"
+    - "chrUn_KI270750v1"
+    - "chrUn_KI270751v1"
+    - "chrUn_KI270752v1"
+    - "chrUn_KI270753v1"
+    - "chrUn_KI270754v1"
+    - "chrUn_KI270755v1"
+    - "chrUn_KI270756v1"
+    - "chrUn_KI270757v1"
+    - "chrUn_GL000214v1"
+    - "chrUn_KI270742v1"
+    - "chrUn_GL000216v2"
+    - "chrUn_GL000218v1"
+    - "chrEBV"
 
 annotate_cnv:
-  cnv_genes: "/data/ref_genomes/GRCh38/gene_lists/hg38_CNA.bed"
+  cnv_genes: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv_annotation.240227.bed"
 
+bamsnap:
+  extra: " -coverage_vaf 0.05 -show_soft_clipped -read_thickness 2 -read_gap_height 1 "
+
+bcftools_annotate:
+  annotation_db: /data/ref_genomes/GNOMAD/small_exac_common_3.hg38.vcf.gz
 bwa_mem:
   amb: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb"
   ann: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.ann"
@@ -31,7 +205,7 @@ cnv_html_report:
   show_table: true
 
 cnvkit_batch:
-  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240205/reference_files/cnvkit.PoN.cnn"
+  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240227/reference_files/cnvkit.PoN.cnn"
   method: hybrid
 
 filter_vcf:
@@ -44,7 +218,7 @@ filter_vcf:
 merge_cnv_json:
   cytobands: "cytoBand.hg38.txt"
   annotations:
-    - "/data/ref_genomes/GRCh38/gene_lists/hg38_CNA.bed" #updatera till hela gener, exon for tp53 och runx1
+    - "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv_annotation.240227.bed" #updatera till hela gener, exon for tp53 och runx1
   germline_vcf: snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.filter.germline.vcf.gz
   filtered_cnv_vcfs:
     - cnv_sv/svdb_query/{sample}_{type}.{tc_method}.svdb_query.annotate_cnv.cnv_genes.filter.cnv_hard_filter_amp.vcf.gz
@@ -52,9 +226,10 @@ merge_cnv_json:
     - cnv_sv/svdb_query/{sample}_{type}.{tc_method}.svdb_query.annotate_cnv.cnv_genes.vcf.gz
 
 multiqc:
-  config: "config/multiqc.yaml"
   reports:
     DNA:
+      extra: " --verbose "
+      config: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy_uppsala/config/config_multiqc.yaml"
       qc_files:
         - "qc/fastqc/{sample}_{type}_{flowcell}_{lane}_{barcode}_{read}_fastqc.zip"
         - "prealignment/fastp_pe/{sample}_{type}_{flowcell}_{lane}_{barcode}_fastp.json"
@@ -69,24 +244,37 @@ multiqc:
         - "qc/picard_collect_insert_size_metrics/{sample}_{type}.insert_size_metrics.txt"
         - "qc/picard_collect_gc_bias_metrics/{sample}_{type}.gc_bias.summary_metrics"
         - "qc/samtools_stats/{sample}_{type}.samtools-stats.txt"
+        #Software version
 
 gatk_collect_allelic_counts:
-  SNP_interval: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv100.240208.interval_list" 
+  SNP_interval: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv100.240208.interval_list"
 
 gatk_denoise_read_counts:
-  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240205/reference_files/gatk.PoN.hdf5"
+  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240227/reference_files/gatk.PoN.hdf5"
 
 pindel_call:
   extra: "-x 2 -B 60" #x och B?
-  include_bed: "/data/ref_genomes/GRCh38/gene_lists/aml_pindel_38.bed" # needs to be updated
+  include_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_pindel.bed" # needs to be updated
+
+purecn:
+  genome: GRCh38
+  normaldb: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240227/reference_files/purecn_normal_db.rds"
+  intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240227/reference_files/purecn_targets_intervals.txt"
+  mapping_bias_file: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240227/reference_files/purecn_mapping_bias.rds"
+
+purecn_coverage:
+  intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240227/reference_files/purecn_targets_intervals.txt"
 
 pindel2vcf:
   extra: "-e 10 -mc 10 -is 5 -he 0.01 -G" # num reads support
   refname: "GCA_000001405.15_GRCh38_no_alt"
   refdate: "2022"
 
+results_report_xlsx:
+  wanted_transcripts: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/tm_mane_transcript.240404.txt"
+
 svdb_query:
-  db_string: "--db /projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240205/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_240205"
+  db_string: "--db /projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240227/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_240227"
 
 vep:
   vep_cache: "/data/ref_genomes/VEP"

@@ -49,11 +49,12 @@ rule results_report_xlsx:
         mosdepth_regions="qc/mosdepth_bed_coding/{sample}_{type}.regions.bed.gz",
         mosdepth_thresholds="qc/mosdepth_bed_coding/{sample}_{type}.thresholds.bed.gz",
         picard_dupl="qc/picard_collect_duplication_metrics/{sample}_{type}.duplication_metrics.txt",
-        # wanted_transcripts=config["xlsx_report"]["wanted_transcripts"],
+        wanted_transcripts=config["results_report_xlsx"]["wanted_transcripts"],
     output:
         xlsx="results_report/xlsx/{sample}_{type}.xlsx",
     params:
         sample=lambda wildcards: wildcards.sample,
+        sample_type=lambda wildcards: wildcards.type,
         sequenceid=config["sequenceid"],
         poppy_version="test",
         uppsala_version="test",
@@ -81,5 +82,6 @@ rule results_report_xlsx:
         config.get("results_report", {}).get("container", config["default_container"])
     message:
         "{rule}: summerize results into {output.xlsx}"
+    localrule: True
     script:
         "../scripts/results_report_xlsx.py"
