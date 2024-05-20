@@ -82,6 +82,6 @@ rule results_report_xlsx:
         config.get("results_report", {}).get("container", config["default_container"])
     message:
         "{rule}: summerize results into {output.xlsx}"
-    localrule: True
+    # localrule: True
     script:
         "../scripts/results_report_xlsx.py"

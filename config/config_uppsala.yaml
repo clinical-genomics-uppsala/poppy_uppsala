@@ -193,6 +193,7 @@ bamsnap:
 
 bcftools_annotate:
   annotation_db: /data/ref_genomes/GNOMAD/small_exac_common_3.hg38.vcf.gz
+
 bwa_mem:
   amb: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb"
   ann: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.ann"
@@ -218,7 +219,7 @@ filter_vcf:
 merge_cnv_json:
   cytobands: "cytoBand.hg38.txt"
   annotations:
-    - "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv_annotation.240227.bed" #updatera till hela gener, exon for tp53 och runx1
+    - "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv_annotation.240227.bed" 
   germline_vcf: snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.filter.germline.vcf.gz
   filtered_cnv_vcfs:
     - cnv_sv/svdb_query/{sample}_{type}.{tc_method}.svdb_query.annotate_cnv.cnv_genes.filter.cnv_hard_filter_amp.vcf.gz

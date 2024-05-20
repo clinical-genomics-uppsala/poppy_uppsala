@@ -22,16 +22,13 @@ properties:
     properties:
       af:
         type: float
-        description: variant > af to include in position list for bamsnap
+        description: variant > af to include in position list for bamsnap, default 0.05
       benchmark_repeats:
         type: integer
         description: set number of times benchmark should be repeated
       container:
         type: string
         description: name or path to docker/singularity container
-      extra:
-        type: string
-        description: parameters that should be forwarded
 
   bamsnap:
     type: object
@@ -48,11 +45,11 @@ properties:
         description: margin surrounding variant in snapshot, default 50
       extra:
         type: string
-        description: extra paramters for bamsnap, default -show_soft_clipped
+        description: extra parameters for bamsnap, default -show_soft_clipped
   
   bamsnap_hd829:
     type: object
-    description: dummy rult to create empty dir for hd829 samples
+    description: dummy rule to create empty dir for hd829 samples
     properties:
       benchmark_repeats:
         type: integer

@@ -12,7 +12,6 @@ rule bamsnap_create_pos_list:
         bed=temp("bamsnap/create_pos_list/{sample}_{type}.pos.bed"),
     params:
         af=config.get("bamsnap_create_pos_list", {}).get("af", "0.05"),
-        extra=config.get("bamsnap_create_pos_list", {}).get("extra", ""),
     log:
         "bamsnap/create_pos_list/{sample}_{type}.pos.bed.log",
     benchmark:
