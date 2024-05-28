@@ -4,6 +4,8 @@ samples: "samples.tsv"
 units: "units.tsv"
 output: "output_files.yaml"
 
+poppy_version: "0.1.0"
+
 reference:
   fasta: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
   fai: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"
@@ -244,6 +246,7 @@ multiqc:
         - "qc/picard_collect_insert_size_metrics/{sample}_{type}.insert_size_metrics.txt"
         - "qc/picard_collect_gc_bias_metrics/{sample}_{type}.gc_bias.summary_metrics"
         - "qc/samtools_stats/{sample}_{type}.samtools-stats.txt"
+        - "versions/update_poppy.temp"
 
 gatk_collect_allelic_counts:
   SNP_interval: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv100.240208.interval_list"

@@ -169,3 +169,24 @@ properties:
           xlsx:
             type: string
             description: summarizing xlsx report
+
+
+  version_update_poppy:
+    type: object
+    description: input and output parameters for version_update_poppy
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          yaml:
+            type: string
+            description: yaml file created with function hydra_genetics.utils.software_versions.touch_pipeline_version_file_name
+
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          touch_file:
+            type: string
+            description: touch file to ensure that Poppy version updated under versions/software

@@ -4,6 +4,9 @@ __email__ = "arielle.munters@scilifelab.uu.se"
 __license__ = "GPL-3"
 
 
+from hydra_genetics.utils.software_versions import get_pipeline_version
+
+
 rule results_report_bedtools_intersect:
     input:
         left="qc/mosdepth_bed_coding/{sample}_{type}.per-base.bed.gz",
@@ -50,14 +53,15 @@ rule results_report_xlsx:
         mosdepth_thresholds="qc/mosdepth_bed_coding/{sample}_{type}.thresholds.bed.gz",
         picard_dupl="qc/picard_collect_duplication_metrics/{sample}_{type}.duplication_metrics.txt",
         wanted_transcripts=config["results_report_xlsx"]["wanted_transcripts"],
+        wait="versions/update_poppy.temp",
     output:
-        xlsx="results_report/xlsx/{sample}_{type}.xlsx",
+        xlsx="reports/xlsx/{sample}_{type}.xlsx",
     params:
         sample=lambda wildcards: wildcards.sample,
         sample_type=lambda wildcards: wildcards.type,
         sequenceid=config["sequenceid"],
-        poppy_version="test",
-        uppsala_version="test",
+        poppy_version=config["poppy_version"],
+        uppsala_version=get_pipeline_version(workflow, pipeline_name="poppy_uppsala"),
         bedfile=config["reference"]["design_bed"],
         exonbed=config["reference"]["exon_bed"],
         pindelbed=config["pindel_call"]["include_bed"],
@@ -66,10 +70,10 @@ rule results_report_xlsx:
         thresholds=config["mosdepth_bed"]["thresholds"],
         extra=config.get("results_report", {}).get("extra", ""),
     log:
-        "results_report/xlsx/{sample}_{type}.xlsx.log",
+        "reports/xlsx/{sample}_{type}.xlsx.log",
     benchmark:
         repeat(
-            "results_report/xlsx/{sample}_{type}.xlsx.benchmark.tsv", config.get("results_report", {}).get("benchmark_repeats", 1)
+            "reports/xlsx/{sample}_{type}.xlsx.benchmark.tsv", config.get("results_report", {}).get("benchmark_repeats", 1)
         )
     threads: config.get("results_report", {}).get("threads", config["default_resources"]["threads"])
     resources:
@@ -81,7 +85,7 @@ rule results_report_xlsx:
     container:
         config.get("results_report", {}).get("container", config["default_container"])
     message:
-        "{rule}: summerize results into {output.xlsx}"
+        "{rule}: summerize results into {output.xlsx}."
     # localrule: True
     script:
         "../scripts/results_report_xlsx.py"

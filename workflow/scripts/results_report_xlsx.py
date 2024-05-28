@@ -8,8 +8,8 @@ import subprocess
 vcf = snakemake.input.vcf
 pindel = snakemake.input.pindel
 sequenceid = snakemake.params.sequenceid
-poppy_version = snakemake.params.poppy_version["poppy"]["version"]
-uppsala_version = "" #snakemake.params.uppsala_version["poppy_uppsala"]["version"]
+poppy_version = snakemake.params.poppy_version
+uppsala_version = snakemake.params.uppsala_version["poppy_uppsala"]["version"]
 
 sample = snakemake.params.sample
 sample_type = snakemake.params.sample_type

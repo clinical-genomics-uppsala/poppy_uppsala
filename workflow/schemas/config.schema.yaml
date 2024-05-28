@@ -15,6 +15,9 @@ properties:
   default_container:
     type: string
     description: name or path to a default docker/singularity container
+  poppy_version:
+    type: string
+    description: version tag or commit to use for Poppy pipeline
 
   bamsnap_create_pos_list:
     type: object
@@ -86,12 +89,23 @@ properties:
         type: string
         description: txt file with interested transcripts (matching NM- annotation in config["reference"]["exon_bed"])
 
+  version_update_poppy:
+    type: object
+    description: parameters for version_update_poppy
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
 
 required:
   - samples
   - units
   - output
   - resources
+  - poppy_version
   - default_container
   - results_report_xlsx
 

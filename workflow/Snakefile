@@ -6,6 +6,7 @@ __license__ = "GPL-3"
 
 # Include pipeline specific rules
 include: "rules/common.smk"
+include: "rules/version.smk"
 include: "rules/bamsnap.smk"
 include: "rules/results_report.smk"
 
@@ -23,9 +24,8 @@ module poppy:
         github(
                 "genomic-medicine-sweden/poppy",
                 path="workflow/Snakefile",
-                tag="9c31112dcfbe3a816842a9cf6617ed8f87f109ad",
+                tag=config["poppy_version"],
             )
-        # "../../poppy/workflow/Snakefile"
     config:
         config
 

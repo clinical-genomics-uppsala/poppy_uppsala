@@ -108,3 +108,24 @@ Dummy rule for HD829 samples instead of bamsnap rule
 #### Resources settings (`resources.yaml`)
 
 #RESOURCESSCHEMA__bamsnap_hd829#
+
+## version_update_poppy
+Since pipeline version can only use current git repo, the poppy-version-file.yaml will contain poppy_uppsala version, this simple shell script overwrite the file with the actual poppy-version taken from config.
+
+### :snake: Rule
+
+#SNAKEMAKE_RULE_SOURCE__version__version_update_poppy#
+
+#### :left_right_arrow: input / output files
+
+#SNAKEMAKE_RULE_TABLE__version__version_update_poppy#
+
+### :wrench: Configuration
+
+#### Software settings (`config.yaml`)
+
+#CONFIGSCHEMA__version_update_poppy#
+
+#### Resources settings (`resources.yaml`)
+
+#RESOURCESSCHEMA__version_update_poppy#

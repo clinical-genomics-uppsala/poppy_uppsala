@@ -11,13 +11,27 @@ import re
 from snakemake.utils import validate
 from snakemake.utils import min_version
 import yaml
+from datetime import datetime
 
 from hydra_genetics.utils.resources import load_resources
 from hydra_genetics.utils.samples import *
 from hydra_genetics.utils.units import *
 from hydra_genetics import min_version as hydra_min_version
+from hydra_genetics.utils.software_versions import add_version_files_to_multiqc
+from hydra_genetics.utils.software_versions import export_pipeline_version_as_file
+from hydra_genetics.utils.software_versions import get_pipeline_version
+from hydra_genetics.utils.software_versions import touch_pipeline_version_file_name
 
 min_version("6.8.0")
+
+## Version logging for MultiQC
+date_string = datetime.now().strftime('%Y%m%d')
+
+# Create pipeline version file, populate since only one onstart *(loaded last)
+pipeline_version = get_pipeline_version(workflow, pipeline_name="poppy_uppsala")
+version_files = touch_pipeline_version_file_name(pipeline_version, date_string=date_string, directory="versions/software")
+add_version_files_to_multiqc(config, version_files)
+export_pipeline_version_as_file(pipeline_version, date_string=date_string, directory="versions/software")
 
 ### Set and validate config file
 
