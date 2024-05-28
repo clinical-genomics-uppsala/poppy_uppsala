@@ -44,8 +44,11 @@ table_columns_visible:
     5_x_pc: False
     10_x_pc: False
     20_x_pc: False
-    30_x_pc: True
-    50_x_pc: True
+    30_x_pc: False
+    50_x_pc: False
+    100_x_pc: True
+    200_x_pc: True
+    1000_x_pc: False
   "Picard: HsMetrics":
     FOLD_ENRICHMENT: False
     MEDIAN_TARGET_COVERAGE: False
