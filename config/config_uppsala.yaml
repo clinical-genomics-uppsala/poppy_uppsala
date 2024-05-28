@@ -229,7 +229,6 @@ merge_cnv_json:
 multiqc:
   reports:
     DNA:
-      extra: " --verbose "
       config: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy_uppsala/config/config_multiqc.yaml"
       qc_files:
         - "qc/fastqc/{sample}_{type}_{flowcell}_{lane}_{barcode}_{read}_fastqc.zip"
@@ -240,12 +239,11 @@ multiqc:
         - "qc/mosdepth_bed_coding/{sample}_{type}.regions.bed.gz"
         - "qc/mosdepth_bed/{sample}_{type}.thresholds.bed.gz"
         - "qc/picard_collect_hs_metrics/{sample}_{type}.HsMetrics.txt"
-        - "qc/picard_collect_alignment_summary_metrics/{sample}_{type}.alignment_summary_metrics.txt"
+        - "qc/picard_collect_alignment_summary_metrics/{sample}_{type}.alignment_summary_metrics.txt" #inga general stats
         - "qc/picard_collect_duplication_metrics/{sample}_{type}.duplication_metrics.txt"
         - "qc/picard_collect_insert_size_metrics/{sample}_{type}.insert_size_metrics.txt"
         - "qc/picard_collect_gc_bias_metrics/{sample}_{type}.gc_bias.summary_metrics"
         - "qc/samtools_stats/{sample}_{type}.samtools-stats.txt"
-        #Software version
 
 gatk_collect_allelic_counts:
   SNP_interval: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv100.240208.interval_list"

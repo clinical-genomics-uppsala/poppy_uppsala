@@ -8,6 +8,8 @@ import subprocess
 vcf = snakemake.input.vcf
 pindel = snakemake.input.pindel
 sequenceid = snakemake.params.sequenceid
+poppy_version = snakemake.params.poppy_version["poppy"]["version"]
+uppsala_version = "" #snakemake.params.uppsala_version["poppy_uppsala"]["version"]
 
 sample = snakemake.params.sample
 sample_type = snakemake.params.sample_type
@@ -317,9 +319,9 @@ worksheet_overview.write(
     i + 1,
     0,
     "with the pipeline Poppy (v"
-    + snakemake.params.poppy_version
+    + poppy_version
     + ") and local uppsala implementations (v"
-    + snakemake.params.uppsala_version
+    + uppsala_version
     + ").",
 )
 worksheet_overview.write_url(i + 3, 0, "https://gms-poppy.readthedocs.io/en/latest/", string="Poppy documentation")

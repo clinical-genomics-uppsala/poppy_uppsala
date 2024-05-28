@@ -20,7 +20,12 @@ rule all:
 # Include modules
 module poppy:
     snakefile:
-        "../../poppy/workflow/Snakefile"
+        github(
+                "genomic-medicine-sweden/poppy",
+                path="workflow/Snakefile",
+                tag="9c31112dcfbe3a816842a9cf6617ed8f87f109ad",
+            )
+        # "../../poppy/workflow/Snakefile"
     config:
         config
 
