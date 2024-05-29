@@ -137,17 +137,18 @@ def generate_copy_rules(output_spec):
 
         if rule_name == "copy_bamsnap":  # handle rule that has directory as output
             rule_code = f'@workflow.output(directory("{output_file}"))\n'
+            rule_code += f'@workflow.input(directory("{input_file}"))\n'
         else:
             rule_code = f'@workflow.output("{output_file}")\n'
+            rule_code += f'@workflow.input("{input_file}")\n'
         rule_code += "\n".join(
             [
                 f'@workflow.rule(name="{rule_name}")',
-                f'@workflow.input("{input_file}")',
                 f'@workflow.log("logs/{rule_name}_{output_file.name}.log")',
                 f'@workflow.container("{copy_container}")',
                 f'@workflow.resources(time="{time}", threads={threads}, mem_mb="{mem_mb}", '
                 f'mem_per_cpu={mem_per_cpu}, partition="{partition}")',
-                f'@workflow.shellcmd("{copy_container}")',
+                f'@workflow.shellcmd("cp -r {input} {output}")',
                 "@workflow.run\n",
                 f"def __rule_{rule_name}(input, output, params, wildcards, threads, resources, "
                 "log, version, rule, conda_env, container_img, singularity_args, use_singularity, "
@@ -158,11 +159,11 @@ def generate_copy_rules(output_spec):
                 "bench_iteration=bench_iteration)\n\n",
             ]
         )
-        print(rule_code)
+        # print(rule_code)
 
 
         rulestrings.append(rule_code)
-    exec(compile("\n".join(rulestrings), "copy_result_files", "exec"), workflow.globals)
+    exec(compile(rule_code, "copy_result_files", "exec"), workflow.globals)
 
 
 generate_copy_rules(output_spec)
