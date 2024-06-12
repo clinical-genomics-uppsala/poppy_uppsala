@@ -4,7 +4,7 @@ samples: "samples.tsv"
 units: "units.tsv"
 output: "output_files.yaml"
 
-poppy_version: "0.1.0"
+poppy_version: "0.2.0"
 
 reference:
   fasta: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
@@ -218,6 +218,12 @@ filter_vcf:
   cnv_hard_filter_amp: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/config_hard_filter_cnv_amp.yaml"
   cnv_hard_filter_loh: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/config_hard_filter_cnv_loh.yaml"
 
+gatk_collect_allelic_counts:
+  SNP_interval: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv100.240208.interval_list"
+
+gatk_denoise_read_counts:
+  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240227/reference_files/gatk.PoN.hdf5"
+
 merge_cnv_json:
   cytobands: "cytoBand.hg38.txt"
   annotations:
@@ -231,7 +237,6 @@ merge_cnv_json:
 multiqc:
   reports:
     DNA:
-      config: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy_uppsala/config/config_multiqc.yaml"
       qc_files:
         - "qc/fastqc/{sample}_{type}_{flowcell}_{lane}_{barcode}_{read}_fastqc.zip"
         - "prealignment/fastp_pe/{sample}_{type}_{flowcell}_{lane}_{barcode}_fastp.json"
@@ -247,12 +252,6 @@ multiqc:
         - "qc/picard_collect_gc_bias_metrics/{sample}_{type}.gc_bias.summary_metrics"
         - "qc/samtools_stats/{sample}_{type}.samtools-stats.txt"
         - "versions/update_poppy.temp"
-
-gatk_collect_allelic_counts:
-  SNP_interval: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv100.240208.interval_list"
-
-gatk_denoise_read_counts:
-  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240227/reference_files/gatk.PoN.hdf5"
 
 pindel_call:
   extra: "-x 2 -B 60" #x och B?
