@@ -119,6 +119,7 @@ def compile_output_file_list(wildcards):
 def generate_copy_rules(output_spec):
     output_directory = pathlib.Path(output_spec["directory"])
     rulestrings = []
+    rule_code = ""
 
     for f in output_spec["files"]:
         if f["input"] is None:
@@ -135,34 +136,30 @@ def generate_copy_rules(output_spec):
         time = config.get("copy", {}).get("time", config["default_resources"]["time"])
         copy_container = config.get("_copy", {}).get("container", config["default_container"])
 
-        if rule_name == "copy_bamsnap":  # handle rule that has directory as output
-            rule_code = f'@workflow.output(directory("{output_file}"))\n'
-            rule_code += f'@workflow.input(directory("{input_file}"))\n'
+        rule_code += f'@workflow.rule(name="{rule_name}")\n'
+        rule_code += f'@workflow.input("{input_file}")\n'
+        if f["output"].endswith("/"):
+            # import pdb; pdb.set_trace()
+            rule_code += f'@workflow.output(directory("{output_file}"))\n'
         else:
-            rule_code = f'@workflow.output("{output_file}")\n'
-            rule_code += f'@workflow.input("{input_file}")\n'
-        rule_code += "\n".join(
-            [
-                f'@workflow.rule(name="{rule_name}")',
-                f'@workflow.log("logs/{rule_name}_{output_file.name}.log")',
-                f'@workflow.container("{copy_container}")',
-                f'@workflow.resources(time="{time}", threads={threads}, mem_mb="{mem_mb}", '
-                f'mem_per_cpu={mem_per_cpu}, partition="{partition}")',
-                f'@workflow.shellcmd("cp -r {input} {output}")',
-                "@workflow.run\n",
-                f"def __rule_{rule_name}(input, output, params, wildcards, threads, resources, "
-                "log, version, rule, conda_env, container_img, singularity_args, use_singularity, "
-                "env_modules, bench_record, jobid, is_shell, bench_iteration, cleanup_scripts, "
-                "shadow_dir, edit_notebook, conda_base_path, basedir, runtime_sourcecache_path, "
-                "__is_snakemake_rule_func=True):",
-                '\tshell("(cp -r {input[0]} {output[0]}) &> {log}", bench_record=bench_record, '
-                "bench_iteration=bench_iteration)\n\n",
-            ]
+            rule_code += f'@workflow.output("{output_file}")\n'
+
+        rule_code +=  f'@workflow.log("logs/{rule_name}_{output_file.name}.log")\n'
+        rule_code += f'@workflow.container("{copy_container}")\n'
+        rule_code += f'@workflow.resources(time = "{time}", threads = {threads}, mem_mb = {mem_mb}, mem_per_cpu = {mem_per_cpu}, partition = "{partition}")\n'
+        rule_code += '@workflow.shellcmd("cp -r {input} {output}")\n\n'
+        rule_code += "@workflow.run\n"
+        rule_code += (
+            f"def __rule_{rule_name}(input, output, params, wildcards, threads, resources, log, version, rule, "
+            "conda_env, container_img, singularity_args, use_singularity, env_modules, bench_record, jobid, is_shell, "
+            "bench_iteration, cleanup_scripts, shadow_dir, edit_notebook, conda_base_path, basedir, runtime_sourcecache_path, "
+            "__is_snakemake_rule_func=True):\n"
+            '\tshell ( "(cp -r {input[0]} {output[0]}) &> {log}" , bench_record=bench_record, bench_iteration=bench_iteration)\n\n'
         )
-        # print(rule_code)
+        print("uppsala!!")
 
-
-        rulestrings.append(rule_code)
+        # rulestrings.append(rule_code)
+    # import pdb; pdb.set_trace()
     exec(compile(rule_code, "copy_result_files", "exec"), workflow.globals)
 
 
