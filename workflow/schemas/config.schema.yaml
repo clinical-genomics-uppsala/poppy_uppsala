@@ -19,6 +19,16 @@ properties:
     type: string
     description: version tag or commit to use for Poppy pipeline
 
+  pacbio_alignment:
+    type: boolean
+    description: if pacbio_alignment is used set to true
+    default: false
+
+  ont_alignment:
+    type: boolean
+    description: if ont_alignment should be used set to true
+    default: false
+
   bamsnap_create_pos_list:
     type: object
     description: parameters for bamsnap_create_pos_list

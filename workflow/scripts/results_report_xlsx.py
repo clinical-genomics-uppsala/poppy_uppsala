@@ -93,6 +93,21 @@ for gene in non_coding_regions:
     else:
         intron_coordinates[chr] = [non_coding_regions[gene][1:]]
 
+
+synonymous_positions = {
+    "NM_032638.5(GATA2):c.1416G>A": ["chr3", 128481046, "C", "T"],
+    "NM_032638.5(GATA2):c.1023C>T": ["chr3",  128481939, "G", "A"],
+    "NM_032638.5(GATA2):c.981G>A": ["chr3",  128483896, "C", "T"],
+    "NM_032638.5(GATA2):c.649C>T": ["chr3", 128485949, "G", "A"],
+    "NM_032638.5(GATA2):c.351C>G": ["chr3",  128486247, "G", "C"],
+    "NM_000546.6(TP53):c.375G>A": ["chr17", 7675994, "C", "T"],
+    "NM_000546.6(TP53):c.375G>T": ["chr17", 7675994, "C", "A"],
+    "NM_000546.6(TP53):c.375G>C": ["chr17", 7675994, "C", "G"],
+    "NM_000546.6(TP53):c.672G>A": ["chr17",  7674859, "C", "T"],
+    "NM_000546.6(TP53):c.993G>A": ["chr17", 7673535, "C", "T"],
+}
+
+
 wanted_transcripts = []
 with open(snakemake.input.wanted_transcripts) as wanted_file:
     for line in wanted_file:
@@ -114,11 +129,17 @@ short_table = []
 short_table = [variant for variant in snv_table["data"] if (variant[0] == "PASS" and variant[3] in short_gene_list)]
 
 intron_table = []
+synonymous_table = []
 for record in snv_table["data"]:
     if record[4] in intron_coordinates:
         for pair in intron_coordinates[record[4]]:
             if record[5] >= pair[0] and record[5] <= pair[1] and record[8] >= 0.05:
                 intron_table.append(record)
+
+    for position_list in [coordinate for coordinate in synonymous_positions.values() if record[4] == coordinate[0]]:
+        if position_list[1] == record[5] and position_list[2] == record[6] and position_list[3] == record[7]:
+            synonymous_table.append(record) # AF filter?
+
 
 # List genes in pindel bed
 pindel_genes = []
@@ -235,8 +256,10 @@ else:
 worksheet_snv = workbook.add_worksheet("SNVs")
 worksheet_pindel = workbook.add_worksheet("Pindel")
 worksheet_intron = workbook.add_worksheet("Intron")
+worksheet_syno = workbook.add_worksheet("Synonymous")
 worksheet_lowcov = workbook.add_worksheet("Low Coverage")
 worksheet_cov = workbook.add_worksheet("Coverage")
+worksheet_qci = workbook.add_worksheet("QCI")
 
 
 empty_list = ["", "", "", "", "", ""]
@@ -257,7 +280,7 @@ worksheet_overview.write(4, 0, "Created by: ")
 worksheet_overview.write(4, 4, "Valid from: ")
 worksheet_overview.write(5, 0, "Signed by: ")
 worksheet_overview.write(5, 4, "Document nr: ")
-worksheet_overview.write_row(6, 0, empty_list, format_line)
+worksheet_overview.write_row(6, 6, empty_list, format_line)
 
 worksheet_overview.write(7, 0, "Sheets:", format_table_heading)
 i = 8
@@ -269,9 +292,11 @@ i += 1
 worksheet_overview.write_url(i, 0, "internal:'SNVs'!A1", string="SNVs identified")
 worksheet_overview.write_url(i + 1, 0, "internal:'Pindel'!A1", string="Pindel results")
 worksheet_overview.write_url(i + 2, 0, "internal: 'Intron'!A1", string="Intron and non-coding variants")
-worksheet_overview.write_url(i + 3, 0, "internal:'Low Coverage'!A1", string="Low Coverage regions")
-worksheet_overview.write_url(i + 4, 0, "internal:'Coverage'!A1", string="Coverage")
-i += 6
+worksheet_overview.write_url(i + 3, 0, "internal: 'Synonymous'!A1", string="Synonymous variants")
+worksheet_overview.write_url(i + 4, 0, "internal:'Low Coverage'!A1", string="Low Coverage regions")
+worksheet_overview.write_url(i + 5, 0, "internal:'Coverage'!A1", string="Coverage")
+worksheet_overview.write_url(i + 6, 0, "internal: 'QCI'!A1", string="QCI")
+i += 8
 
 if sample.lower() == "hd829":
     worksheet_overview.write(i, 0, "Percent of known variants identified:")
@@ -281,7 +306,7 @@ if sample.lower() == "hd829":
         worksheet_overview.write(i + 1, 0, str(known_percent * 100) + " %")
     i += 3
 
-worksheet_overview.write(i, 0, "Number of regions in Mane transcripts not coverage by at least " + str(thresholds[0]) + "x: ")
+worksheet_overview.write(i, 0, "Number of bases in Mane transcripts not coverage by at least " + str(thresholds[0]) + "x: ")
 worksheet_overview.write(i + 1, 0, str(num_low_regions))
 worksheet_overview.write_row(
     i + 3,
@@ -308,12 +333,6 @@ if sample.lower() != "hd829":
     worksheet_overview.write_url(i, 0, "external:"+sample+"_"+sample_type+"_"+sequenceid+"_bamsnap/index.html", string="SNV screenshots")
     i += 2
 
-worksheet_overview.write(i, 0, "Full design bedfile: " + snakemake.params.bedfile)
-worksheet_overview.write(i + 1, 0, "Coding exons bedfile: " + snakemake.params.exonbed)
-worksheet_overview.write(i + 2, 0, "Artifact panel used: " + snakemake.params.artifact)
-worksheet_overview.write(i + 3, 0, "Pindel bedfile used: " + snakemake.params.pindelbed)
-i += 5
-
 worksheet_overview.write(i, 0, "Twist Myeloid capture panel TE-91316667_hg38 used")
 worksheet_overview.write(
     i + 1,
@@ -329,7 +348,15 @@ worksheet_overview.write_url(
     i + 4, 0, "https://github.com/clinical-genomics-uppsala/poppy_uppsala/tree/develop", string="Uppsala configurations"
 )
 worksheet_overview.write(i + 6, 0, "Specific program versions can be found in MultiQC report")
+i += 8
 
+worksheet_overview.write(i, 0, "Full design bedfile: " + snakemake.params.bedfile)
+worksheet_overview.write(i + 1, 0, "Coding exons bedfile: " + snakemake.params.exonbed)
+worksheet_overview.write(i + 2, 0, "Artifact panel used: " + snakemake.params.artifact)
+worksheet_overview.write(i + 3, 0, "Background panel used for snvs: " + snakemake.params.background)
+worksheet_overview.write(i + 4, 0, "Pindel bedfile used: " + snakemake.params.pindelbed)
+worksheet_overview.write(i + 5, 0, "Pindel artifact panel used: " + snakemake.params.artifact_pindel)
+i += 7
 
 """ Known sheet """
 if sample.lower() == "hd829":
@@ -360,13 +387,29 @@ else:
     worksheet_short.write(i, 0, "Only filtered variants, to see all see:")
     worksheet_short.write_url(i + 1, 1, "internal:'SNVs'!A1", string="SNVs sheet")
     worksheet_short.write_url(i + 3, 0, "external:"+sample+"_"+sample_type+"_"+sequenceid+"_bamsnap/index.html", string="SNV screenshots")
-    i += 7
+    worksheet_short.write(i+4, 0, "Only variants AF >= 5% and PASS have automated screenshots")
+    i += 8
 
-    table_area = "A" + str(i) + ":W" + str(len(short_table) + i)
+    table_area = "A" + str(i) + ":X" + str(len(short_table) + i)
     worksheet_short.add_table(table_area, {"data": short_table, "columns": snv_table["headers"], "style": "Table Style Light 1"})
 
 
 """ SNVs sheet """
+filters = [
+    "AF_0.01: Hard filter variants with AF lower than 1 %",
+    "DP_" + str(thresholds[1]) + ": Hard filter on depth lower than " + str(thresholds[1]) + "X",
+    "AD_5: Hard filter variants with fewer than 5 observations (AD lower than 5)",
+    "Artifact_gt_3: Soft filter variants found in more than 3 normal samples (total 20 N)",
+    "Background_lt_4: Soft filter variants which AF is closer than 5 s.d. to the background noise (total 20 N)",
+    "PopAF_0.02: Soft filter germline if >2 % in any population from 1000 genomes, ESP or gnomADe",
+    "Intron: Soft filter intronic variants except if also splice, in cosmic, or in GATA2 or TERT genes",
+    "Consequence: Soft filter variants which consequence is deemed irrelevant "
+    + "(intergenic_variant, NMD_transcript_variant, non_coding_transcript_variant, upstream_gene_variant,"
+    + " downstream_gene_variant, TFBS_ablation, TFBS_amplification, TF_binding_site_variant, regulatory_region_ablation, "
+    + "regulatory_region_amplification, regulatory_region_variant)",
+    "Biotype: Soft filter variants not annotated as protein_coding",
+]
+
 worksheet_snv.set_column(2, 2, 10)
 worksheet_snv.set_column(5, 5, 10)
 worksheet_snv.set_column(11, 13, 10)
@@ -376,44 +419,29 @@ worksheet_snv.write("A4", "Reference used: " + str(snakemake.params.ref))
 worksheet_snv.write("A6", "Databases used: " + vep_line)
 
 worksheet_snv.write("A8", "Filters: ", format_orange)
-worksheet_snv.write("B9", "DP_" + str(thresholds[0]) + ": Soft filter on depth lower than " + str(thresholds[0]) + "X", format_orange)
-worksheet_snv.write("B10", "AD_5: Soft filter variants with few observations (AD lower than 5)", format_orange)
-worksheet_snv.write("B11", "Artifact_gt_3: Soft filter variants found in more than 3 normal samples", format_orange)
-worksheet_snv.write(
-    "B12", "PopAF_0.02: Soft filter germline if >2 % in any population from 1000 genomes, ESP or gnomADe", format_orange
-)
-worksheet_snv.write(
-    "B13",
-    "Intron: Soft filter intronic variants except if also splice, in cosmic, or in GATA2 or TERT genes",
-    format_orange,
-)
-worksheet_snv.write(
-    "B14",
-    "Consequence: Soft filter variants which consequence is deemed irrelevant "
-    + "(intergenic_variant, NMD_transcript_variant, non_coding_transcript_variant, upstream_gene_variant,"
-    + " downstream_gene_variant, TFBS_ablation, TFBS_amplification, TF_binding_site_variant, regulatory_region_ablation, "
-    + "regulatory_region_amplification, regulatory_region_variant)",
-    format_orange,
-)
-worksheet_snv.write("B15", "Biotype: Soft filter variants not annotated as protein_coding", format_orange)
+for i, filter_txt in enumerate(filters):
+    i += 9
+    worksheet_snv.write("B" + str(i), filter_txt, format_orange)
 
 worksheet_snv.write_rich_string(
-    "A17", 
-    "Only variants with ", format_bold, "> 5 % AF", " and filter-flag ", format_bold, "PASS"," shown by default."
+    "A18", "Only variants with ", format_bold, "> 5 % AF", " and filter-flag ", format_bold, "PASS", " shown by default."
 )
 worksheet_snv.write(
-    "A18",
-    "To see all variants; put marker on header row, then click on 'Standard Filter' and remove any values. " +
-    "You can then use the drop-downs in the header row to filter to your liking.",
+    "A19",
+    "To see all variants; put marker on header row, then click on 'Standard Filter' and remove any values. "
+    + "You can then use the drop-downs in the header row to filter to your liking.",
 )
 
-worksheet_snv.write_url("A20", "external:"+sample+"_"+sample_type+"_"+sequenceid+"_bamsnap/index.html", string="SNV screenshots")
+worksheet_snv.write_url(
+    "A21", "external:" + sample + "_" + sample_type + "_" + sequenceid + "_bamsnap/index.html", string="SNV screenshots"
+)
+worksheet_snv.write("A22", "Only variants with AF >= 5% and PASS have automated screenshots.")
 
-i = 22
-table_area = "A" + str(i) + ":V" + str(len(snv_table["data"]) + i)
+i = 24
+table_area = "A" + str(i) + ":X" + str(len(snv_table["data"]) + i)
 
 worksheet_snv.add_table(table_area, {"columns": snv_table["headers"], "style": "Table Style Light 1"})
-table_area_data = "A" + str(i + 1) + ":V" + str(len(snv_table["data"])+ i + 1)
+table_area_data = "A" + str(i + 1) + ":X" + str(len(snv_table["data"])+ i + 1)
 cond_formula = '=LEFT($A' + str(i + 1) + ', 4)<>"PASS"'
 worksheet_snv.conditional_format(table_area_data, {"type": "formula", "criteria": cond_formula, "format": format_orange})
 
@@ -431,6 +459,14 @@ for row_data in snv_table["data"]:
 
 
 """ Pindel sheet """
+filters = [
+    "AF_0.01: Hard filter variants with AF lower than 1 %",
+    "DP_" + str(thresholds[1]) + ": Hard filter on depth lower than " + str(thresholds[1]) + "X",
+    "AD_5: Hard filter variants with fewer than 5 observations (AD lower than 5)",
+    "Artifact_gt_3: Soft filter variants found in more than 3 normal samples (total 20 N), and AF lt 5 sd from normal median",
+    "PopAF_0.02: Soft filter germline if >2 % in any population from 1000 genomes, ESP or gnomADe",
+    "Intron: Soft filter intronic variants except if also splice. ID on the left-aligned position",
+]
 worksheet_pindel.set_column(2, 2, 10)
 worksheet_pindel.set_column(5, 5, 10)
 worksheet_pindel.set_column(11, 13, 10)
@@ -445,35 +481,23 @@ for gene in pindel_genes:
     i += 1
 
 worksheet_pindel.write("A" + str(i + 1), "Filters: ", format_orange)
-worksheet_pindel.write("B" + str(i + 2), "DP_" + str(thresholds[0]) + ": Soft filter on depth lower than " + str(thresholds[0]) + "X", format_orange)
-worksheet_pindel.write("B" + str(i + 3), "AD_5: Soft filter variants with few observations (AD lower than 5)", format_orange)
-# worksheet_pindel.write("B" + str(i + 4), "Artifact_gt_3: Soft filter variants found in more than 3 normal samples", format_orange) # not created
-worksheet_pindel.write(
-    "B" + str(i + 5),
-    "PopAF_0.02: Soft filter germline if >2 % in any population from 1000 genomes, ESP or gnomADe",
-    format_orange,
-)
-worksheet_pindel.write(
-    "B" + str(i + 6),
-    "Intron: Soft filter intronic variants except if also splice. "
-    + "ID on the position",
-    format_orange,
-)
-worksheet_pindel.write_rich_string(
-    "A" + str(i + 8), 
-    "Only variants with filter-flag ", format_bold, "PASS", " shown by default."
-)
-worksheet_pindel.write(
-    "A" + str(i + 9),
-    "To see all variants; put marker on header row, then click on 'Standard Filter' and remove any values. " +
-    "You can then use the drop-downs in the header row to filter to your liking.",
-)
+for j, filter_txt in enumerate(filters):
+    j += i + 1
+    worksheet_pindel.write("B" + str(j), filter_txt, format_orange)
+i += 2 + len(filters)
 
-i += 11
-table_area = "A" + str(i) + ":T" + str(len(pindel_table["data"]) + i)
+worksheet_pindel.write_rich_string("A" + str(i), "Only variants with filter-flag ", format_bold, "PASS", " shown by default.")
+worksheet_pindel.write(
+    "A" + str(i + 1),
+    "To see all variants; put marker on header row, then click on 'Standard Filter' and remove any values. "
+    + "You can then use the drop-downs in the header row to filter to your liking.",
+)
+i += 3
+
+table_area = "A" + str(i) + ":V" + str(len(pindel_table["data"]) + i)
 worksheet_pindel.add_table(table_area, {"columns": pindel_table["headers"], "style": "Table Style Light 1"})
 
-table_area_data = "A" + str(i + 1) + ":T" + str(len(pindel_table["data"]) + i + 1)
+table_area_data = "A" + str(i + 1) + ":V" + str(len(pindel_table["data"]) + i + 1)
 cond_formula = "=LEFT($A" + str(i + 1) + ', 4)<>"PASS"'
 worksheet_pindel.conditional_format(table_area_data, {"type": "formula", "criteria": cond_formula, "format": format_orange})
 
@@ -490,7 +514,7 @@ for row_data in pindel_table["data"]:
 
 """ Intron variants """
 worksheet_intron.set_column(2, 2, 10)
-worksheet_intron.set_column(5, 5, 10)
+worksheet_intron.set_column(3, 5, 10)
 worksheet_intron.set_column(11, 13, 10)
 
 worksheet_intron.write("A1", "Intron and non-coding variants in selected regions", format_heading)
@@ -503,8 +527,25 @@ for gene in non_coding_regions:
     i += 1
 
 i += 3
-table_area = "A" + str(i) + ":V" + str(len(intron_table) + i)
+table_area = "A" + str(i) + ":X" + str(len(intron_table) + i)
 worksheet_intron.add_table(table_area, {"data": intron_table, "columns": snv_table["headers"], "style": "Table Style Light 1"})
+
+
+""" Synonymous variants """
+worksheet_syno.write("A1", "Synonymous variants at selected positions", format_heading)
+worksheet_syno.write("A3", "Sample: " + str(sample))
+worksheet_syno.write("A4", "Reference used: " + str(snakemake.params.ref))
+worksheet_syno.write("A6", "Synonymous variants found in the following positions and matching ALT only: ")
+i = 6
+for c_name, values in synonymous_positions.items():
+    worksheet_syno.write_row(i, 1, [c_name] + values)
+    i += 1
+
+i += 3
+if synonymous_table == 0 :
+    synonymous_table.append([""] * 24)
+table_area = "A" + str(i) + ":X" + str(len(synonymous_table) + i)
+worksheet_syno.add_table(table_area, {"data": synonymous_table, "columns": snv_table["headers"], "style": "Table Style Light 1"})
 
 
 """ Low coverage """
@@ -536,5 +577,37 @@ worksheet_cov.add_table(
     table_area, {"data": regionscov_table["data"], "columns": regionscov_table["headers"], "style": "Table Style Light 1"}
 )
 
+
+""" QCI sheet """
+qci_table_header = [
+    "DNA nr",
+    "Chromosome",
+    "Position",
+    "Gene Region",
+    "Gene Symbol",
+    "Transcript ID",
+    "Transcript Variant",
+    "Protein Variant",
+    "Variant Findings",
+    "Sample Genotype Quality",
+    "Read Depth",
+    "Allele Fraction",
+    "Translation Impact",
+    "dbSNP ID",
+    "1000 Genomes Frequency",
+    "ExAC Frequency",
+    "HGMD",
+    "COSMIC ID",
+    "Artefacts_without_ASXL1",
+    "ASXL1_variant_filter",
+]
+worksheet_qci.set_column("C:C", 10)
+worksheet_qci.write("A1", "Results from QCI", format_heading)
+worksheet_qci.write_row("A2", empty_list, format_line)
+
+worksheet_qci.write("A5", "Analysen utfördes i enlighet med dokumentationen.")
+worksheet_qci.write("A6", "Eventuella avvikelser: ")
+
+worksheet_qci.write_row(9, 0, qci_table_header, format_table_heading)
 
 workbook.close()

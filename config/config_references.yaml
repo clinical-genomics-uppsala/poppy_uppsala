@@ -1,10 +1,14 @@
-samples: samples_references.tsv
-units: units_references.tsv
-resources_references: config/resources_references.yaml
+samples: samples.tsv
+units: units.tsv
+resources_references: resources_references.yaml
 output: output_files_references.yaml
 
 reference:
   mappability: "/data/ref_genomes/GRCh38/cnvkit/access-10kb.mm10.bed"
+
+create_background_file:
+  min_dp: 300
+  min_af: 0.03
 
 purecn_interval_file:
   genome: "GRCh38"

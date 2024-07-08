@@ -6,8 +6,8 @@ __license__ = "GPL-3"
 
 rule bamsnap_create_pos_list:
     input:
-        vcf="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.filter.somatic.vcf.gz",
-        tbi="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.filter.somatic.vcf.gz.tbi",
+        vcf="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic_hard.filter.somatic.vcf.gz",
+        tbi="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic_hard.filter.somatic.vcf.gz.tbi",
     output:
         bed=temp("bamsnap/create_pos_list/{sample}_{type}.pos.bed"),
     params:

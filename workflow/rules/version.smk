@@ -8,9 +8,10 @@ from hydra_genetics.utils.software_versions import get_pipeline_version
 from hydra_genetics.utils.software_versions import touch_pipeline_version_file_name
 
 
-date_string = datetime.now().strftime('%Y%m%d')
+date_string = datetime.now().strftime("%Y%m%d")
 pipeline_version = get_pipeline_version(workflow, pipeline_name="poppy")
 poppy_yaml = touch_pipeline_version_file_name(pipeline_version, date_string=date_string, directory="versions/software")
+
 
 rule version_update_poppy:
     input:
@@ -22,10 +23,7 @@ rule version_update_poppy:
     log:
         "versions/update_poppy.temp.log",
     benchmark:
-        repeat(
-            "versions/update_poppy.temp.benchmark.tsv",
-            config.get("version_update_poppy", {}).get("benchmark_repeats", 1)
-        )
+        repeat("versions/update_poppy.temp.benchmark.tsv", config.get("version_update_poppy", {}).get("benchmark_repeats", 1))
     threads: config.get("version_update_poppy", {}).get("threads", config["default_resources"]["threads"])
     resources:
         mem_mb=config.get("version_update_poppy", {}).get("mem_mb", config["default_resources"]["mem_mb"]),

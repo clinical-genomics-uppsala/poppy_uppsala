@@ -42,10 +42,10 @@ rule results_report_bedtools_intersect:
 
 rule results_report_xlsx:
     input:
-        vcf="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.filter.somatic.vcf.gz",
-        vcf_tbi="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.filter.somatic.vcf.gz.tbi",
-        pindel="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.vep_annotated.vcf.gz",
-        pindel_tbi="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.vep_annotated.vcf.gz.tbi",
+        vcf="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic_hard.filter.somatic.vcf.gz",
+        vcf_tbi="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic_hard.filter.somatic.vcf.gz.tbi",
+        pindel="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.vep_annotated.artifact_annotated.filter.somatic_hard.filter.pindel.vcf.gz",
+        pindel_tbi="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.vep_annotated.artifact_annotated.filter.somatic_hard.filter.pindel.vcf.gz.tbi",
         pindel_bed=config["pindel_call"]["include_bed"],
         mosdepth_summary="qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.summary.txt",
         mosdepth_perbase="qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.per-base.exon_bed.txt",
@@ -67,6 +67,8 @@ rule results_report_xlsx:
         pindelbed=config["pindel_call"]["include_bed"],
         ref=config["reference"]["fasta"],
         artifact=config["reference"]["artifacts"],
+        background=config["reference"]["background"],
+        artifact_pindel=config["reference"]["artifacts_pindel"],
         thresholds=config["mosdepth_bed"]["thresholds"],
         extra=config.get("results_report", {}).get("extra", ""),
     log:

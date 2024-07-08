@@ -35,11 +35,23 @@ def extract_vcf_values(record, csq_index):
         pass
 
     try:
-        return_dict["artifact_callers"] = ";".join(record.info["Artifact"])
-        return_dict["artifact_median"] = ";".join([str(round(float(x), 3)) for x in record.info["ArtifactMedian"]])
-        return_dict["artifact_nr_sd"] = ";".join(record.info["ArtifactNrSD"])
+        return_dict["artifact_callers"] = (
+            str(record.info["Artifact"]).replace("(", "").replace(")", "").replace(", ", ";").replace("'", "")
+        )
+        if type(record.info["ArtifactMedian"]) == str:
+            return_dict["artifact_median"] = str(round(float(record.info["ArtifactMedian"]), 3))
+        else:
+            return_dict["artifact_median"] = ";".join([str(round(float(x), 3)) for x in record.info["ArtifactMedian"]])
+        return_dict["artifact_nr_sd"] = str(record.info["ArtifactNrSD"]).replace("(", "").replace(")", "").replace(", ", ";")
     except KeyError:
         pass
+
+    try:
+        return_dict["background_median"] = record.info["PanelMedian"]
+        return_dict["background_nr_sd"] = record.info["PositionNrSD"]
+    except KeyError:
+        return_dict["background_median"] = ""
+        return_dict["background_nr_sd"] = ""
 
     try:
         return_dict["callers"] = ";".join(record.info["CALLERS"])
@@ -77,7 +89,6 @@ def extract_vcf_values(record, csq_index):
         return_dict["igv"] = "pathpath"
     else:
         return_dict["igv"] = ""
-    # normal freq or, background
 
     return return_dict
 
@@ -110,6 +121,8 @@ def create_snv_table(vcf_input, sequenceid):
         {"header": "Max Pop"},
         {"header": "Artifact Medians (Mutect; Vardict)"},
         {"header": "Artifact calls (Mutect; Vardict; TotNormals)"},
+        {"header": "Number of SD from background median"},
+        {"header": "Background Median"},
         {"header": "Callers"},
     ]
     for record in vcf_file.fetch():
@@ -137,6 +150,8 @@ def create_snv_table(vcf_input, sequenceid):
                 record_values["max_pops"],
                 record_values["artifact_median"],
                 record_values["artifact_callers"],
+                record_values["background_nr_sd"],
+                record_values["background_median"],
                 record_values["callers"],
             ]
             snv_table["data"].append(outline)
@@ -170,6 +185,8 @@ def create_pindel_table(vcf_input, sequenceid):
         {"header": "dbSNP"},
         {"header": "Max Pop AF"},
         {"header": "Max Pop"},
+        {"header": "Artifact Medians"},
+        {"header": "Artifact calls (Pindel; TotNormals)"},
     ]
     for record in pindel_file.fetch():
         record_values = extract_vcf_values(record, csq_index)
@@ -195,6 +212,8 @@ def create_pindel_table(vcf_input, sequenceid):
                 record_values["rs"],
                 record_values["max_pop_af"],
                 record_values["max_pops"],
+                record_values["artifact_median"],
+                record_values["artifact_callers"],
             ]
             pindel_table["data"].append(outline)
     return pindel_table
