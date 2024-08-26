@@ -397,7 +397,7 @@ else:
 """ SNVs sheet """
 filters = [
     "AF_0.01: Hard filter variants with AF lower than 1 %",
-    "DP_" + str(thresholds[1]) + ": Hard filter on depth lower than " + str(thresholds[1]) + "X",
+    "DP_" + str(thresholds[0]) + ": Hard filter on depth lower than " + str(thresholds[0]) + "X",
     "AD_5: Hard filter variants with fewer than 5 observations (AD lower than 5)",
     "Artifact_gt_3: Soft filter variants found in more than 3 normal samples (total 20 N)",
     "Background_lt_4: Soft filter variants which AF is closer than 5 s.d. to the background noise (total 20 N)",
@@ -461,7 +461,7 @@ for row_data in snv_table["data"]:
 """ Pindel sheet """
 filters = [
     "AF_0.01: Hard filter variants with AF lower than 1 %",
-    "DP_" + str(thresholds[1]) + ": Hard filter on depth lower than " + str(thresholds[1]) + "X",
+    "DP_" + str(thresholds[0]) + ": Hard filter on depth lower than " + str(thresholds[0]) + "X",
     "AD_5: Hard filter variants with fewer than 5 observations (AD lower than 5)",
     "Artifact_gt_3: Soft filter variants found in more than 3 normal samples (total 20 N), and AF lt 5 sd from normal median",
     "PopAF_0.02: Soft filter germline if >2 % in any population from 1000 genomes, ESP or gnomADe",
