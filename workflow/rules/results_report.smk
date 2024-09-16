@@ -44,8 +44,8 @@ rule results_report_xlsx:
     input:
         vcf="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic_hard.filter.somatic.vcf.gz",
         vcf_tbi="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic_hard.filter.somatic.vcf.gz.tbi",
-        pindel="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.vep_annotated.artifact_annotated.filter.somatic_hard.filter.pindel.vcf.gz",
-        pindel_tbi="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.vep_annotated.artifact_annotated.filter.somatic_hard.filter.pindel.vcf.gz.tbi",
+        pindel="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.filter.somatic_hard.filter.pindel.vcf.gz",
+        pindel_tbi="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.filter.somatic_hard.filter.pindel.vcf.gz.tbi",
         pindel_bed=config["pindel_call"]["include_bed"],
         mosdepth_summary="qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.summary.txt",
         mosdepth_perbase="qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.per-base.exon_bed.txt",
@@ -88,6 +88,6 @@ rule results_report_xlsx:
         config.get("results_report", {}).get("container", config["default_container"])
     message:
         "{rule}: summerize results into {output.xlsx}."
-    # localrule: True
+    #localrule: True
     script:
         "../scripts/results_report_xlsx.py"

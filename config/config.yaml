@@ -1,8 +1,0 @@
-resources: "resources.yaml"
-samples: "samples.tsv"
-units: "units.tsv"
-output: "output_files.yaml"
-
-
-default_container: "docker://hydragenetics/common:1.8.1"
-

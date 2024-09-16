@@ -48,11 +48,11 @@ use rule bcftools_concat from snv_indels as snv_indels_concat_vcfs with: # pinde
     input:
         calls=[
             "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic.vcf.gz",
-            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.vep_annotated.artifact_annotated.vcf.gz"
+            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.vcf.gz"
         ],
         index=[
             "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic.vcf.gz.tbi",
-            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.vep_annotated.artifact_annotated.vcf.gz.tbi"
+            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.vcf.gz.tbi"
         ],
     output:
         vcf=temp("snv_indels/bcftools_concat/{sample}_{type}.filter.somatic.vcf.gz"),
