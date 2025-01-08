@@ -133,7 +133,7 @@ synonymous_table = []
 for record in snv_table["data"]:
     if record[4] in intron_coordinates:
         for pair in intron_coordinates[record[4]]:
-            if record[5] >= pair[0] and record[5] <= pair[1] and record[8] >= 0.05:
+            if record[5] >= pair[0] and record[5] <= pair[1]:
                 intron_table.append(record)
 
     for position_list in [coordinate for coordinate in synonymous_positions.values() if record[4] == coordinate[0]]:
@@ -280,7 +280,7 @@ worksheet_overview.write(4, 0, "Created by: ")
 worksheet_overview.write(4, 4, "Valid from: ")
 worksheet_overview.write(5, 0, "Signed by: ")
 worksheet_overview.write(5, 4, "Document nr: ")
-worksheet_overview.write_row(6, 6, empty_list, format_line)
+worksheet_overview.write_row(6, 0, empty_list, format_line)
 
 worksheet_overview.write(7, 0, "Sheets:", format_table_heading)
 i = 8
@@ -306,10 +306,8 @@ if sample.lower() == "hd829":
         worksheet_overview.write(i + 1, 0, str(known_percent * 100) + " %")
     i += 3
 
-worksheet_overview.write(i, 0, "Number of bases in Mane transcripts not coverage by at least " + str(thresholds[0]) + "x: ")
-worksheet_overview.write(i + 1, 0, str(num_low_regions))
 worksheet_overview.write_row(
-    i + 3,
+    i,
     0,
     [
         "RunID",
@@ -322,8 +320,8 @@ worksheet_overview.write_row(
     ],
     format_table_heading,
 )
-worksheet_overview.write_row(i + 4, 0, [sequenceid, sample, coverage["avg_cov"], str(duplication_rate)] + thresholds_results)
-i += 6
+worksheet_overview.write_row(i + 1, 0, [sequenceid, sample, coverage["avg_cov"], str(duplication_rate)] + thresholds_results)
+i += 3
 
 worksheet_overview.write(i, 0, "Average coverage of regions in 'coding exon' bedfile")
 worksheet_overview.write_row(i + 1, 0, ["chrX", coverage["chrX_cov"]])
