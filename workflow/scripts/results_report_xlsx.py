@@ -4,6 +4,7 @@ from results_report_create_tables import *
 from datetime import date
 from operator import itemgetter
 import subprocess
+import yaml
 import logging
 
 logging.basicConfig(
@@ -109,11 +110,11 @@ non_coding_regions = {
 }
 intron_coordinates = {}
 for gene in non_coding_regions:
-    chr = non_coding_regions[gene][0]
-    if chr in intron_coordinates:  # If chr in dict already
-        intron_coordinates[chr].append(non_coding_regions[gene][1:])
+    chrom = non_coding_regions[gene][0]
+    if chrom in intron_coordinates:  # If chrom in dict already
+        intron_coordinates[chrom].append(non_coding_regions[gene][1:])
     else:
-        intron_coordinates[chr] = [non_coding_regions[gene][1:]]
+        intron_coordinates[chrom] = [non_coding_regions[gene][1:]]
 
 
 synonymous_positions = {
@@ -451,21 +452,22 @@ for i, filter_txt in enumerate(filters_snv):
     i += 9
     worksheet_snv.write("B" + str(i), filter_txt, format_orange)
 
+i += 2
 worksheet_snv.write_rich_string(
-    "A18", "Only variants with ", format_bold, "> 2 % AF", " and filter-flag ", format_bold, "PASS", " shown by default."
+    "A" +str(i), "Only variants with ", format_bold, "> 2 % AF", " and filter-flag ", format_bold, "PASS", " shown by default."
 )
 worksheet_snv.write(
-    "A19",
+    "A" + str(i + 1),
     "To see all variants; put marker on header row, then click on 'Standard Filter' and remove any values. "
     + "You can then use the drop-downs in the header row to filter to your liking.",
 )
 
 worksheet_snv.write_url(
-    "A21", "external:" + sample + "_" + sample_type + "_" + sequenceid + "_bamsnap/index.html", string="SNV screenshots"
+    "A" + str(i + 3), "external:" + sample + "_" + sample_type + "_" + sequenceid + "_bamsnap/index.html", string="SNV screenshots"
 )
-worksheet_snv.write("A22", "Only variants with AF >= 5% and PASS have automated screenshots.")
+worksheet_snv.write("A" + str(i + 4), "Only variants with AF >= 5% and PASS have automated screenshots.")
 
-i = 24
+i += 6
 column_end = ":" + convert_columns_to_letter(len(snv_table["headers"]))
 if len(snv_table["data"]) > 0:
     table_area = "A" + str(i) + column_end + str(len(snv_table["data"]) + i)
