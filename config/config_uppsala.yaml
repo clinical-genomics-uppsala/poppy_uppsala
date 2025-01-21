@@ -201,6 +201,10 @@ bcftools_annotate:
 bcftools_concat_vcfs:
   extra: " -a "
 
+bcftools_filter_include_region:
+  cll: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/CLL_genes_for_xlsx.250114.sorted.bed"
+  myeloid: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Myeloid_genes_for_xlsx.250114.sorted.bed"
+
 bwa_mem:
   amb: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb"
   ann: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.ann"

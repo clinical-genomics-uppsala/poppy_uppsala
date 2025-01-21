@@ -36,71 +36,12 @@ uppsala_version = snakemake.params.uppsala_version["poppy_uppsala"]["version"]
 
 sample = snakemake.params.sample
 sample_type = snakemake.params.sample_type
-short_gene_list = [
-    "ABL1",
-    "ANKRD26",
-    "ASXL1",
-    "ATRX",
-    "BCOR",
-    "BCORL1",
-    "BRAF",
-    "CALR",
-    "CBL",
-    "CBLB",
-    "CDKN2A",
-    "CEBPA",
-    "CSF3R",
-    "CUX1",
-    "DDX41",
-    "DNMT3A",
-    "ETV6",
-    "ETNK1",
-    "EZH2",
-    "FBXW7",
-    "FLT3",
-    "GATA1",
-    "GATA2",
-    "GNAS",
-    "HRAS",
-    "IDH1",
-    "IDH2",
-    "IKZF1",
-    "JAK2",
-    "JAK3",
-    "KDM6A",
-    "KIT",
-    "KRAS",
-    "KMT2A",
-    "MPL",
-    "MYD88",
-    "NF1",
-    "NOTCH1",
-    "NPM1",
-    "NRAS",
-    "PDGFRA",
-    "PHF6",
-    "PPM1D",
-    "PTEN",
-    "PTPN11",
-    "RAD21",
-    "RUNX1",
-    "SAMD9",
-    "SAMD9L",
-    "SETBP1",
-    "SF3B1",
-    "SMC1A",
-    "SMC3",
-    "SRSF2",
-    "STAG2",
-    "STAT3",
-    "STAT5B",
-    "TEL",
-    "TET2",
-    "TP53",
-    "U2AF1",
-    "WT1",
-    "ZRSR2",
-]
+# Panels contain all info for sheets with subsets of SNVs
+panels = {
+    "cll": {"bedfile": snakemake.params.cllbed, "vcf": snakemake.input.cll_vcf},
+    "myeloid": {"bedfile": snakemake.params.myeloidbed, "vcf": snakemake.input.myeloid_vcf},
+}
+
 non_coding_regions = {
     "TERC": ["chr3", 169764300, 169766000, "entire gene + promotor"],
     "GATA2": ["chr3", 128481912, 128483849, "Intron4 (b/w exon4-5) in NM_001145662"],
@@ -168,8 +109,11 @@ snv_table = create_snv_table(vcf, sequenceid)
 pindel_table = create_pindel_table(pindel, sequenceid)
 known_table, known_percent = create_known_variants_table(vcf, pindel, sequenceid)
 
-short_table = []
-short_table = [variant for variant in snv_table["data"] if (variant[0] == "PASS" and variant[3] in short_gene_list)]
+for panel in panels.keys():
+    logging.debug(f"Creating {panel} table")
+    panels[panel]["table"] = create_snv_table(panel["vcf"], sequenceid)
+logging.debug(f"{panels=}")
+
 
 logging.debug(f"Intron and synonymous tables")
 intron_table = []
@@ -294,7 +238,8 @@ worksheet_overview = workbook.add_worksheet("Overview")
 if sample.lower() == "hd829":
     worksheet_known = workbook.add_worksheet("Known variants")
 else:
-    worksheet_short = workbook.add_worksheet("Short List")
+    for panel in panels.keys():
+        panels[panel]["sheet"] = workbook.add_worksheet(panel.upper())
 worksheet_snv = workbook.add_worksheet("SNVs")
 worksheet_pindel = workbook.add_worksheet("Pindel")
 worksheet_intron = workbook.add_worksheet("Intron")
@@ -330,8 +275,9 @@ i = 8
 if sample.lower() == "hd829":
     worksheet_overview.write_url(i, 0, "internal:'Known variants'!A1", string="Known variants")
 else:
-    worksheet_overview.write_url(i, 0, "internal: 'Short List'!A1", string="Short List variants")
-i += 1
+    for panel in panels.keys():
+        worksheet_overview.write_url(i, 0, "internal: '" + panel.upper() + "'!A1", string=panel.upper() + " panel variants")
+        i += 1
 worksheet_overview.write_url(i, 0, "internal:'SNVs'!A1", string="SNVs identified")
 worksheet_overview.write_url(i + 1, 0, "internal:'Pindel'!A1", string="Pindel results")
 worksheet_overview.write_url(i + 2, 0, "internal: 'Intron'!A1", string="Intron and non-coding variants")
@@ -376,7 +322,7 @@ if sample.lower() != "hd829":
     )
     i += 2
 
-worksheet_overview.write(i, 0, "Twist Myeloid capture panel TE-91316667_hg38 used")
+worksheet_overview.write(i, 0, "Twist Myeloid capture panel TE-96463385_hg38 used")
 worksheet_overview.write(
     i + 1,
     0,
@@ -395,10 +341,16 @@ worksheet_overview.write(i + 2, 0, "Artifact panel used: " + snakemake.params.ar
 worksheet_overview.write(i + 3, 0, "Background panel used for snvs: " + snakemake.params.background)
 worksheet_overview.write(i + 4, 0, "Pindel bedfile used: " + snakemake.params.pindelbed)
 worksheet_overview.write(i + 5, 0, "Pindel artifact panel used: " + snakemake.params.artifact_pindel)
-i += 7
+i += 6
+if sample.lower() != "hd829":
+    for panel in panels.keys():
+        worksheet_overview.write(i, 0, panel.upper() + "bedfile used: " + panels[panel]["bedfile"])
+        i += 1
+
+
 
 """ Known sheet """
-logging.debug(f"Known variants sheet if hd829, else KLL and myeloid sheets {sample.lower()=}")
+logging.debug(f"Known variants sheet if hd829, else panel sheets {sample.lower()=}")
 if sample.lower() == "hd829":
     worksheet_known.set_column(3, 4, 10)
     worksheet_known.set_column(6, 6, 10)
@@ -411,31 +363,74 @@ if sample.lower() == "hd829":
         table_area, {"data": known_table["data"], "columns": known_table["headers"], "style": "Table Style Light 1"}
     )
 else:
-    """Short list"""
-    worksheet_short.set_column(2, 2, 10)
-    worksheet_short.set_column(5, 5, 10)
-    worksheet_short.set_column(11, 13, 10)
-    worksheet_short.write("A1", "Variants found in 'short list'", format_heading)
-    worksheet_short.write("A3", "Sample: " + str(sample))
-    worksheet_short.write("A4", "Reference used: " + str(snakemake.params.ref))
-    worksheet_short.write("A6", "Databases used: " + vep_line)
-    worksheet_short.write("A7", "Genes included in shortlist:")
-    j = 1
-    for gene in short_gene_list:
-        worksheet_short.write(7, j, gene)
-        j += 1
-    i = 8
-    worksheet_short.write(i, 0, "Only filtered variants, to see all see:")
-    worksheet_short.write_url(i + 1, 1, "internal:'SNVs'!A1", string="SNVs sheet")
-    worksheet_short.write_url(
-        i + 3, 0, "external:" + sample + "_" + sample_type + "_" + sequenceid + "_bamsnap/index.html", string="SNV screenshots"
-    )
-    worksheet_short.write(i + 4, 0, "Only variants AF >= 5% and PASS have automated screenshots")
-    i += 8
+    """CLL and myeloid tables (or other panels)"""
+    logging.debug(f"panel sheets {panels.keys()=}")
+    for panel in panels.keys():
+        logging.debug(f"Create {panel} sheet. {panels[panel]=}")
+        worksheet_panel = panel["sheet"]
+        worksheet_panel.set_column(2, 2, 10)
+        worksheet_panel.set_column(5, 5, 10)
+        worksheet_panel.set_column(11, 13, 10)
+        worksheet_panel.write("A1", "Variants found in " + panel.upper() + " gene panel", format_heading)
+        worksheet_panel.write("A3", "Sample: " + str(sample))
+        worksheet_panel.write("A4", "Reference used: " + str(snakemake.params.ref))
+        worksheet_panel.write("A5", "Bedfile used: " + str(panel["bedfile"]))
+        worksheet_panel.write("A7", "Databases used: " + vep_line)
 
-    table_area = "A" + str(i) + ":X" + str(len(short_table) + i)
-    worksheet_short.add_table(table_area, {"data": short_table, "columns": snv_table["headers"], "style": "Table Style Light 1"})
+        worksheet_panel.write("A9", "Filters: ", format_orange)
+        for i, filter_txt in enumerate(filters_snv):
+            i += 10
+            worksheet_panel.write("B" + str(i), filter_txt, format_orange)
 
+        i += 2
+        worksheet_panel.write_rich_string(
+            "A" + str(i),
+            "Only variants with ",
+            format_bold,
+            "> 2 % AF",
+            " and filter-flag ",
+            format_bold,
+            "PASS",
+            " shown by default.",
+        )
+        worksheet_panel.write(
+            "A" + str(i + 1),
+            "To see all variants; put marker on header row, then click on 'Standard Filter' and remove any values. "
+            + "You can then use the drop-downs in the header row to filter to your liking.",
+        )
+
+        worksheet_panel.write_url(
+            "A" + str(i + 3),
+            "external:" + sample + "_" + sample_type + "_" + sequenceid + "_bamsnap/index.html",
+            string="SNV screenshots",
+        )
+        worksheet_panel.write("A" + str(i + 4), "Only variants with AF >= 5% and PASS have automated screenshots.")
+
+        i += 6
+        column_end = ":" + convert_columns_to_letter(len(panel["table"]["headers"]))
+        if len(panel["table"]["data"]) > 0:
+            table_area = "A" + str(i) + column_end + str(len(panel["table"]["data"]) + i)
+            table_area_data = "A" + str(i + 1) + column_end + str(len(panel["table"]["data"]) + i)
+        else:
+            table_area = "A" + str(i) + column_end + str(i + 1)
+            table_area_data = "A" + str(i + 1) + column_end + str(i + 1)
+
+        worksheet_panel.add_table(table_area, {"columns": panel["table"]["headers"], "style": "Table Style Light 1"})
+        cond_formula = "=LEFT($A" + str(i + 1) + ', 4)<>"PASS"'
+        worksheet_panel.conditional_format(
+            table_area_data, {"type": "formula", "criteria": cond_formula, "format": format_orange}
+        )
+
+        worksheet_panel.autofilter(table_area)
+        worksheet_panel.filter_column("A", "Filter != PASS")
+        worksheet_panel.filter_column("I", "AF >= 0.02")
+        for row_data in panel["table"]["data"]:
+            if row_data[0] == "PASS" and float(row_data[8]) >= 0.02:
+                pass
+            else:
+                worksheet_panel.set_row(i, options={"hidden": True})
+            worksheet_panel.write_row(i, 0, row_data)
+            i += 1
 
 """ SNVs sheet """
 logging.debug(f"SNVs sheet")
@@ -454,7 +449,7 @@ for i, filter_txt in enumerate(filters_snv):
 
 i += 2
 worksheet_snv.write_rich_string(
-    "A" +str(i), "Only variants with ", format_bold, "> 2 % AF", " and filter-flag ", format_bold, "PASS", " shown by default."
+    "A" + str(i), "Only variants with ", format_bold, "> 2 % AF", " and filter-flag ", format_bold, "PASS", " shown by default."
 )
 worksheet_snv.write(
     "A" + str(i + 1),
@@ -463,7 +458,9 @@ worksheet_snv.write(
 )
 
 worksheet_snv.write_url(
-    "A" + str(i + 3), "external:" + sample + "_" + sample_type + "_" + sequenceid + "_bamsnap/index.html", string="SNV screenshots"
+    "A" + str(i + 3),
+    "external:" + sample + "_" + sample_type + "_" + sequenceid + "_bamsnap/index.html",
+    string="SNV screenshots",
 )
 worksheet_snv.write("A" + str(i + 4), "Only variants with AF >= 5% and PASS have automated screenshots.")
 
