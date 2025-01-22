@@ -111,7 +111,7 @@ known_table, known_percent = create_known_variants_table(vcf, pindel, sequenceid
 
 for panel in panels.keys():
     logging.debug(f"Creating {panel} table")
-    panels[panel]["table"] = create_snv_table(panel["vcf"], sequenceid)
+    panels[panel]["table"] = create_snv_table(panels[panel]["vcf"], sequenceid)
 logging.debug(f"{panels=}")
 
 
@@ -367,14 +367,14 @@ else:
     logging.debug(f"panel sheets {panels.keys()=}")
     for panel in panels.keys():
         logging.debug(f"Create {panel} sheet. {panels[panel]=}")
-        worksheet_panel = panel["sheet"]
+        worksheet_panel = panels[panel]["sheet"]
         worksheet_panel.set_column(2, 2, 10)
         worksheet_panel.set_column(5, 5, 10)
         worksheet_panel.set_column(11, 13, 10)
         worksheet_panel.write("A1", "Variants found in " + panel.upper() + " gene panel", format_heading)
         worksheet_panel.write("A3", "Sample: " + str(sample))
         worksheet_panel.write("A4", "Reference used: " + str(snakemake.params.ref))
-        worksheet_panel.write("A5", "Bedfile used: " + str(panel["bedfile"]))
+        worksheet_panel.write("A5", "Bedfile used: " + str(panels[panel]["bedfile"]))
         worksheet_panel.write("A7", "Databases used: " + vep_line)
 
         worksheet_panel.write("A9", "Filters: ", format_orange)
@@ -407,15 +407,15 @@ else:
         worksheet_panel.write("A" + str(i + 4), "Only variants with AF >= 5% and PASS have automated screenshots.")
 
         i += 6
-        column_end = ":" + convert_columns_to_letter(len(panel["table"]["headers"]))
-        if len(panel["table"]["data"]) > 0:
-            table_area = "A" + str(i) + column_end + str(len(panel["table"]["data"]) + i)
-            table_area_data = "A" + str(i + 1) + column_end + str(len(panel["table"]["data"]) + i)
+        column_end = ":" + convert_columns_to_letter(len(panels[panel]["table"]["headers"]))
+        if len(panels[panel]["table"]["data"]) > 0:
+            table_area = "A" + str(i) + column_end + str(len(panels[panel]["table"]["data"]) + i)
+            table_area_data = "A" + str(i + 1) + column_end + str(len(panels[panel]["table"]["data"]) + i)
         else:
             table_area = "A" + str(i) + column_end + str(i + 1)
             table_area_data = "A" + str(i + 1) + column_end + str(i + 1)
 
-        worksheet_panel.add_table(table_area, {"columns": panel["table"]["headers"], "style": "Table Style Light 1"})
+        worksheet_panel.add_table(table_area, {"columns": panels[panel]["table"]["headers"], "style": "Table Style Light 1"})
         cond_formula = "=LEFT($A" + str(i + 1) + ', 4)<>"PASS"'
         worksheet_panel.conditional_format(
             table_area_data, {"type": "formula", "criteria": cond_formula, "format": format_orange}
@@ -424,7 +424,7 @@ else:
         worksheet_panel.autofilter(table_area)
         worksheet_panel.filter_column("A", "Filter != PASS")
         worksheet_panel.filter_column("I", "AF >= 0.02")
-        for row_data in panel["table"]["data"]:
+        for row_data in panels[panel]["table"]["data"]:
             if row_data[0] == "PASS" and float(row_data[8]) >= 0.02:
                 pass
             else:
