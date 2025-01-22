@@ -21,6 +21,8 @@ from hydra_genetics.utils.software_versions import add_version_files_to_multiqc
 from hydra_genetics.utils.software_versions import export_pipeline_version_as_file
 from hydra_genetics.utils.software_versions import get_pipeline_version
 from hydra_genetics.utils.software_versions import touch_pipeline_version_file_name
+from hydra_genetics.utils.misc import replace_dict_variables
+from hydra_genetics.utils.misc import export_config_as_file
 
 min_version("6.8.0")
 
@@ -37,6 +39,7 @@ export_pipeline_version_as_file(pipeline_version, date_string=date_string, direc
 
 if not workflow.overwrite_configfiles:
     sys.exit("At least one config file must be passed using --configfile/--configfiles, by command line or a profile!")
+config = replace_dict_variables(config)
 
 try:
     validate(config, schema="../schemas/config.schema.yaml")
