@@ -247,6 +247,7 @@ merge_cnv_json:
 multiqc:
   reports:
     DNA:
+      config: "{{POPPY_UU_HOME}}/config/config_multiqc.yaml"
       qc_files:
         - "qc/fastqc/{sample}_{type}_{flowcell}_{lane}_{barcode}_{read}_fastqc.zip"
         - "prealignment/fastp_pe/{sample}_{type}_{flowcell}_{lane}_{barcode}_fastp.json"
