@@ -1,0 +1,16 @@
+filters:
+  intron:
+    description: "Soft filter intronic variants except if also splice, and/or has a cosmic id on the position"
+    expression: "(exist[intron_variant, VEP:Consequence] and !exist[splice, VEP:Consequence] and !exist[COSV[0-9]+, VEP:Existing_variation])"
+    soft_filter_flag: "Intron"
+    soft_filter: "True"
+  germline:
+    description: "Soft filter germline if >2% in any population from 1000 genomes, ESP or gnomADe"
+    expression: "(VEP:MAX_AF > 0.02)"
+    soft_filter_flag: "PopAF_0.02"
+    soft_filter: "True"
+  artifacts:
+    description: "Soft filter position that occurs in 4 or more normal samples and AF is less than 5 sd from median af in normalpool"
+    expression: "(INFO:Artifact > 3 and INFO:ArtifactNrSD < 5)"
+    soft_filter_flag: "Artifact_gt_3"
+    soft_filter: "True"

@@ -1,8 +1,8 @@
 ---
-resources: "resources.yaml"
+resources: "{{POPPY_UU_HOME}}/config/resources.yaml"
 samples: "samples.tsv"
 units: "units.tsv"
-output: "output_files.yaml"
+output: "{{POPPY_UU_HOME}}/config/output_files.yaml"
 
 poppy_version: "0.2.0"
 
@@ -201,6 +201,10 @@ bcftools_annotate:
 bcftools_concat_vcfs:
   extra: " -a "
 
+bcftools_filter_include_region:
+  cll: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/CLL_genes_for_xlsx.250114.sorted.bed"
+  myeloid: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Myeloid_genes_for_xlsx.250114.sorted.bed"
+
 bwa_mem:
   amb: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb"
   ann: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.ann"
@@ -218,12 +222,11 @@ cnvkit_batch:
 
 filter_vcf:
   sample_name_regex: ^([A-Za-z0-9-]+_[NRT]\{1\})$
-  germline: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/filters/config_hard_filter_germline.yaml"
-  somatic: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/filters/config_soft_filter_somatic.yaml"
-  somatic_hard: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/filters/config_hard_filter_somatic.yaml"
-  pindel: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/filters/config_soft_filter_pindel.yaml"
-  cnv_hard_filter: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/filters/config_hard_filter_cnv.yaml"
-  purecn_hard: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/filters/config_hard_filter_purecn.yaml"
+  germline: "{{POPPY_UU_HOME}}/config/filters/config_hard_filter_germline.yaml"
+  somatic: "{{POPPY_UU_HOME}}/config/filters/config_soft_filter_somatic.yaml"
+  somatic_hard: "{{POPPY_UU_HOME}}/config/filters/config_hard_filter_somatic.yaml"
+  pindel: "{{POPPY_UU_HOME}}/config/filters/config_soft_filter_pindel.yaml"
+  cnv_hard_filter: "{{POPPY_UU_HOME}}/config/filters/config_hard_filter_cnv.yaml"
 
 gatk_collect_allelic_counts:
   SNP_interval: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv100.241211.interval_list"
@@ -232,7 +235,7 @@ gatk_denoise_read_counts:
   normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/gatk.PoN.hdf5"
 
 merge_cnv_json:
-  cytobands: "cytoBand.hg38.txt"
+  cytobands: "{{POPPY_UU_HOME}}/config/cytoBand.hg38.txt"
   annotations:
     - "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv_annotation.240227.bed" 
   germline_vcf: snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.filter.germline.vcf.gz
@@ -244,6 +247,7 @@ merge_cnv_json:
 multiqc:
   reports:
     DNA:
+      config: "{{POPPY_UU_HOME}}/config/config_multiqc.yaml"
       qc_files:
         - "qc/fastqc/{sample}_{type}_{flowcell}_{lane}_{barcode}_{read}_fastqc.zip"
         - "prealignment/fastp_pe/{sample}_{type}_{flowcell}_{lane}_{barcode}_fastp.json"

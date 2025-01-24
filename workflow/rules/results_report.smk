@@ -46,6 +46,10 @@ rule results_report_xlsx:
         vcf_tbi="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic_hard.filter.somatic.vcf.gz.tbi",
         pindel="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.filter.somatic_hard.filter.pindel.vcf.gz",
         pindel_tbi="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.filter.somatic_hard.filter.pindel.vcf.gz.tbi",
+        cll_vcf="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic_hard.filter.somatic.include.cll.vcf.gz",
+        cll_tbi="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic_hard.filter.somatic.include.cll.vcf.gz.tbi",
+        myeloid_vcf="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic_hard.filter.somatic.include.myeloid.vcf.gz",
+        myeloid_tbi="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic_hard.filter.somatic.include.myeloid.vcf.gz.tbi",
         pindel_bed=config["pindel_call"]["include_bed"],
         mosdepth_summary="qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.summary.txt",
         mosdepth_perbase="qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.per-base.exon_bed.txt",
@@ -64,19 +68,21 @@ rule results_report_xlsx:
         uppsala_version=get_pipeline_version(workflow, pipeline_name="poppy_uppsala"),
         bedfile=config["reference"]["design_bed"],
         exonbed=config["reference"]["exon_bed"],
+        cllbed=config["bcftools_filter_include_region"]["cll"],
+        myeloidbed=config["bcftools_filter_include_region"]["myeloid"],
         pindelbed=config["pindel_call"]["include_bed"],
         ref=config["reference"]["fasta"],
         artifact=config["reference"]["artifacts"],
         background=config["reference"]["background"],
         artifact_pindel=config["reference"]["artifacts_pindel"],
         thresholds=config["mosdepth_bed"]["thresholds"],
-        extra=config.get("results_report", {}).get("extra", ""),
+        filter_somatic=config["filter_vcf"]["somatic"],
+        filter_somatic_hard=config["filter_vcf"]["somatic_hard"],
+        filter_pindel=config["filter_vcf"]["pindel"],
     log:
         "reports/xlsx/{sample}_{type}.xlsx.log",
     benchmark:
-        repeat(
-            "reports/xlsx/{sample}_{type}.xlsx.benchmark.tsv", config.get("results_report", {}).get("benchmark_repeats", 1)
-        )
+        repeat("reports/xlsx/{sample}_{type}.xlsx.benchmark.tsv", config.get("results_report", {}).get("benchmark_repeats", 1))
     threads: config.get("results_report", {}).get("threads", config["default_resources"]["threads"])
     resources:
         mem_mb=config.get("results_report", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
@@ -87,7 +93,6 @@ rule results_report_xlsx:
     container:
         config.get("results_report", {}).get("container", config["default_container"])
     message:
-        "{rule}: summerize results into {output.xlsx}."
-    #localrule: True
+        "{rule}: summarize results into {output.xlsx}."
     script:
         "../scripts/results_report_xlsx.py"

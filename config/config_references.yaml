@@ -1,7 +1,5 @@
 samples: samples.tsv
 units: units.tsv
-resources_references: resources_references.yaml
-output: output_files_references.yaml
 
 reference:
   mappability: "/data/ref_genomes/GRCh38/cnvkit/access-10kb.mm10.bed"

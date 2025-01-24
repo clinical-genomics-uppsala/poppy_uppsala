@@ -21,11 +21,13 @@ from hydra_genetics.utils.software_versions import add_version_files_to_multiqc
 from hydra_genetics.utils.software_versions import export_pipeline_version_as_file
 from hydra_genetics.utils.software_versions import get_pipeline_version
 from hydra_genetics.utils.software_versions import touch_pipeline_version_file_name
+from hydra_genetics.utils.misc import replace_dict_variables
+from hydra_genetics.utils.misc import export_config_as_file
 
 min_version("6.8.0")
 
 ## Version logging for MultiQC
-date_string = datetime.now().strftime('%Y%m%d')
+date_string = datetime.now().strftime("%Y%m%d")
 
 # Create pipeline version file, populate since only one onstart *(loaded last)
 pipeline_version = get_pipeline_version(workflow, pipeline_name="poppy_uppsala")
@@ -37,6 +39,7 @@ export_pipeline_version_as_file(pipeline_version, date_string=date_string, direc
 
 if not workflow.overwrite_configfiles:
     sys.exit("At least one config file must be passed using --configfile/--configfiles, by command line or a profile!")
+config = replace_dict_variables(config)
 
 try:
     validate(config, schema="../schemas/config.schema.yaml")
@@ -139,12 +142,11 @@ def generate_copy_rules(output_spec):
         rule_code += f'@workflow.rule(name="{rule_name}")\n'
         rule_code += f'@workflow.input("{input_file}")\n'
         if f["output"].endswith("/"):
-            # import pdb; pdb.set_trace()
             rule_code += f'@workflow.output(directory("{output_file}"))\n'
         else:
             rule_code += f'@workflow.output("{output_file}")\n'
 
-        rule_code +=  f'@workflow.log("logs/{rule_name}_{output_file.name}.log")\n'
+        rule_code += f'@workflow.log("logs/{rule_name}_{output_file.name}.log")\n'
         rule_code += f'@workflow.container("{copy_container}")\n'
         rule_code += f'@workflow.resources(time = "{time}", threads = {threads}, mem_mb = {mem_mb}, mem_per_cpu = {mem_per_cpu}, partition = "{partition}")\n'
         rule_code += '@workflow.shellcmd("cp -r {input} {output}")\n\n'
@@ -156,10 +158,7 @@ def generate_copy_rules(output_spec):
             "__is_snakemake_rule_func=True):\n"
             '\tshell ( "(cp -r {input[0]} {output[0]}) &> {log}" , bench_record=bench_record, bench_iteration=bench_iteration)\n\n'
         )
-        print("uppsala!!")
 
-        # rulestrings.append(rule_code)
-    # import pdb; pdb.set_trace()
     exec(compile(rule_code, "copy_result_files", "exec"), workflow.globals)
 
 

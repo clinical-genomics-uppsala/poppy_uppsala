@@ -4,11 +4,15 @@ __email__ = "arielle.munters@scilifelab.uu.se"
 __license__ = "GPL-3"
 
 
+ruleorder: filtering_bcftools_filter_include_region > snv_indels_bgzip
+
+
 # Include pipeline specific rules
 include: "rules/common.smk"
 include: "rules/version.smk"
 include: "rules/bamsnap.smk"
 include: "rules/results_report.smk"
+
 
 # 'All' rule, must be specified before any other modules are
 # included, since they also contain 'All' rule
@@ -44,15 +48,15 @@ module snv_indels:
         config
 
 
-use rule bcftools_concat from snv_indels as snv_indels_concat_vcfs with: # pindel ingen artefakt..
+use rule bcftools_concat from snv_indels as snv_indels_concat_vcfs with:
     input:
         calls=[
             "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic.vcf.gz",
-            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.vcf.gz"
+            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.vcf.gz",
         ],
         index=[
             "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic.vcf.gz.tbi",
-            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.vcf.gz.tbi"
+            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.vcf.gz.tbi",
         ],
     output:
         vcf=temp("snv_indels/bcftools_concat/{sample}_{type}.filter.somatic.vcf.gz"),
