@@ -4,11 +4,12 @@ samples: "samples.tsv"
 units: "units.tsv"
 output: "{{POPPY_UU_HOME}}/config/output_files.yaml"
 
-poppy_version: "0.2.0"
+poppy_version: "v0.2.0"
 
 reference:
   fasta: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
   fai: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"
+  dict: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.dict"
   exon_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_coding_exons_added_regions.240220.bed"
   design_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-96463385_hg38_241211.bed"
   design_intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-96463385_hg38_241211.interval_list" #hsmetrics
@@ -268,6 +269,11 @@ pindel_call:
   extra: "-x 2 -B 60" #x och B?
   include_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_pindel_240628.bed"
 
+pindel2vcf:
+  extra: "-e 10 -mc 10 -is 5 -he 0.01 -G" # num reads support
+  refname: "GCA_000001405.15_GRCh38_no_alt"
+  refdate: "2022"
+
 purecn:
   genome: GRCh38
   normaldb: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/purecn_normal_db.rds"
@@ -276,11 +282,6 @@ purecn:
 
 purecn_coverage:
   intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/purecn_targets_intervals.txt"
-
-pindel2vcf:
-  extra: "-e 10 -mc 10 -is 5 -he 0.01 -G" # num reads support
-  refname: "GCA_000001405.15_GRCh38_no_alt"
-  refdate: "2022"
 
 results_report_xlsx:
   wanted_transcripts: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/tm_mane_transcript.240404.txt"

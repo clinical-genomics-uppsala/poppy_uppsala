@@ -1,6 +1,4 @@
 ---
-output: "../../config/output_files.yaml"
-resources: "../../config/resources.yaml"
 
 default_container: "docker://hydragenetics/common:1.10.2"
 
@@ -9,10 +7,10 @@ trimmer_software: "fastp_pe"
 reference:
   fasta: "reference/hg19.fasta"
   fai: "reference/hg19.fasta.fai"
-  dict: "reference/hg19.dict"
-  design_intervals: "data/bed/design.intervals"
-  design_bed: "data/bed/design.bed"
   exon_bed: "data/bed/design.bed"
+  dict: "reference/hg19.dict"
+  design_bed: "data/bed/design.bed"
+  design_intervals: "data/bed/design.intervals" 
   design_intervals_gatk_cnv: "data/bed/design.bed"
   artifacts: "reference/artifact_panel.tsv"
   artifacts_pindel: "reference/artifact_panel.tsv"
@@ -30,6 +28,10 @@ bcbio_variation_recall_ensemble:
 
 bcftools_annotate:
   annotation_db: "reference/annotation.vcf.gz"
+
+bcftools_filter_include_region:
+  cll: "data/bed/design.bed"
+  myeloid: "data/bed/design.bed"
 
 bwa_mem:
   container: "docker://hydragenetics/bwa_mem:0.7.17"
@@ -61,9 +63,9 @@ fastqc:
 filter_vcf:
   germline: "config/filter_config.yaml"
   somatic: "config/filter_config.yaml"
+  somatic_hard: "config/filter_config.yaml"
   pindel: "config/filter_config.yaml"
-  cnv_hard_filter_amp: "config/filter_config.yaml"
-  cnv_hard_filter_loh: "config/filter_config.yaml"
+  cnv_hard_filter: "config/filter_config.yaml"
 
 gatk_collect_allelic_counts:
   container: "docker://hydragenetics/gatk4:4.1.9.0"
@@ -92,7 +94,6 @@ gatk_mutect2_merge_stats:
   container: "docker://hydragenetics/gatk4:4.1.9.0"
 
 merge_cnv_json:
-  cytobands: "data/cytoBand.hg38.txt"
   annotations:
     - config/cnv_annotation.bed
 
@@ -137,13 +138,12 @@ pindel2vcf:
 
 purecn:
   container: docker://hydragenetics/purecn:2.2.0
-  normaldb: reference/purecn_normal_db.rds
-  intervals: reference/purecn_target_intervals.txt
-  mapping_bias_file: reference/purecn_mapping_bias.rds
-  genome: hg19
   interval_padding: 100
   segmentation_method: internal
   fun_segmentation: PSCBS
+  normaldb: reference/purecn_normal_db.rds
+  intervals: reference/purecn_target_intervals.txt
+  mapping_bias_file: reference/purecn_mapping_bias.rds
 
 purecn_coverage:
   container: docker://hydragenetics/purecn:2.2.0
