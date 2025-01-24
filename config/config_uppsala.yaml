@@ -10,12 +10,12 @@ reference:
   fasta: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
   fai: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"
   exon_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_coding_exons_added_regions.240220.bed"
-  design_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.bed"
-  design_intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.interval_list" #hsmetrics
-  design_intervals_gatk_cnv: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240829/reference_files/design.preprocessed.interval_list" #"/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-91316667_hg38.240122.interval_list" #Correct?
-  artifacts: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240829/reference_files/artifact_panel.tsv"
-  artifacts_pindel: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240829/reference_files/artifact_panel_pindel.tsv"
-  background: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240829/reference_files/background_panel.tsv"
+  design_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-96463385_hg38_241211.bed"
+  design_intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-96463385_hg38_241211.interval_list" #hsmetrics
+  design_intervals_gatk_cnv: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/design.preprocessed.interval_list" 
+  artifacts: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/artifact_panel.tsv"
+  artifacts_pindel: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/artifact_panel_pindel.tsv"
+  background: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/background_panel.tsv"
   skip_chrs:
     - "chrM"
     - "chr1_KI270706v1_random"
@@ -213,7 +213,7 @@ cnv_html_report:
   show_table: true
 
 cnvkit_batch:
-  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240829/reference_files/cnvkit.PoN.cnn"
+  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/cnvkit.PoN.cnn"
   method: hybrid
 
 filter_vcf:
@@ -226,10 +226,10 @@ filter_vcf:
   purecn_hard: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Bin/poppy/config/filters/config_hard_filter_purecn.yaml"
 
 gatk_collect_allelic_counts:
-  SNP_interval: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv100.240208.interval_list"
+  SNP_interval: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv100.241211.interval_list"
 
 gatk_denoise_read_counts:
-  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240829/reference_files/gatk.PoN.hdf5"
+  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/gatk.PoN.hdf5"
 
 merge_cnv_json:
   cytobands: "cytoBand.hg38.txt"
@@ -262,16 +262,16 @@ multiqc:
 
 pindel_call:
   extra: "-x 2 -B 60" #x och B?
-  include_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_pindel_240628.bed" # needs to be updated
+  include_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_pindel_240628.bed"
 
 purecn:
   genome: GRCh38
-  normaldb: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240829/reference_files/purecn_normal_db.rds"
-  intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240829/reference_files/purecn_targets_intervals.txt"
-  mapping_bias_file: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240829/reference_files/purecn_mapping_bias.rds"
+  normaldb: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/purecn_normal_db.rds"
+  intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/purecn_targets_intervals.txt"
+  mapping_bias_file: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/purecn_mapping_bias.rds"
 
 purecn_coverage:
-  intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240829/reference_files/purecn_targets_intervals.txt"
+  intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/purecn_targets_intervals.txt"
 
 pindel2vcf:
   extra: "-e 10 -mc 10 -is 5 -he 0.01 -G" # num reads support
@@ -282,7 +282,7 @@ results_report_xlsx:
   wanted_transcripts: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/tm_mane_transcript.240404.txt"
 
 svdb_query:
-  db_string: "--db /projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/240829/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_240829"
+  db_string: "--db /projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_241212"
 
 vep:
   vep_cache: "/data/ref_genomes/VEP"
