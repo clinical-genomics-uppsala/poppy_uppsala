@@ -38,8 +38,8 @@ sample = snakemake.params.sample
 sample_type = snakemake.params.sample_type
 # Panels dict contain all info for sheets with subsets all SNVs, only need to change here if adding/removing subset sheets
 panels = {
-    "cll": {"bedfile": snakemake.params.cllbed, "vcf": snakemake.input.cll_vcf},
-    "myeloid": {"bedfile": snakemake.params.myeloidbed, "vcf": snakemake.input.myeloid_vcf},
+    "cll": {"bedfile": snakemake.input.cllbed, "vcf": snakemake.input.cll_vcf},
+    "myeloid": {"bedfile": snakemake.input.myeloidbed, "vcf": snakemake.input.myeloid_vcf},
 }
 
 non_coding_regions = {
@@ -131,7 +131,7 @@ for record in snv_table["data"]:
 
 logging.debug(f"List genes in pindel bed")
 pindel_genes = []
-with open(snakemake.params.pindelbed, "r") as pindel_file:
+with open(snakemake.input.pindelbed, "r") as pindel_file:
     for lline in pindel_file:
         line = lline.strip().split("\t")
         pindel_genes.append(line[3])
@@ -335,11 +335,11 @@ worksheet_overview.write_url(
 worksheet_overview.write(i + 6, 0, "Specific program versions can be found in MultiQC report")
 i += 8
 
-worksheet_overview.write(i, 0, "Full design bedfile: " + snakemake.params.bedfile)
-worksheet_overview.write(i + 1, 0, "Coding exons bedfile: " + snakemake.params.exonbed)
+worksheet_overview.write(i, 0, "Full design bedfile: " + snakemake.input.bedfile)
+worksheet_overview.write(i + 1, 0, "Coding exons bedfile: " + snakemake.input.exonbed)
 worksheet_overview.write(i + 2, 0, "Artifact panel used: " + snakemake.params.artifact)
 worksheet_overview.write(i + 3, 0, "Background panel used for snvs: " + snakemake.params.background)
-worksheet_overview.write(i + 4, 0, "Pindel bedfile used: " + snakemake.params.pindelbed)
+worksheet_overview.write(i + 4, 0, "Pindel bedfile used: " + snakemake.input.pindelbed)
 worksheet_overview.write(i + 5, 0, "Pindel artifact panel used: " + snakemake.params.artifact_pindel)
 i += 6
 if sample.lower() != "hd829":
@@ -497,7 +497,7 @@ worksheet_pindel.set_column(11, 13, 10)
 worksheet_pindel.write("A1", "Variants found", format_heading)
 worksheet_pindel.write("A3", "Sample: " + str(sample))
 worksheet_pindel.write("A4", "Reference used: " + str(snakemake.params.ref))
-worksheet_pindel.write("A6", "To limit runtime pindel were used with a specific designfile: " + snakemake.params.pindelbed)
+worksheet_pindel.write("A6", "To limit runtime pindel were used with a specific designfile: " + snakemake.input.pindelbed)
 worksheet_pindel.write("A7", "Which includes the following genes: ")
 i = 8
 for gene in pindel_genes:
