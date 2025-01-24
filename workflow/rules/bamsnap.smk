@@ -88,6 +88,7 @@ rule bamsnap_hd829:
         partition=config.get("bamsnap", {}).get("partition", config["default_resources"]["partition"]),
         threads=config.get("bamsnap", {}).get("threads", config["default_resources"]["threads"]),
         time=config.get("bamsnap", {}).get("time", config["default_resources"]["time"]),
+    localrule: True
     message:
         "{rule}: create dummy folder for {wildcards.sample} "
     shell:

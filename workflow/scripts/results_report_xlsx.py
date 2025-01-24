@@ -36,7 +36,7 @@ uppsala_version = snakemake.params.uppsala_version["poppy_uppsala"]["version"]
 
 sample = snakemake.params.sample
 sample_type = snakemake.params.sample_type
-# Panels contain all info for sheets with subsets of SNVs
+# Panels dict contain all info for sheets with subsets all SNVs, only need to change here if adding/removing subset sheets
 panels = {
     "cll": {"bedfile": snakemake.params.cllbed, "vcf": snakemake.input.cll_vcf},
     "myeloid": {"bedfile": snakemake.params.myeloidbed, "vcf": snakemake.input.myeloid_vcf},
@@ -346,7 +346,6 @@ if sample.lower() != "hd829":
     for panel in panels.keys():
         worksheet_overview.write(i, 0, panel.upper() + "bedfile used: " + panels[panel]["bedfile"])
         i += 1
-
 
 
 """ Known sheet """
