@@ -1,0 +1,185 @@
+---
+
+default_container: "docker://hydragenetics/common:1.10.2"
+
+trimmer_software: "fastp_pe"
+
+reference:
+  fasta: "reference/hg19.fasta"
+  fai: "reference/hg19.fasta.fai"
+  exon_bed: "data/bed/design.bed"
+  dict: "reference/hg19.dict"
+  design_bed: "data/bed/design.bed"
+  design_intervals: "data/bed/design.intervals" 
+  design_intervals_gatk_cnv: "data/bed/design.bed"
+  artifacts: "reference/artifact_panel.tsv"
+  artifacts_pindel: "reference/artifact_panel.tsv"
+  background: "reference/background_panel.tsv"
+
+annotate_cnv:
+  cnv_genes: data/bed/cnv_genes.bed
+
+
+bcbio_variation_recall_ensemble:
+  container: "docker://hydragenetics/bcbio-vc:0.2.6"
+  callers:
+    - gatk_mutect2
+    - vardict
+
+bcftools_annotate:
+  annotation_db: "reference/annotation.vcf.gz"
+
+bcftools_filter_include_region:
+  cll: "data/bed/design.bed"
+  myeloid: "data/bed/design.bed"
+
+bwa_mem:
+  container: "docker://hydragenetics/bwa_mem:0.7.17"
+  amb: "reference/hg19.fasta.amb"
+  ann: "reference/hg19.fasta.ann"
+  bwt: "reference/hg19.fasta.bwt"
+  pac: "reference/hg19.fasta.pac"
+  sa: "reference/hg19.fasta.sa"
+
+cnvkit_batch:
+  container: "docker://hydragenetics/cnvkit:0.9.9"
+  normal_reference: "data/cnvkit/cnvkit_pon.cnn"
+
+cnvkit_call:
+  container: "docker://hydragenetics/cnvkit:0.9.9"
+
+cnvkit_vcf:
+  container: "docker://hydragenetics/cnvkit:0.9.9"
+  hom_del_limit: 0.47
+  het_del_limit: 1.68
+  dup_limit: 2.3
+
+fastp_pe:
+  container: "docker://hydragenetics/fastp:0.20.1"
+
+fastqc:
+  container: "docker://hydragenetics/fastqc:0.11.9"
+
+filter_vcf:
+  germline: "config/filter_config.yaml"
+  somatic: "config/filter_config.yaml"
+  somatic_hard: "config/filter_config.yaml"
+  pindel: "config/filter_config.yaml"
+  cnv_hard_filter: "config/filter_config.yaml"
+
+gatk_collect_allelic_counts:
+  container: "docker://hydragenetics/gatk4:4.1.9.0"
+  SNP_interval: "data/gatk/gnomad_SNP_0.001_target.annotated.interval_list"
+
+gatk_collect_read_counts:
+  container: "docker://hydragenetics/gatk4:4.1.9.0"
+
+gatk_denoise_read_counts:
+  container: "docker://hydragenetics/gatk4:4.1.9.0"
+  normal_reference: "data/gatk/pon.hdf5"
+
+gatk_model_segments:
+  container: "docker://hydragenetics/gatk4:4.1.9.0"
+
+gatk_mutect2:
+  container: "docker://hydragenetics/gatk4:4.1.9.0"
+
+gatk_mutect2_filter:
+  container: "docker://hydragenetics/gatk4:4.1.9.0"
+
+gatk_mutect2_gvcf:
+  container: "docker://hydragenetics/gatk4:4.1.9.0"
+
+gatk_mutect2_merge_stats:
+  container: "docker://hydragenetics/gatk4:4.1.9.0"
+
+merge_cnv_json:
+  annotations:
+    - config/cnv_annotation.bed
+
+mosdepth_bed:
+  container: "docker://hydragenetics/mosdepth:0.3.2"
+  thresholds: "100,200,1000"
+  extra: " --mapq 20 "
+
+multiqc:
+  container: "docker://hydragenetics/multiqc:1.21"
+  reports:
+    DNA:
+      config: "config/config_multiqc.yaml"
+      included_unit_types:
+        - T
+        - N
+
+picard_collect_alignment_summary_metrics:
+  container: "docker://hydragenetics/picard:2.25.0"
+
+picard_collect_duplication_metrics:
+  container: "docker://hydragenetics/picard:2.25.0"
+
+picard_collect_gc_bias_metrics:
+  container: "docker://hydragenetics/picard:2.25.0"
+
+picard_collect_hs_metrics:
+  container: "docker://hydragenetics/picard:2.25.0"
+
+picard_collect_insert_size_metrics:
+  container: "docker://hydragenetics/picard:2.25.0"
+
+picard_mark_duplicates:
+  container: "docker://hydragenetics/picard:2.25.0"
+
+pindel_call:
+  container: "docker://hydragenetics/pindel:0.2.5b9"
+  include_bed: "data/bed/pindel_regions.bed"
+
+pindel2vcf:
+  container: "docker://hydragenetics/pindel:0.2.5b9"
+
+purecn:
+  container: docker://hydragenetics/purecn:2.2.0
+  interval_padding: 100
+  segmentation_method: internal
+  fun_segmentation: PSCBS
+  normaldb: reference/purecn_normal_db.rds
+  intervals: reference/purecn_target_intervals.txt
+  mapping_bias_file: reference/purecn_mapping_bias.rds
+
+purecn_coverage:
+  container: docker://hydragenetics/purecn:2.2.0
+  intervals: reference/purecn_target_intervals.txt
+
+results_report_xlsx:
+  wanted_transcripts: "data/bed/design.bed"
+
+svdb_merge:
+  container: docker://hydragenetics/svdb:2.6.0
+  tc_method:
+    - name: purecn
+      cnv_caller:
+        - cnvkit
+        - gatk
+    - name: pathology
+      cnv_caller:
+        - cnvkit
+        - gatk
+
+svdb_query:
+  container: docker://hydragenetics/svdb:2.6.0
+
+vardict:
+  container: "docker://hydragenetics/vardict:1.8.3"
+  extra: " -Q 1 --nosv "
+  bed_columns: "-c 1 -S 2 -E 3"
+
+vep:
+  container: "docker://hydragenetics/vep:111.0"
+  vep_cache: "data/vep_cache"
+  mode: "--offline --cache --merged "
+  extra: " --assembly GRCh38 --check_existing --pick --variant_class --everything "
+
+vt_decompose:
+  container: "docker://hydragenetics/vt:2015.11.10"
+
+vt_normalize:
+  container: "docker://hydragenetics/vt:2015.11.10"

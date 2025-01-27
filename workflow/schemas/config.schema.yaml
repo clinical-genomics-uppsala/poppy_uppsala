@@ -1,0 +1,138 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: snakemake configuration file
+type: object
+properties:
+  samples:
+    type: string
+  units:
+    type: string
+  output:
+    type: string
+    description: output yaml/json file defining expected output from pipeline
+  resources:
+    type: string
+    description: Path to resources.yaml file
+  default_container:
+    type: string
+    description: name or path to a default docker/singularity container
+  poppy_version:
+    type: string
+    description: version tag or commit to use for Poppy pipeline
+
+  pacbio_alignment:
+    type: boolean
+    description: if pacbio_alignment is used set to true
+    default: false
+
+  ont_alignment:
+    type: boolean
+    description: if ont_alignment should be used set to true
+    default: false
+
+  bamsnap_create_pos_list:
+    type: object
+    description: parameters for bamsnap_create_pos_list
+    properties:
+      af:
+        type: float
+        description: variant > af to include in position list for bamsnap, default 0.05
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+
+  bamsnap:
+    type: object
+    description: parameters to run bamsnap
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      margin:
+        type: string
+        description: margin surrounding variant in snapshot, default 50
+      extra:
+        type: string
+        description: extra parameters for bamsnap, default -show_soft_clipped
+  
+  bamsnap_hd829:
+    type: object
+    description: dummy rule to create empty dir for hd829 samples
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+
+  bcftools_filter_include_region:
+    type: object
+    description: parameter to run bcftools include region to subset vcfs
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      cll:
+        type: string
+        description: path to bedfile that contains regions to be included in cll panel
+      myeloid:
+        type: string
+        description: path to bedfile that contains region to be included in myeloid panel
+
+  results_report_bedtools_intersect:
+    type: object
+    description: parameters for bedtools intersect 
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      extra:
+        type: string
+        description: extra parameters to be forwarded
+
+  results_report_xlsx:
+    type: object
+    description: parameters for results_report_xlsx to summarize sample
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      wanted_transcripts:
+        type: string
+        description: txt file with interested transcripts (matching NM- annotation in config["reference"]["exon_bed"])
+
+  version_update_poppy:
+    type: object
+    description: parameters for version_update_poppy
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+
+required:
+  - samples
+  - units
+  - output
+  - resources
+  - poppy_version
+  - default_container
+  - results_report_xlsx
+

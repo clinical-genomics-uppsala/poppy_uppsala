@@ -1,0 +1,107 @@
+__author__ = "Arielle R. Munters"
+__copyright__ = "Copyright 2024, Arielle R. Munters"
+__email__ = "arielle.munters@scilifelab.uu.se"
+__license__ = "GPL-3"
+
+
+ruleorder: filtering_bcftools_filter_include_region > snv_indels_bgzip
+
+
+# Include pipeline specific rules
+include: "rules/common.smk"
+include: "rules/version.smk"
+include: "rules/bamsnap.smk"
+include: "rules/results_report.smk"
+
+
+# 'All' rule, must be specified before any other modules are
+# included, since they also contain 'All' rule
+rule all:
+    input:
+        compile_output_file_list,
+
+
+# Include modules
+module poppy:
+    snakefile:
+        github(
+                "genomic-medicine-sweden/poppy",
+                path="workflow/Snakefile",
+                tag=config["poppy_version"],
+            )
+        # "../../poppy/workflow/Snakefile"
+    config:
+        config
+
+
+use rule * from poppy exclude all, copy_bamsnap
+
+
+module snv_indels:
+    snakefile:
+        github(
+            "hydra-genetics/snv_indels",
+            path="workflow/Snakefile",
+            tag="v0.6.0",
+        )
+    config:
+        config
+
+
+use rule bcftools_concat from snv_indels as snv_indels_concat_vcfs with:
+    input:
+        calls=[
+            "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic.vcf.gz",
+            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.vcf.gz",
+        ],
+        index=[
+            "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic.vcf.gz.tbi",
+            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.vcf.gz.tbi",
+        ],
+    output:
+        vcf=temp("snv_indels/bcftools_concat/{sample}_{type}.filter.somatic.vcf.gz"),
+    params:
+        extra=config.get("bcftools_concat_vcfs", {}).get("extra", ""),
+    log:
+        "snv_indels/bcftools_concat/{sample}_{type}.filter.somatic.vcf.gz.log",
+    benchmark:
+        repeat(
+            "snv_indels/bcftools_concat/{sample}_{type}.filter.somatic.vcf.gz.benchmark.tsv",
+            config.get("bcftools_concat", {}).get("benchmark_repeats", 1),
+        )
+
+
+module qc:
+    snakefile:
+        github(
+            "hydra-genetics/qc",
+            path="workflow/Snakefile",
+            tag="v0.4.1",
+        )
+    config:
+        config
+
+
+use rule mosdepth_bed from qc as qc_mosdepth_bed_coding with:
+    input:
+        bam="alignment/samtools_merge_bam/{sample}_{type}.bam",
+        bai="alignment/samtools_merge_bam/{sample}_{type}.bam.bai",
+        bed=config.get("reference", {}).get("exon_bed", ""),
+    output:
+        bed=temp("qc/mosdepth_bed_coding/{sample}_{type}.regions.bed.gz"),
+        bed_csi=temp("qc/mosdepth_bed_coding/{sample}_{type}.regions.bed.gz.csi"),
+        coverage=temp("qc/mosdepth_bed_coding/{sample}_{type}.per-base.bed.gz"),
+        coverage_csi=temp("qc/mosdepth_bed_coding/{sample}_{type}.per-base.bed.gz.csi"),
+        thresholds=temp("qc/mosdepth_bed_coding/{sample}_{type}.thresholds.bed.gz"),
+        glob=temp("qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.global.dist.txt"),
+        region=temp("qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.region.dist.txt"),
+        summary=temp("qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.summary.txt"),
+    params:
+        thresholds=config["mosdepth_bed"]["thresholds"],
+    log:
+        "qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.summary.txt.log",
+    benchmark:
+        repeat(
+            "qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.summary.txt.benchmark.tsv",
+            config.get("mosdepth_bed", {}).get("benchmark_repeats", 1),
+        )

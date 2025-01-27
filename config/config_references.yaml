@@ -1,0 +1,13 @@
+samples: samples.tsv
+units: units.tsv
+
+reference:
+  mappability: "/data/ref_genomes/GRCh38/cnvkit/access-10kb.mm10.bed"
+
+create_background_file:
+  min_dp: 300
+  min_af: 0.03
+
+purecn_interval_file:
+  genome: "GRCh38"
+
