@@ -2,3 +2,191 @@ $schema: "http://json-schema.org/draft-04/schema#"
 description: snakemake rule input and output files description file
 type: object
 properties:
+
+  bamsnap_create_pos_list:
+    type: object
+    description: input and output parameters for bamsnap_create_pos_list
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          vcf:
+            type: string
+            description: vcf with pos to create snapshot of with bamsnap. only variants with PASS and an AF higher than params.af included
+          tbi:
+            type: string
+            description: tbi index of vcf
+
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          bed:
+            type: string
+            description: bedfile containing positions for bamsnap
+
+
+  bamsnap:
+    type: object
+    description: input and output parameters for bamsnap
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          pos_list:
+            type: string
+            description: bedfile from bamsnap_create_pos_list-rule
+          bam:
+            type: string
+            description: bam-file to create snapshots with
+          bai:
+            type: string
+            description: bai-index for input.bam
+          fasta:
+            type:
+            description: reference fasta file
+
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          results_dir:
+            type: string
+            description: directory for bamsnap output
+          index:
+            type: string
+            description: path to index.html file
+          sample_list:
+            type: string
+            description: path to sample_list.html output
+          variant_list:
+            type: string
+            description: path to variant_list.html output
+
+
+  bamsnap_hd829:
+    type: object
+    description: input and output parameters for dummy rule instead of bamsnap for HD829 samples
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          bam:
+            type: string
+            description: bam-file to create snapshots with
+          bai:
+            type: string
+            description: bai-index for input.bam
+          fasta:
+            type:
+            description: reference fasta file
+
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          results_dir:
+            type: string
+            description: directory for bamsnap output
+
+
+  results_report_bedtools_intersect:
+    type: object
+    description: input and output parameters for results_report_bedtools_intersect
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          left:
+            type: string
+            description: per-base coverage from mosdepth_bed_coding
+          coverage_csi:
+            type: string
+            description: csi-index to input.left
+          right:
+            type: string
+            description: bedfile of coding exons
+
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          results:
+            type: string
+            description: txt-file with overlap between input.left and input.right
+
+
+  results_report_xlsx:
+    type: object
+    description: input and output parameters for results_report_xlsx
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          vcf:
+            type: string
+            description: vep, artifacts annotated and somatic filtered vcf file
+          vcf_tbi:
+            type: string
+            description: tbi-index to input.vcf
+          pindel:
+            type: string
+            description: vep annotated pindel vcf file
+          pindel_tbi:
+            type: string
+            description: tbi-index to input.pindel
+          pindel_bed:
+            type: string
+            description: bedfile used with pindel
+          mosdepth_summary:
+            type: string
+            description: summary mosdepth file from bed with coding exons
+          mosdepth_perbase:
+            type: string
+            description: output from results_report_bedtools_intersect rule
+          mosdepth_regions:
+            type: string
+            description: mosdepth_bed output .regions.bed.gz
+          mosdepth_thresholds:
+            type: string
+            description: output from mosdepth_bed ending in .thresholds.bed.gz
+          picard_dupl:
+            type: string
+            description: picard duplication metrics output, .duplication_metrics.txt
+          wanted_transcripts:
+            type: string
+            description: list of wanted transcripts for low coverage regions sheet
+
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          xlsx:
+            type: string
+            description: summarizing xlsx report
+
+
+  version_update_poppy:
+    type: object
+    description: input and output parameters for version_update_poppy
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          yaml:
+            type: string
+            description: yaml file created with function hydra_genetics.utils.software_versions.touch_pipeline_version_file_name
+
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          touch_file:
+            type: string
+            description: touch file to ensure that Poppy version updated under versions/software

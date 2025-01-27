@@ -14,21 +14,26 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
 jobs:
   snakefmt:
     name: Snakefmt
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
+
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Lint Code Base
-        uses: github/super-linter@v4.9.0
+        uses: super-linter/super-linter@v6.0.0
         env:
+          DEFAULT_BRANCH: main
           VALIDATE_ALL_CODEBASE: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_SNAKEMAKE_SNAKEFMT: true
-          DEFAULT_BRANCH: main
-          OUTPUT_FOLDER: .github/linters/report
