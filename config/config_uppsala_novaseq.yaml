@@ -4,19 +4,17 @@ samples: "samples.tsv"
 units: "units.tsv"
 output: "{{POPPY_UU_HOME}}/config/output_files.yaml"
 
-poppy_version: "v0.2.0"
-
 reference:
   fasta: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
   fai: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"
   dict: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.dict"
-  exon_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_coding_exons_added_regions.240220.bed"
-  design_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-96463385_hg38_241211.bed"
-  design_intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_TE-96463385_hg38_241211.interval_list" #hsmetrics
-  design_intervals_gatk_cnv: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/design.preprocessed.interval_list" 
-  artifacts: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/artifact_panel.tsv"
-  artifacts_pindel: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/artifact_panel_pindel.tsv"
-  background: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/background_panel.tsv"
+  exon_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_coding_exons_added_regions.240220.bed"
+  design_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_241211.bed"
+  design_intervals: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_241211.interval_list" #hsmetrics
+  design_intervals_gatk_cnv: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/design.preprocessed.interval_list" 
+  artifacts: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/artifact_panel.tsv"
+  artifacts_pindel: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/artifact_panel_pindel.tsv"
+  background: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/background_panel.tsv"
   skip_chrs:
     - "chrM"
     - "chr1_KI270706v1_random"
@@ -191,7 +189,7 @@ reference:
     - "chrEBV"
 
 annotate_cnv:
-  cnv_genes: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv_annotation.240227.bed"
+  cnv_genes: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv_annotation.240227.bed"
 
 bamsnap:
   extra: " -coverage_vaf 0.05 -show_soft_clipped -read_thickness 2 -read_gap_height 1 "
@@ -203,8 +201,8 @@ bcftools_concat_vcfs:
   extra: " -a "
 
 bcftools_filter_include_region:
-  cll: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/CLL_genes_for_xlsx.250114.sorted.bed"
-  myeloid: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Myeloid_genes_for_xlsx.250114.sorted.bed"
+  cll: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/CLL_genes_for_xlsx.250114.sorted.bed"
+  myeloid: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Myeloid_genes_for_xlsx.250114.sorted.bed"
 
 bwa_mem:
   amb: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb"
@@ -218,7 +216,7 @@ cnv_html_report:
   show_table: true
 
 cnvkit_batch:
-  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/cnvkit.PoN.cnn"
+  normal_reference: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/cnvkit.PoN.cnn"
   method: hybrid
 
 filter_vcf:
@@ -230,15 +228,15 @@ filter_vcf:
   cnv_hard_filter: "{{POPPY_UU_HOME}}/config/filters/config_hard_filter_cnv.yaml"
 
 gatk_collect_allelic_counts:
-  SNP_interval: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv100.241211.interval_list"
+  SNP_interval: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv100.241211.interval_list"
 
 gatk_denoise_read_counts:
-  normal_reference: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/gatk.PoN.hdf5"
+  normal_reference: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/gatk.PoN.hdf5"
 
 merge_cnv_json:
   cytobands: "{{POPPY_UU_HOME}}/config/cytoBand.hg38.txt"
   annotations:
-    - "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_cnv_annotation.240227.bed" 
+    - "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv_annotation.240227.bed" 
   germline_vcf: snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.filter.germline.vcf.gz
   filtered_cnv_vcfs:
     - cnv_sv/svdb_query/{sample}_{type}.{tc_method}.svdb_query.annotate_cnv.cnv_genes.filter.cnv_hard_filter.vcf.gz
@@ -267,7 +265,7 @@ multiqc:
 
 pindel_call:
   extra: "-x 2 -B 60" #x och B?
-  include_bed: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/Twist_myeloid_pindel_240628.bed"
+  include_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_pindel_240628.bed"
 
 pindel2vcf:
   extra: "-e 10 -mc 10 -is 5 -he 0.01 -G" # num reads support
@@ -276,18 +274,18 @@ pindel2vcf:
 
 purecn:
   genome: GRCh38
-  normaldb: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/purecn_normal_db.rds"
-  intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/purecn_targets_intervals.txt"
-  mapping_bias_file: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/purecn_mapping_bias.rds"
+  normaldb: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/purecn_normal_db.rds"
+  intervals: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/purecn_targets_intervals.txt"
+  mapping_bias_file: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/purecn_mapping_bias.rds"
 
 purecn_coverage:
-  intervals: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/purecn_targets_intervals.txt"
+  intervals: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/purecn_targets_intervals.txt"
 
 results_report_xlsx:
-  wanted_transcripts: "/projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Design/tm_mane_transcript.240404.txt"
+  wanted_transcripts: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/tm_mane_transcript.240404.txt"
 
 svdb_query:
-  db_string: "--db /projects/wp2/nobackup/CGU_2023_30_TM_new_panel/Runfolders/ReferencePools/241212/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_241212"
+  db_string: "--db /projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_NovaSeq"
 
 vep:
   vep_cache: "/data/ref_genomes/VEP"
