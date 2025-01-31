@@ -9,3 +9,4 @@ pyyaml
 drmaa==0.7.9  # if using drmaa scheduler
 smart_open<7.0.0
 git+https://github.com/elleira/bamsnap.git@f4bc661c4e53a6ca21537c98c4f79080d19275bf
+numpy==1.26.4
