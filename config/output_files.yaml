@@ -10,7 +10,7 @@ files:
 
   - name: MultiQC
     input: qc/multiqc/multiqc_DNA.html
-    output: "{sequenceid}_MultiQC_DNA.html"
+    output: "multiqc_{sequenceid}.html"
 
   - name: SNVs and indels VCF file
     input: "snv_indels/bcftools_concat/{sample}_{type}.filter.somatic.vcf.gz"
