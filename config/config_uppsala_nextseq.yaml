@@ -11,7 +11,7 @@ reference:
   exon_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_coding_exons_added_regions.240220.bed"
   design_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_241211.bed"
   design_intervals: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_241211.interval_list" #hsmetrics
-  design_intervals_gatk_cnv: "/projects/wp2/nobackup/Twist_MyeloidReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/design.preprocessed.interval_list" 
+  design_intervals_gatk_cnv: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/design.preprocessed.interval_list" 
   artifacts: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/artifact_panel.tsv"
   artifacts_pindel: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/artifact_panel_pindel.tsv"
   background: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/background_panel.tsv"
