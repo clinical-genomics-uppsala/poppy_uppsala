@@ -12,6 +12,7 @@ include: "rules/common.smk"
 include: "rules/version.smk"
 include: "rules/bamsnap.smk"
 include: "rules/results_report.smk"
+include: "rules/sample_order_multiqc.smk"
 
 
 # 'All' rule, must be specified before any other modules are
@@ -80,6 +81,7 @@ module qc:
         )
     config:
         config
+        
 
 
 use rule mosdepth_bed from qc as qc_mosdepth_bed_coding with:
@@ -105,3 +107,28 @@ use rule mosdepth_bed from qc as qc_mosdepth_bed_coding with:
             "qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.summary.txt.benchmark.tsv",
             config.get("mosdepth_bed", {}).get("benchmark_repeats", 1),
         )
+
+
+use rule multiqc from qc as qc_multiqc with:
+    input:
+        files=lambda wildcards: set(
+            [
+                file.format(sample=sample, type=u.type, lane=u.lane, flowcell=u.flowcell, barcode=u.barcode, read=read, ext=ext)
+                for file in config["multiqc"]["reports"][wildcards.report]["qc_files"]
+                for sample in get_samples(samples)
+                for u in units.loc[sample].dropna().itertuples()
+                if u.type in config["multiqc"]["reports"][wildcards.report]["included_unit_types"]
+                for read in ["fastq1", "fastq2"]
+                for ext in config.get("picard_collect_multiple_metrics", {}).get("output_ext", [""])
+            ]
+        ),
+        config=lambda wildcards: config["multiqc"]["reports"][wildcards.report]["config"],
+        sample_order="qc/multiqc/sample_order.tsv",
+        sample_replacement="qc/multiqc/sample_replacement.tsv",
+    params:
+        extra=lambda wildcards, input: "--replace-names "
+        + input.sample_replacement
+        + " --sample-names "
+        + input.sample_order
+        + " -c "
+        + input.config,
