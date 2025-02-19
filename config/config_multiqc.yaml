@@ -5,6 +5,8 @@ sp:
 
 extra_fn_clean_exts:
   - ".duplication_metrics"
+  - type: remove
+    pattern: _T
 
 mosdepth_config:
   include_contigs:
