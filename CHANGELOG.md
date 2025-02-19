@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.2](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.1.1...v0.1.2) (2025-02-19)
+
+
+### Bug Fixes
+
+* format of the sample names ([096ddab](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/096ddab4cd0e52c65db208ffe34ccd16fa1c0aa7))
+* format of the sample names ([99f16d1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/99f16d1d3d2cc2adef14831486b485b5c264ad62))
+* make multiqc output comply with stackstorm setup ([e096040](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e0960401dff1fb1367913f4966f924d7474ef684))
+
 ## 0.1.0 (2025-01-31)
 
 
