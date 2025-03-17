@@ -32,7 +32,6 @@ module poppy:
                 path="workflow/Snakefile",
                 tag=config["poppy_version"],
             )
-        # "../../poppy/workflow/Snakefile"
     config:
         config
 
@@ -54,7 +53,6 @@ module snv_indels:
 use rule merge_af_complex_variants from snv_indels as snv_indels_merge_af_complex_variants_unsorted with:
     input:
         vcf="snv_indels/{caller}/{sample}_{type}.normalized.vcf.gz",
-        # tabix="snv_indels/{caller}/{sample}_{type}.normalized.vcf.gz.tbi",
     output:
         vcf=temp("snv_indels/{caller}/{sample}_{type}.normalized.merged_af.unsorted.vcf.gz"),
     params:
@@ -102,10 +100,6 @@ use rule bcbio_variation_recall_ensemble from snv_indels as snv_indels_bcbio_var
             "snv_indels/{caller}/{{sample}}_{{type}}.normalized.merged_af.sorted.vcf.gz",
             caller=config.get("bcbio_variation_recall_ensemble", {}).get("callers", []),
         ),
-        #tabix=expand(
-        #    "snv_indels/{caller}/{{sample}}_{{type}}.normalized.merged_af.sorted.vcf.gz.tbi",
-        #    caller=config.get("bcbio_variation_recall_ensemble", {}).get("callers", []),
-        #),
         ref=config["reference"]["fasta"],
     output:
         vcf=temp("snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vcf.gz"),
