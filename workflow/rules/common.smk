@@ -95,11 +95,11 @@ last_sample = config.get("last_sample", "")
 if first_sample != "" and last_sample != "":
     wildcard_constraints:
         sample="|".join(samples.index[int(first_sample):int(last_sample)]),
-        type="N|T|R"
+        type="N|T|R",
 else:
     wildcard_constraints:
         sample="|".join(samples.index),
-        type="N|T|R"
+        type="N|T|R",
 
 def compile_output_file_list(wildcards):
     outdir = pathlib.Path(output_spec["directory"])
