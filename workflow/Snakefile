@@ -14,8 +14,10 @@ include: "rules/bamsnap.smk"
 include: "rules/results_report.smk"
 include: "rules/sample_order_multiqc.smk"
 
+
 # enforces version update first
-ruleorder: version_update_poppy > bamsnap_create_pos_list 
+ruleorder: version_update_poppy > bamsnap_create_pos_list
+
 
 # 'All' rule, must be specified before any other modules are
 # included, since they also contain 'All' rule
@@ -28,11 +30,10 @@ rule all:
 module poppy:
     snakefile:
         github(
-                "genomic-medicine-sweden/poppy",
-                path="workflow/Snakefile",
-                tag=config["poppy_version"],
-            )
-        # "../../poppy/workflow/Snakefile"
+            "genomic-medicine-sweden/poppy",
+            path="workflow/Snakefile",
+            tag=config["poppy_version"],
+        )
     config:
         config
 
@@ -54,7 +55,6 @@ module snv_indels:
 use rule merge_af_complex_variants from snv_indels as snv_indels_merge_af_complex_variants_unsorted with:
     input:
         vcf="snv_indels/{caller}/{sample}_{type}.normalized.vcf.gz",
-        # tabix="snv_indels/{caller}/{sample}_{type}.normalized.vcf.gz.tbi",
     output:
         vcf=temp("snv_indels/{caller}/{sample}_{type}.normalized.merged_af.unsorted.vcf.gz"),
     params:
@@ -66,6 +66,7 @@ use rule merge_af_complex_variants from snv_indels as snv_indels_merge_af_comple
             "snv_indels/{caller}/{sample}_{type}.normalized.merged_af.vcf.gz.benchmark.tsv",
             config.get("merge_af_complex_variants", {}).get("benchmark_repeats", 1),
         )
+
 
 use rule bcftools_sort from snv_indels as snv_indels_bcftools_sort_merged_af with:
     input:
@@ -79,6 +80,7 @@ use rule bcftools_sort from snv_indels as snv_indels_bcftools_sort_merged_af wit
             "snv_indels/{caller}/{sample}_{type}.normalized.merged_af.sorted.vcf.gz.benchmark.tsv",
             config.get("bcftools_sort", {}).get("benchmark_repeats", 1),
         )
+
 
 use rule merge_af_complex_variants from snv_indels as snv_indels_merge_af_complex_variants_pindel with:
     input:
@@ -96,16 +98,13 @@ use rule merge_af_complex_variants from snv_indels as snv_indels_merge_af_comple
             config.get("merge_af_complex_variants", {}).get("benchmark_repeats", 1),
         )
 
+
 use rule bcbio_variation_recall_ensemble from snv_indels as snv_indels_bcbio_variation_recall_ensemble with:
     input:
         vcfs=expand(
             "snv_indels/{caller}/{{sample}}_{{type}}.normalized.merged_af.sorted.vcf.gz",
             caller=config.get("bcbio_variation_recall_ensemble", {}).get("callers", []),
         ),
-        #tabix=expand(
-        #    "snv_indels/{caller}/{{sample}}_{{type}}.normalized.merged_af.sorted.vcf.gz.tbi",
-        #    caller=config.get("bcbio_variation_recall_ensemble", {}).get("callers", []),
-        #),
         ref=config["reference"]["fasta"],
     output:
         vcf=temp("snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vcf.gz"),
@@ -117,6 +116,7 @@ use rule bcbio_variation_recall_ensemble from snv_indels as snv_indels_bcbio_var
             "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vcf.gz.benchmark.tsv",
             config.get("bcbio_variation_recall_ensemble", {}).get("benchmark_repeats", 1),
         )
+
 
 use rule bcftools_concat from snv_indels as snv_indels_concat_vcfs with:
     input:
@@ -141,7 +141,6 @@ use rule bcftools_concat from snv_indels as snv_indels_concat_vcfs with:
         )
 
 
-
 module qc:
     snakefile:
         github(
@@ -151,7 +150,7 @@ module qc:
         )
     config:
         config
-        
+
 
 use rule mosdepth_bed from qc as qc_mosdepth_bed_coding with:
     input:
