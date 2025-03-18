@@ -14,8 +14,9 @@ include: "rules/bamsnap.smk"
 include: "rules/results_report.smk"
 include: "rules/sample_order_multiqc.smk"
 
+
 # enforces version update first
-ruleorder: version_update_poppy > bamsnap_create_pos_list 
+ruleorder: version_update_poppy > bamsnap_create_pos_list
 
 
 # 'All' rule, must be specified before any other modules are
@@ -32,7 +33,7 @@ module poppy:
             "genomic-medicine-sweden/poppy",
             path="workflow/Snakefile",
             tag=config["poppy_version"],
-            )
+        )
     config:
         config
 
