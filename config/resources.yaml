@@ -28,6 +28,5 @@ gatk_collect_allelic_counts:
   threads: 5
 
 bamsnap:
-  time: "01:00:00"
-  threads: 1
-  mem_mb: 6144
+  threads: 5
+  mem_mb: 30720
