@@ -23,7 +23,7 @@ rule version_update_poppy:
         touch_file=temp(touch("versions/update_poppy.temp")),
     params:
         poppy_version=config["poppy_version"],
-        poppy_uu_version=config["poppy_uu_version"]
+        poppy_uu_version=config["poppy_uu_version"],
     log:
         "versions/update_poppy.temp.log",
     benchmark:
@@ -35,8 +35,8 @@ rule version_update_poppy:
         partition=config.get("version_update_poppy", {}).get("partition", config["default_resources"]["partition"]),
         threads=config.get("version_update_poppy", {}).get("threads", config["default_resources"]["threads"]),
         time=config.get("version_update_poppy", {}).get("time", config["default_resources"]["time"]),
-    #container:
-    #    config.get("version_update_poppy", {}).get("container", config["default_container"])
+    container:
+        config.get("version_update_poppy", {}).get("container", config["default_container"])
     localrule: True
     message:
         "{rule}: update poppy_version for multiqc since it now has poppy_uppsala version"
@@ -45,4 +45,3 @@ rule version_update_poppy:
         set -x
         echo 'poppy: {params.poppy_version}'>{input.yaml} && echo 'poppy_uppsala: {params.poppy_uu_version}'>{input.yaml_uu} &> versions/update_poppy.stdout
         """
-
