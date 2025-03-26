@@ -205,12 +205,6 @@ reference:
 annotate_cnv:
   cnv_genes: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv_annotation.240227.bed"
 
-bcbio_variation_recall_ensemble:
-  container: "docker://hydragenetics/bcbio-vc:0.2.6"
-  callers:
-    - gatk_mutect2
-    - vardict
-
 bamsnap:
   extra: " -coverage_vaf 0.05 -show_soft_clipped -read_thickness 2 -read_gap_height 1 "
   container: "docker://hydragenetics/bamsnap:0.2.19"
@@ -232,7 +226,6 @@ bwa_mem:
   bwt: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.bwt"
   pac: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.pac"
   sa: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.sa"
-  container: "docker://hydragenetics/bwa_mem:0.7.17"
 
 cnv_html_report:
   cytobands: true
@@ -241,22 +234,6 @@ cnv_html_report:
 cnvkit_batch:
   normal_reference: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/cnvkit.PoN.cnn"
   method: hybrid
-  container: "docker://hydragenetics/cnvkit:0.9.9"
-
-cnvkit_call:
-  container: "docker://hydragenetics/cnvkit:0.9.9"
-
-cnvkit_vcf:
-  container: "docker://hydragenetics/cnvkit:0.9.9"
-  hom_del_limit: 0.47
-  het_del_limit: 1.68
-  dup_limit: 2.3
-
-fastp_pe:
-  container: "docker://hydragenetics/fastp:0.20.1"
-
-fastqc:
-  container: "docker://hydragenetics/fastqc:0.11.9"
 
 filter_vcf:
   sample_name_regex: ^([A-Za-z0-9-]+_[NRT]\{1\})$
@@ -268,26 +245,9 @@ filter_vcf:
 
 gatk_collect_allelic_counts:
   SNP_interval: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv100.241211.interval_list"
-  container: "docker://hydragenetics/gatk4:4.1.9.0"
 
 gatk_denoise_read_counts:
   normal_reference: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/gatk.PoN.hdf5"
-  container: "docker://hydragenetics/gatk4:4.1.9.0"
-
-gatk_model_segments:
-  container: "docker://hydragenetics/gatk4:4.1.9.0"
-
-gatk_mutect2:
-  container: "docker://hydragenetics/gatk4:4.1.9.0"
-
-gatk_mutect2_filter:
-  container: "docker://hydragenetics/gatk4:4.1.9.0"
-
-gatk_mutect2_gvcf:
-  container: "docker://hydragenetics/gatk4:4.1.9.0"
-
-gatk_mutect2_merge_stats:
-  container: "docker://hydragenetics/gatk4:4.1.9.0"
 
 merge_af_complex_variants:
   merge_method: "sum"
@@ -302,13 +262,7 @@ merge_cnv_json:
   unfiltered_cnv_vcfs:
     - cnv_sv/svdb_query/{sample}_{type}.{tc_method}.svdb_query.annotate_cnv.cnv_genes.vcf.gz
 
-mosdepth_bed:
-  container: "docker://hydragenetics/mosdepth:0.3.2"
-  thresholds: "100,200,1000"
-  extra: " --mapq 20 "
-
 multiqc:
-  container: "docker://hydragenetics/multiqc:1.21"
   reports:
     DNA:
       config: "{{POPPY_UU_HOME}}/config/config_multiqc.yaml"
@@ -328,31 +282,9 @@ multiqc:
         - "qc/samtools_stats/{sample}_{type}.samtools-stats.txt"
         - "versions/update_poppy.temp"
 
-picard_collect_alignment_summary_metrics:
-  container: "docker://hydragenetics/picard:2.25.0"
-
-picard_collect_duplication_metrics:
-  container: "docker://hydragenetics/picard:2.25.0"
-
-picard_collect_gc_bias_metrics:
-  container: "docker://hydragenetics/picard:2.25.0"
-
-picard_collect_hs_metrics:
-  container: "docker://hydragenetics/picard:2.25.0"
-
-picard_collect_insert_size_metrics:
-  container: "docker://hydragenetics/picard:2.25.0"
-
-picard_mark_duplicates:
-  container: "docker://hydragenetics/picard:2.25.0"
-
 pindel_call:
-  container: "docker://hydragenetics/pindel:0.2.5b9"
   extra: "-x 2 -B 60" #x och B?
   include_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_pindel_240628.bed"
-
-pindel_update_vcf:
-  container: "docker://hydragenetics/picard:2.25.4"
 
 pindel2vcf:
   extra: "-e 10 -mc 10 -is 5 -he 0.01 -G" # num reads support
@@ -360,48 +292,19 @@ pindel2vcf:
   refdate: "2022"
 
 purecn:
-  container: "docker://hydragenetics/purecn:2.2.0"
   genome: GRCh38
   normaldb: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_normal_db.rds"
   intervals: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_targets_intervals.txt"
   mapping_bias_file: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_mapping_bias.rds"
 
 purecn_coverage:
-  container: "docker://hydragenetics/purecn:2.2.0"
   intervals: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_targets_intervals.txt"
 
 results_report_xlsx:
   wanted_transcripts: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/tm_mane_transcript.240404.txt"
 
-svdb_merge:
-  container: "docker://hydragenetics/svdb:2.6.0"
-  tc_method:
-    - name: purecn
-      cnv_caller:
-        - cnvkit
-        - gatk
-    - name: pathology
-      cnv_caller:
-        - cnvkit
-        - gatk
-
 svdb_query:
-  container: "docker://hydragenetics/svdb:2.6.0"
   db_string: "--db /projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_NextSeq"
 
-vardict:
-  container: "docker://hydragenetics/vardict:1.8.3"
-  extra: " -Q 1 --nosv "
-  bed_columns: "-c 1 -S 2 -E 3"
-
 vep:
-  container: "docker://hydragenetics/vep:111.0"
   vep_cache: "/data/ref_genomes/VEP"
-  mode: "--offline --cache --merged "
-  extra: " --assembly GRCh38 --check_existing --pick --variant_class --everything --pick_order mane_select,mane_plus_clinical,canonical,biotype,rank,appris,tsl,ccds,length,ensembl,refseq"
-
-vt_decompose:
-  container: "docker://hydragenetics/vt:2015.11.10"
-
-vt_normalize:
-  container: "docker://hydragenetics/vt:2015.11.10"

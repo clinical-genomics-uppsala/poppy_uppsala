@@ -1,7 +1,7 @@
 filters:
   intron:
-    description: "Soft filter intronic variants except if also splice, is on gene UBTF, and/or has a cosmic id on the position"
-    expression: "(exist[intron_variant, VEP:Consequence] and !exist[splice, VEP:Consequence] and !exist[COSV[0-9]+, VEP:Existing_variation] and VEP:SYMBOL != UBTF)"
+    description: "Soft filter intronic variants except if also splice, and/or has a cosmic id on the position"
+    expression: "(exist[intron_variant, VEP:Consequence] and !exist[splice, VEP:Consequence] and !exist[COSV[0-9]+, VEP:Existing_variation])"
     soft_filter_flag: "Intron"
     soft_filter: "True"
   germline:
