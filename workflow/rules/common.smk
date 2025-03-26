@@ -89,20 +89,11 @@ with open(config["output"]) as output:
 
 validate(output_spec, schema="../schemas/output_files.schema.yaml")
 
-first_sample = config.get("first_sample", "")
-last_sample = config.get("last_sample", "")
+
 ### Set wildcard constraints
-if first_sample != "" and last_sample != "":
-
-    wildcard_constraints:
-        sample="|".join(samples.index[int(first_sample) : int(last_sample)]),
-        type="N|T|R",
-
-else:
-
-    wildcard_constraints:
-        sample="|".join(samples.index),
-        type="N|T|R",
+wildcard_constraints:
+    sample="|".join(samples.index),
+    type="N|T|R",
 
 
 def compile_output_file_list(wildcards):
