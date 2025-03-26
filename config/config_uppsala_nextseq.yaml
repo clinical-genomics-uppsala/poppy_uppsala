@@ -220,7 +220,6 @@ bcftools_concat_vcfs:
 bcftools_filter_include_region:
   cll: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/CLL_genes_for_xlsx.250114.sorted.bed"
   myeloid: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Myeloid_genes_for_xlsx.250114.sorted.bed"
-  hotspot: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/hotspot_genes_for_xlsx.250602.sorted.bed"
 
 bwa_mem:
   amb: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb"

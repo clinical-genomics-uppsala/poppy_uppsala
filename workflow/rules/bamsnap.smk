@@ -134,8 +134,6 @@ rule bamsnap:
         partition=config.get("bamsnap", {}).get("partition", config["default_resources"]["partition"]),
         threads=config.get("bamsnap", {}).get("threads", config["default_resources"]["threads"]),
         time=config.get("bamsnap", {}).get("time", config["default_resources"]["time"]),
-    container:
-        config.get("bamsnap", {}).get("container", config["default_container"])
     message:
         "{rule}: create bamsnaps based on {input.pos_list} and {input.bam}"
     shell:
@@ -162,9 +160,7 @@ rule bamsnap_hd829:
         partition=config.get("bamsnap", {}).get("partition", config["default_resources"]["partition"]),
         threads=config.get("bamsnap", {}).get("threads", config["default_resources"]["threads"]),
         time=config.get("bamsnap", {}).get("time", config["default_resources"]["time"]),
-    # localrule: True
-    container:
-        config.get("bamsnap_hd829", {}).get("container", config["default_container"])
+    localrule: True
     message:
         "{rule}: create dummy folder for {wildcards.sample} "
     shell:
