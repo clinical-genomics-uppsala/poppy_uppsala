@@ -50,4 +50,4 @@ jobs:
       - name: Integration test - small dataset
         working-directory: .tests/integration
         run: |
-          snakemake -s ../../workflow/Snakefile -j 1 --show-failed-logs --configfiles ../../config/config_uppsala_nextseq.yaml config/config.yaml --config POPPY_HOME=../.. POPPY_UU_HOME=../.. sequenceid="dry_run" poppy_version="v0.2.0" poppy_uu_version="0.1.2" --use-singularity --singularity-args  " --cleanenv --bind /home/runner "
+          snakemake -s ../../workflow/Snakefile -j 1 --show-failed-logs --configfiles ../../config/config_uppsala_nextseq.yaml config/config.yaml --config POPPY_HOME=../.. POPPY_UU_HOME=../.. sequenceid="dry_run" poppy_version="v0.2.0" poppy_uu_version="0.1.2" --use-singularity --singularity-args  " --no-home --cleanenv --bind /home/runner " --singularity-prefix singularity_files
