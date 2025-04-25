@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.2.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.1.2...v0.2.0) (2025-04-25)
+
+
+### Features
+
+* container for venv with bamsnap ([cb824d5](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/cb824d5ae6fb1e657b1790b554760cfaaf1c70be))
+
+
+### Bug Fixes
+
+* linting container directive ([351504c](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/351504c0761bc746ac236fb0eeb6bf29f82d38c4))
+* linting snakefmt ([3f33f43](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/3f33f43052a50452a68325ea133e288e52dafe41))
+* linting snakefmt ([eb913af](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/eb913afb7e49ff17e55631953cc490106e175b18))
+* linting snakefmt ([beca1f4](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/beca1f43909b03096588724893b58f79072cbbbd))
+* merge AF after normalization if 2 variants at same pos ([e328e9e](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e328e9e51b70d95bd29c3c146b3c8ed65fcda5e2))
+
 ## 0.1.0 (2025-01-31)
 
 
