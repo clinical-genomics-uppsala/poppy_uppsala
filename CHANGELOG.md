@@ -1,5 +1,55 @@
 # Changelog
 
+## [0.3.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.0...v0.3.0) (2025-04-25)
+
+
+### Features
+
+* add artifacts ([41be3f8](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/41be3f8ce8046285900fd6a7476240fb7828e9f2))
+* add xlsx snv, indels, known sheets ([c560975](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/c560975955ca3f3a620647bb7c6787dd61b869ab))
+* container for venv with bamsnap ([cb824d5](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/cb824d5ae6fb1e657b1790b554760cfaaf1c70be))
+* merge 'develop' ([2d0e37e](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/2d0e37e5a48d5d0a7bb0a93ee89703f647788ba5))
+* remove shortlist and replace with panels using bcftools include ([c6a010d](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/c6a010d4ac056ce9493667e6179ad1ef356f9e63))
+* start xlsxfile ([631a733](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/631a733100e451d9b7372e4146a06c603418cb3f))
+
+
+### Bug Fixes
+
+* add missig panels[panel] ([5cdcc24](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/5cdcc247826cbaaf2e79432e134d7db13b729036))
+* add missing lib, and change varible chr to chrom ([e0d4cc9](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e0d4cc926c5719eac0dd30437cab74a42be6a493))
+* calculate coverage over exons only ([5398868](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/5398868695de4c9923120017a8098ab66814b900))
+* calculate coverage over exons only ([2ea13aa](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/2ea13aa7bfaaf0fe2336158891a8d4850f0c0aa4))
+* change from intervals to interval_list ([ee9d017](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/ee9d017d19320b885e9f46f9ea29f17a0ef1e7c5))
+* correct config file  for snakemake-dry-run.yaml ([453a83c](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/453a83c01835458c351359282d0bbd8f0cfc02e9))
+* format of the sample names ([096ddab](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/096ddab4cd0e52c65db208ffe34ccd16fa1c0aa7))
+* format of the sample names ([99f16d1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/99f16d1d3d2cc2adef14831486b485b5c264ad62))
+* linting container directive ([351504c](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/351504c0761bc746ac236fb0eeb6bf29f82d38c4))
+* linting snakefmt ([3f33f43](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/3f33f43052a50452a68325ea133e288e52dafe41))
+* linting snakefmt ([eb913af](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/eb913afb7e49ff17e55631953cc490106e175b18))
+* linting snakefmt ([beca1f4](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/beca1f43909b03096588724893b58f79072cbbbd))
+* lock numpy to v1.26.4 ([ef04cc8](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/ef04cc8f8e3d4da026f0d7e5b78a3143818a7973))
+* make multiqc output comply with stackstorm setup ([e096040](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e0960401dff1fb1367913f4966f924d7474ef684))
+* make sure copy results can handle folders ([449fd98](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/449fd983087ba3da8a960aae63e82f59f3b57a20))
+* merge AF after normalization if 2 variants at same pos ([e328e9e](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e328e9e51b70d95bd29c3c146b3c8ed65fcda5e2))
+* pass poppy and poppy_uppsala versions to multiqc ([eb9ef28](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/eb9ef2813e2c263232ee3d9935bf069ca420b322))
+* path to ref intervals in config ([6b40ca0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/6b40ca02709d2ad0182c1ab80f7265c549863c79))
+* reorder samples in multiqc ([5f8a7a0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/5f8a7a0aad19abe8780dd705c79cbc986a8d387d))
+* reorder samples in multiqc ([2df8d66](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/2df8d664f524ac1691d3232c257eba504b6050d4))
+* sample order in multiqc ([e5f13c4](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e5f13c41dc6012111cee21fa2c28362bf6818507))
+* update common to match poppys ([dcb6cc6](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/dcb6cc654e42c4fb6286f69b66634685ec9b0554))
+* update linting test ([b8f8d55](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/b8f8d555db9f968b12f1f65fa70c25c340955760))
+* update requirements.test.txt ([aac38c9](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/aac38c961dc9a3e0ae858153b8853186271534df))
+* update requirements.txt ([192099a](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/192099a598e3a28b4c3b668e0204ddafdca4954e))
+* update smart_open version to lower than 7.0.0 ([8ece5c9](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/8ece5c9601fa31316059cd73bf17291d5a3c26c5))
+* update snakefmt.yaml ([959033b](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/959033be8a356f3d8629b16d522a7c2da51dfbf5))
+* update so not all col set to str when loading samples.tsv ([36207e3](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/36207e3a45ad9fe671e5c5fb683032f5d35d573a))
+
+
+### Documentation
+
+* add default addded hydra docs ([0976c04](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/0976c04ab3667d1d28beb393943d9850eb4f747e))
+* schema updates ([3580b41](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/3580b419d633a8353aa23b2899c2d164f7c6b437))
+
 ## [0.1.2](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.1.1...v0.1.2) (2025-02-19)
 
 
