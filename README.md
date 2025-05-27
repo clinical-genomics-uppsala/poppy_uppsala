@@ -88,4 +88,6 @@ The following output files should be targeted via another rule:
 | `poppy_uppsala/PATH/FILE` | DESCRIPTION |
 
 ## :judge: Rule Graph
+
+The graph is too large to be displayed here, please have a look at the documentation in ReadTheDocs.
 ![rule_graph_reference](images/rulegraph.svg)

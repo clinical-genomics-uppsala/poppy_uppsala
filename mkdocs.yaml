@@ -1,7 +1,14 @@
-site_name: poppy_uppsala
+site_name: Poppy Uppsala
 nav:
-  - Introduction: intro.md
-  - Softwares: softwares.md
+  - General:
+    - Introduction: intro.md
+    - Output: output_files.md
+    - Setup and configuration: setup.md
+    - Softwares: softwares.md
+  - Running Poppy Uppsala:
+      - Running Poppy step-by-step: steps.md # Overwrite some configurations # adapts to what machine is used, overload mosdepth to use
+      - References # what should come in there?
+  - Known issues: issues.md
 
 theme: readthedocs
 extra_css: [extra.css]
