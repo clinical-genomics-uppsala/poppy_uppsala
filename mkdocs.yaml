@@ -4,7 +4,6 @@ nav:
     - Introduction: intro.md
     - Pipeline overview: overview.md
     - Output: output_files.md
-    # - Softwares: softwares.md
   - Running Poppy Uppsala:
       - Setup and configuration: setup.md
       - Running poppy-uppsala: run.md # Overwrite some configurations # adapts to what machine is used, overload mosdepth to use
