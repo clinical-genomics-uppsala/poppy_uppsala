@@ -1,12 +1,18 @@
-site_name: Poppy Uppsala
+site_name: poppy-uppsala
 nav:
   - General:
     - Introduction: intro.md
+    - Pipeline overview: overview.md
     - Output: output_files.md
-    - Setup and configuration: setup.md
-    - Softwares: softwares.md
+    # - Softwares: softwares.md
   - Running Poppy Uppsala:
-      - Running Poppy step-by-step: steps.md # Overwrite some configurations # adapts to what machine is used, overload mosdepth to use
+      - Setup and configuration: setup.md
+      - Running poppy-uppsala: run.md # Overwrite some configurations # adapts to what machine is used, overload mosdepth to use
+      - Step by step:
+          - SNVs and INDELs: snv-indels.md
+          - Pindel: pindel.md
+          - Excel report: excel.md
+          - Bamsnap: bamsnap.md
       - References # what should come in there?
   - Known issues: issues.md
 
