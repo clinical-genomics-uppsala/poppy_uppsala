@@ -38,6 +38,5 @@ in order to facilitate the interpretation of the genetic profile of the patients
 as in the samplesheet used in the wet lab.
 13. Take an automated screenshot in IGV of the filtered variants that are located in genes in the panel and that have a VAF > 5%.
 
-## Rulegraph
-![rule_graph_reference](images/rulegraph.png){: style="height:95%;width:95%"}
-![dag plot](images/prealignment.png){: style="height:18%;width:18%"} 
+## Rule graph
+![rulegraph](images/rulegraph.png){: style="height:85%;width:85%"}
