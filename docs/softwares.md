@@ -1,69 +1,102 @@
 # Softwares used in the poppy_uppsala module
 
-## [results_report_bedtools_intersect](https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html)
-Bedtools intersect to extract lowcoverage regions inside coding exons.
+[//]: # ()
+[//]: # (## [results_report_bedtools_intersect]&#40;https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html&#41;)
 
-### :snake: Rule
+[//]: # (Bedtools intersect to extract lowcoverage regions inside coding exons.)
 
-#SNAKEMAKE_RULE_SOURCE__results_report__results_report_bedtools_intersect#
+[//]: # ()
+[//]: # (### :snake: Rule)
 
-#### :left_right_arrow: input / output files
+[//]: # ()
+[//]: # (#SNAKEMAKE_RULE_SOURCE__results_report__results_report_bedtools_intersect#)
 
-#SNAKEMAKE_RULE_TABLE__results_report__results_report_bedtools_intersect#
+[//]: # ()
+[//]: # (#### :left_right_arrow: input / output files)
 
-### :wrench: Configuration
+[//]: # ()
+[//]: # (#SNAKEMAKE_RULE_TABLE__results_report__results_report_bedtools_intersect#)
 
-#### Software settings (`config.yaml`)
+[//]: # ()
+[//]: # (### :wrench: Configuration)
 
-#CONFIGSCHEMA__results_report_bedtools_intersect#
+[//]: # ()
+[//]: # (#### Software settings &#40;`config.yaml`&#41;)
 
-#### Resources settings (`resources.yaml`)
+[//]: # ()
+[//]: # (#CONFIGSCHEMA__results_report_bedtools_intersect#)
 
-#RESOURCESSCHEMA__results_report_bedtools_intersect#
+[//]: # ()
+[//]: # (#### Resources settings &#40;`resources.yaml`&#41;)
 
+[//]: # ()
+[//]: # (#RESOURCESSCHEMA__results_report_bedtools_intersect#)
 
-## results_report_xlsx
-python script that summerizes results into xlsx report
+[//]: # ()
+[//]: # ()
+[//]: # (## results_report_xlsx)
 
-### :snake: Rule
+[//]: # (python script that summerizes results into xlsx report)
 
-#SNAKEMAKE_RULE_SOURCE__results_report__results_report_xlsx#
+[//]: # ()
+[//]: # (### :snake: Rule)
 
-#### :left_right_arrow: input / output files
+[//]: # ()
+[//]: # (#SNAKEMAKE_RULE_SOURCE__results_report__results_report_xlsx#)
 
-#SNAKEMAKE_RULE_TABLE__results_report__results_report_xlsx#
+[//]: # ()
+[//]: # (#### :left_right_arrow: input / output files)
 
-### :wrench: Configuration
+[//]: # ()
+[//]: # (#SNAKEMAKE_RULE_TABLE__results_report__results_report_xlsx#)
 
-#### Software settings (`config.yaml`)
+[//]: # ()
+[//]: # (### :wrench: Configuration)
 
-#CONFIGSCHEMA__results_report_xlsx#
+[//]: # ()
+[//]: # (#### Software settings &#40;`config.yaml`&#41;)
 
-#### Resources settings (`resources.yaml`)
+[//]: # ()
+[//]: # (#CONFIGSCHEMA__results_report_xlsx#)
 
-#RESOURCESSCHEMA__results_report_xlsx#
+[//]: # ()
+[//]: # (#### Resources settings &#40;`resources.yaml`&#41;)
 
+[//]: # ()
+[//]: # (#RESOURCESSCHEMA__results_report_xlsx#)
 
-## bamsnap_create_pos_list
-A python script to generate bedfile with PASS and AF >= params.af for bamsnap-rule
+[//]: # ()
+[//]: # ()
+[//]: # (## bamsnap_create_pos_list)
 
-### :snake: Rule
+[//]: # (A python script to generate bedfile with PASS and AF >= params.af for bamsnap-rule)
 
-#SNAKEMAKE_RULE_SOURCE__bamsnap__bamsnap_create_pos_list#
+[//]: # ()
+[//]: # (### :snake: Rule)
 
-#### :left_right_arrow: input / output files
+[//]: # ()
+[//]: # (#SNAKEMAKE_RULE_SOURCE__bamsnap__bamsnap_create_pos_list#)
 
-#SNAKEMAKE_RULE_TABLE__bamsnap__bamsnap_create_pos_list#
+[//]: # ()
+[//]: # (#### :left_right_arrow: input / output files)
 
-### :wrench: Configuration
+[//]: # ()
+[//]: # (#SNAKEMAKE_RULE_TABLE__bamsnap__bamsnap_create_pos_list#)
 
-#### Software settings (`config.yaml`)
+[//]: # ()
+[//]: # (### :wrench: Configuration)
 
-#CONFIGSCHEMA__bamsnap_create_pos_list#
+[//]: # ()
+[//]: # (#### Software settings &#40;`config.yaml`&#41;)
 
-#### Resources settings (`resources.yaml`)
+[//]: # ()
+[//]: # (#CONFIGSCHEMA__bamsnap_create_pos_list#)
 
-#RESOURCESSCHEMA__bamsnap_create_pos_list#
+[//]: # ()
+[//]: # (#### Resources settings &#40;`resources.yaml`&#41;)
+
+[//]: # ()
+[//]: # (#RESOURCESSCHEMA__bamsnap_create_pos_list#)
 
 
 ## [bamsnap](https://bamsnap.readthedocs.io/en/latest/)
