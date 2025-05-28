@@ -39,4 +39,4 @@ as in the samplesheet used in the wet lab.
 13. Take an automated screenshot in IGV of the filtered variants that are located in genes in the panel and that have a VAF > 5%.
 
 ## Rule graph
-![rulegraph](https://github.com/clinical-genomics-uppsala/poppy_uppsala/blob/15d6dac6976343cb8157c0386d256ac345b8bcf8/images/rulegraph.png){: style="height:85%;width:85%"} 
+![rulegraph](https://raw.githubusercontent.com/clinical-genomics-uppsala/poppy_uppsala/patch-readthedocs/images/rulegraph.png){: style="height:85%;width:85%"} 
