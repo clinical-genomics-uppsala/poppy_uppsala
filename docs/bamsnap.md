@@ -8,3 +8,4 @@ are automatically treated by bamsnap.
 
 Example of image:
 
+![rulegraph](https://raw.githubusercontent.com/clinical-genomics-uppsala/poppy_uppsala/patch-readthedocs/images/chr3_78614806.png)
