@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.2](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.1...v0.2.2) (2025-06-03)
+
+
+### Bug Fixes
+
+* merge AF after VT normalization for complex variants found by pindel ([679b39b](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/679b39b20c019162f59d20ff508dd0a5ef2be9a8))
+* snakefmt linting ([bc14914](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/bc149148eeba5263c783032ccd313457b04e0be8))
+
 ## [0.2.1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.0...v0.2.1) (2025-06-03)
 
 
