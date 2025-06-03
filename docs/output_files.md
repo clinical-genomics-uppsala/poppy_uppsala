@@ -18,6 +18,7 @@ For each sample in the analysis, the following files are delivered:
     <sampleID>_<analysisID>.pathology.svdb_query.vcf.gz
     <sampleID>_<analysisID>.snv-indels.vcf.gz
   reports/
+multiqc_<analysisID>.html
 ```
 
 ## Reports output files
