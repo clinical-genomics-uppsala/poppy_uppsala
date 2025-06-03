@@ -1,7 +1,7 @@
 # Introduction
 
 An introduction to poppy-uppsala.
-Bioinformatics for the analysis panel of genes Twist Myeloid.
+Bioinformatics for the analysis of samples against the panel of genes Twist Myeloid "TE-96463385_hg38".
 
 ## The Twist Myeloid gene panel
 The **Twist Myeloid gene panel** is a gDNA target capture panel for comprehensive genomic profiling of leukemias.
@@ -10,7 +10,7 @@ Reference genome GRCh38.
 Replaces pomfrey GRCh37.
 The design allows for clinical use as well as for research applications.
 
-Typically, the sequencing experiments are performed in multiplex settings on machines like NextSeq and NovaSeqX.
+Typically, the sequencing experiments are performed in multiplexed samples on machines like NextSeq and NovaSeqX.
 
 ## Pipeline
 The poppy pipeline analyses tumor-only blood/bone marrow samples and reports small variants, CNVs against the Twist Myeloid gene panel.
