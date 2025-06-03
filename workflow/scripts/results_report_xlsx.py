@@ -40,6 +40,7 @@ sample_type = snakemake.params.sample_type
 panels = {
     "cll": {"bedfile": snakemake.input.cllbed, "vcf": snakemake.input.cll_vcf},
     "myeloid": {"bedfile": snakemake.input.myeloidbed, "vcf": snakemake.input.myeloid_vcf},
+    "hotspot": {"bedfile": snakemake.input.hotspotbed, "vcf": snakemake.input.hotspot_vcf},
 }
 
 non_coding_regions = {
