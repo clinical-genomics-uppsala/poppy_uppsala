@@ -5,7 +5,7 @@ These final output files are listed and shortly described in the table below.
 `{sample}` is replaced with the sample name and `{type}` is replaced with the sample type (T/N/R, where T=Tumor, N=Normal, R=RNA). 
 `{analysisID}` is replaced with the ID of the current analysis.
 
-The **files that are delivered to the geneticists** are shown in bold.
+The **important files** that are delivered to the geneticists are shown in **bold**.
 
 ## Structure of the folder with the delivered files
 
