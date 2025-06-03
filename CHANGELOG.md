@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.0...v0.2.1) (2025-06-03)
+
+
+### Bug Fixes
+
+* hotspot genes in excel report ([e57ce10](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e57ce107fe4a0c8e816a8eb871a0a962046e5691))
+* removed pureCN ([3bc3a16](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/3bc3a166265c5f9ba96462c7bfb22bcdc7f4903c))
+
 ## [0.2.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.1.2...v0.2.0) (2025-04-25)
 
 
