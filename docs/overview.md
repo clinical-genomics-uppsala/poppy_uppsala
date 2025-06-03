@@ -2,7 +2,7 @@
 Here is a brief overview of the entire pipeline. For details see subsections and the [hydra-genetics](https://github.com/hydra-genetics/hydra-genetics) documentation.
 
 Essentially, a few extra steps specific to the needs of the geneticists at Clinical Genomics Uppsala are added
-on the top of Poppy (Genomic Medicine Sweden).
+on the top of the pipeline [Poppy (Genomic Medicine Sweden)](https://github.com/genomic-medicine-sweden/poppy).
 
 
 ## Main processing steps from poppy
@@ -21,13 +21,13 @@ on the top of Poppy (Genomic Medicine Sweden).
   6.4 Filtering using hydra-genetics  
   6.5 CNV html report using hydra-genetics
 7. **Pindel** for more complex indels  
-  8.1 Restriction of the regions in which to call variants  
+  8.1 Calling using Pindel in chosen restricted regions  
   8.2 Annotation using VEP and hydra-genetics  
   8.3 Filtering using bcftools and hydra-genetics  
 9. **QC**  
   9.1 QC measures from Samtools, Picard, FastQC, GATK  
   9.2 MultiQC hmtl report  
-  9.3 Hotspot coverage report  
+  9.3 Coverage report from Mosdepth  
 
 ## Additional steps specific to poppy-uppsala
 10. Calculate coverage only in chosen exon regions,
@@ -39,4 +39,4 @@ as in the samplesheet used in the wet lab.
 13. Take an automated screenshot in IGV of the filtered variants that are located in genes in the panel and that have a VAF > 5%.
 
 ## Rule graph
-![rulegraph](https://raw.githubusercontent.com/clinical-genomics-uppsala/poppy_uppsala/patch-readthedocs/images/rulegraph.png){: style="height:95%;width:95%"} 
+![rulegraph](https://raw.githubusercontent.com/clinical-genomics-uppsala/poppy_uppsala/patch-readthedocs/images/rulegraph.png)

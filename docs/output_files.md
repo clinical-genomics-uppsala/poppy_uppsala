@@ -1,7 +1,13 @@
 # Output files and delivered files
 
-Many temporary files, only a subset of them is forwarded to the geneticists.
-These final output files are listed and shortly described in the table below.
+The pipeline creates many temporary files, only a subset of them is delivered to the geneticists.
+
+The files that should be included in the delivery are listed in `config/output_files.yaml`. 
+Then, the functions `compile_output_file_list()` and `generate_copy_rules` in `workflow/rules/common.smk` 
+lead to the automatic copy of the relevant files to delivery folder (`results/` in poppy-uppsala).
+Any temporary file that is not listed to be delivered is deleted upon completion of the pipeline.
+
+These delivered files are listed and shortly described in the table below.
 `{sample}` is replaced with the sample name and `{type}` is replaced with the sample type (T/N/R, where T=Tumor, N=Normal, R=RNA). 
 `{analysisID}` is replaced with the ID of the current analysis.
 
@@ -64,7 +70,9 @@ These files are used by:
 ## Structure of the folder with the output files
 
 The folder with the output files is essentially the home folder `{analysisID}` in which Snakemake is run.
-If the pipeline is run without the option `--notemp` in Snakemake, most of the files created during the analysis are deleted upon completion of the pipeline.
+If the pipeline is run *without the option `--notemp`* in Snakemake, 
+most of the files created during the analysis are temporary intermediate files.
+Those are deleted upon completion of the pipeline.
 Else, the structure of the home folder should be the following one:
 
 ```bash
