@@ -82,7 +82,7 @@ use rule bcftools_sort from snv_indels as snv_indels_bcftools_sort_merged_af wit
         )
 
 
-use rule merge_af_complex_variants from snv_indels as cnv_sv_merge_af_complex_variants_pindel with:
+use rule merge_af_complex_variants from snv_indels as snv_indels_merge_af_complex_variants_pindel with:
     input:
         vcf="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vcf.gz",
         tabix="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vcf.gz.tbi",
@@ -99,7 +99,7 @@ use rule merge_af_complex_variants from snv_indels as cnv_sv_merge_af_complex_va
         )
 
 
-use rule bcftools_sort from snv_indels as cnv_sv_bcftools_sort_merged_af with:
+use rule bcftools_sort from snv_indels as snv_indels_bcftools_sort_merged_af_pindel with:
     input:
         vcf="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.merged_af.unsorted.vcf.gz",
     output:
