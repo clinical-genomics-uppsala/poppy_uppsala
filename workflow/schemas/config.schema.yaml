@@ -87,6 +87,9 @@ properties:
       myeloid:
         type: string
         description: path to bedfile that contains region to be included in myeloid panel
+      hotspot:
+        type: string
+        description: path to bedfile that contains hotspot regions
 
   results_report_bedtools_intersect:
     type: object
