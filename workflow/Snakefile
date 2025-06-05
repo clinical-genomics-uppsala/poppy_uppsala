@@ -84,31 +84,31 @@ use rule bcftools_sort from snv_indels as snv_indels_bcftools_sort_merged_af wit
 
 use rule merge_af_complex_variants from snv_indels as snv_indels_merge_af_complex_variants_pindel with:
     input:
-        vcf="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vcf.gz",
-        tabix="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vcf.gz.tbi",
+        vcf="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.vcf.gz",
+        tabix="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.vcf.gz.tbi",
     output:
-        vcf=temp("cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.merged_af.unsorted.vcf.gz"),
+        vcf=temp("cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.merged_af.unsorted.vcf.gz"),
     params:
         merge_method=config.get("merge_af_complex_variants", {}).get("merge_method", "skip"),
     log:
-        "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.merged_af.vcf.gz.log",
+        "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.merged_af.vcf.gz.log",
     benchmark:
         repeat(
-            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.merged_af.vcf.gz.benchmark.tsv",
+            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.merged_af.vcf.gz.benchmark.tsv",
             config.get("merge_af_complex_variants", {}).get("benchmark_repeats", 1),
         )
 
 
 use rule bcftools_sort from snv_indels as snv_indels_bcftools_sort_merged_af_pindel with:
     input:
-        vcf="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.merged_af.unsorted.vcf.gz",
+        vcf="cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.merged_af.unsorted.vcf.gz",
     output:
-        vcf=temp("cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.merged_af.sorted.vcf.gz"),
+        vcf=temp("cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.merged_af.sorted.vcf.gz"),
     log:
-        "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.merged_af.sorted.vcf.gz.log",
+        "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.merged_af.sorted.vcf.gz.log",
     benchmark:
         repeat(
-            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.merged_af.sorted.vcf.gz.benchmark.tsv",
+            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.merged_af.sorted.vcf.gz.benchmark.tsv",
             config.get("bcftools_sort", {}).get("benchmark_repeats", 1),
         )
 
@@ -136,11 +136,11 @@ use rule bcftools_concat from snv_indels as snv_indels_concat_vcfs with:
     input:
         calls=[
             "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic.vcf.gz",
-            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.merged_af.sorted.vep_annotated.artifact_annotated.vcf.gz",
+            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.merged_af.sorted.vcf.gz",
         ],
         index=[
             "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.artifact_annotated.background_annotated.filter.somatic.vcf.gz.tbi",
-            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.merged_af.sorted.vep_annotated.artifact_annotated.vcf.gz.tbi",
+            "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.vep_annotated.artifact_annotated.merged_af.sorted.vcf.gz.tbi",
         ],
     output:
         vcf=temp("snv_indels/bcftools_concat/{sample}_{type}.filter.somatic.vcf.gz"),
