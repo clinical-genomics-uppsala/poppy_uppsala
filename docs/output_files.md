@@ -44,7 +44,7 @@ These files are used by the geneticists whenever some extra checks are needed un
 | **`{sample}_{type}_{analysisID}/data/{sample}_{type}_{analysisID}.bam`**                             | bam | Alignment file used for downstream analysis                                                                                           |
 | `{sample}_{type}_{analysisID}/data/{sample}_{type}_{analysisID}.bam.bai`                             | bai | Alignment index file                                                                                                                  |
 | **SNV and INDELs**                                                                                   | :~~: | ~~                                                                                                                                    |
-| `{sample}_{type}_{analysisID}/data/`<br />`{sample}_{type}_{analysisID}.pathology.svdb_query.vcf.gz` | vcf | Final hard-and-soft filtered and annotated file with SNV, INDEL, and CNV? <br /> **OBS! Do not use as input to QCI**                  |
+| `{sample}_{type}_{analysisID}/data/`<br />`{sample}_{type}_{analysisID}.pathology.svdb_query.vcf.gz` | vcf | Unfiltered VCF file with SVDB-annotated CNVs  <br /> **OBS! Do not use as input to QCI**                                              |
 | **`{sample}_{type}_{analysisID}/data/`<br />`{sample}_{type}_{analysisID}.snv-indels.vcf.gz`**       | vcf | Final hard-and-soft filtered and annotated file with SNV and INDEL variants <br />used as input to QCI and to create th Excel report. |
 
 
