@@ -360,7 +360,11 @@ if sample.lower() == "hd829":
     column_end = ":" + convert_columns_to_letter(len(known_table["headers"]))
     table_area = "A" + str(i) + column_end + str(len(known_table["data"]) + i)
     worksheet_known.add_table(
-        table_area, {"data": known_table["data"], "columns": known_table["headers"], "style": "Table Style Light 1"}
+        table_area, {"data": known_table["data"],
+                     "columns": known_table["headers"],
+                     "style": "Table Style Light 1",
+                     "autofilter": False
+                     }
     )
 else:
     """CLL and myeloid tables (or other panels)"""
@@ -415,7 +419,11 @@ else:
             table_area = "A" + str(i) + column_end + str(i + 1)
             table_area_data = "A" + str(i + 1) + column_end + str(i + 1)
 
-        worksheet_panel.add_table(table_area, {"columns": panels[panel]["table"]["headers"], "style": "Table Style Light 1"})
+        worksheet_panel.add_table(table_area, {"columns": panels[panel]["table"]["headers"],
+                                               "style": "Table Style Light 1",
+                                               "autofilter": False
+                                               }
+                                  )
         cond_formula = "=LEFT($A" + str(i + 1) + ', 4)<>"PASS"'
         worksheet_panel.conditional_format(
             table_area_data, {"type": "formula", "criteria": cond_formula, "format": format_orange}
@@ -473,7 +481,11 @@ else:
     table_area = "A" + str(i) + column_end + str(i + 1)
     table_area_data = "A" + str(i + 1) + column_end + str(i + 1)
 
-worksheet_snv.add_table(table_area, {"columns": snv_table["headers"], "style": "Table Style Light 1"})
+worksheet_snv.add_table(table_area, {"columns": snv_table["headers"],
+                                     "style": "Table Style Light 1",
+                                     "autofilter": False
+                                     }
+                        )
 cond_formula = "=LEFT($A" + str(i + 1) + ', 4)<>"PASS"'
 worksheet_snv.conditional_format(table_area_data, {"type": "formula", "criteria": cond_formula, "format": format_orange})
 
@@ -528,7 +540,11 @@ else:
     table_area = "A" + str(i) + column_end + str(i + 1)
     table_area_data = "A" + str(i + 1) + column_end + str(i + 1)
 
-worksheet_pindel.add_table(table_area, {"columns": pindel_table["headers"], "style": "Table Style Light 1"})
+worksheet_pindel.add_table(table_area, {"columns": pindel_table["headers"],
+                                        "style": "Table Style Light 1",
+                                        "autofilter": False
+                                        }
+                           )
 cond_formula = "=LEFT($A" + str(i + 1) + ', 4)<>"PASS"'
 worksheet_pindel.conditional_format(table_area_data, {"type": "formula", "criteria": cond_formula, "format": format_orange})
 
@@ -561,7 +577,12 @@ for gene in non_coding_regions:
 i += 3
 column_end = ":" + convert_columns_to_letter(len(snv_table["headers"]))
 table_area = "A" + str(i) + column_end + str(len(intron_table) + i)
-worksheet_intron.add_table(table_area, {"data": intron_table, "columns": snv_table["headers"], "style": "Table Style Light 1"})
+worksheet_intron.add_table(table_area, {"data": intron_table,
+                                        "columns": snv_table["headers"],
+                                        "style": "Table Style Light 1",
+                                        "autofilter": False
+                                        }
+                           )
 
 
 """ Synonymous variants """
@@ -580,7 +601,12 @@ if synonymous_table == 0:
     synonymous_table.append([""] * 24)
 column_end = ":" + convert_columns_to_letter(len(snv_table["headers"]))
 table_area = "A" + str(i) + column_end + str(len(synonymous_table) + i)
-worksheet_syno.add_table(table_area, {"data": synonymous_table, "columns": snv_table["headers"], "style": "Table Style Light 1"})
+worksheet_syno.add_table(table_area, {"data": synonymous_table,
+                                      "columns": snv_table["headers"],
+                                      "style": "Table Style Light 1",
+                                      "autofilter": False  # turn off the default autofilter to avoid overlapping range with the custom filter added later
+                                      }
+                         )
 
 
 """ Low coverage """
@@ -596,7 +622,11 @@ worksheet_lowcov.write(3, 0, "Gene regions with coverage lower than " + str(thre
 column_end = ":" + convert_columns_to_letter(len(lowcov_table["headers"]))
 table_area = "A6" + column_end + str(len(lowcov_table["data"]) + 6)
 worksheet_lowcov.add_table(
-    table_area, {"data": lowcov_table["data"], "columns": lowcov_table["headers"], "style": "Table Style Light 1"}
+    table_area, {"data": lowcov_table["data"],
+                 "columns": lowcov_table["headers"],
+                 "style": "Table Style Light 1",
+                 "autofilter": False
+                 }
 )
 
 
@@ -613,7 +643,11 @@ column_end = ":" + convert_columns_to_letter(len(regionscov_table["headers"]))
 table_area = "A6" + column_end + str(len(regionscov_table["data"]) + 6)
 
 worksheet_cov.add_table(
-    table_area, {"data": regionscov_table["data"], "columns": regionscov_table["headers"], "style": "Table Style Light 1"}
+    table_area, {"data": regionscov_table["data"],
+                 "columns": regionscov_table["headers"],
+                 "style": "Table Style Light 1",
+                 "autofilter": False
+                 }
 )
 
 
