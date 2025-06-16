@@ -1,5 +1,7 @@
 # Setup and configurations
 
+Remember you need both 
+
 Overload some config parameters: 
 - Mosdepth coverage in exon regions only,
 - Home folder of the analysis
@@ -25,34 +27,39 @@ Use a bash script to start the analysis.
 **Nice to have**
 
 - DRMAA compatible scheduler
+- valid [SSH key to Github](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
 ## Installation
-A list of releases of the Twist Solid pipeline can be found at: [Releases](https://github.com/genomic-medicine-sweden/Twist_Solid/releases).
+A list of releases of the GMS Poppy pipeline can be found at: [Releases](https://github.com/genomic-medicine-sweden/poppy/releases).
+A list of releases of the poppy-uppsala pipeline can be found at: [Releases](https://github.com/clinical-genomics-uppsala/poppy_uppsala/releases).
 
-### Clone the Twist Solid git repo
-We recommend that the repository is cloned to your working directory. 
+### Clone both the GMS Poppy repo and the poppy-uppsala git repo
+We recommend that the poppy-uppsala repository is cloned to your working directory, on the same level as the GMS Poppy repository. 
 ```bash
 # Set up a working directory path
 WORKING_DIRECTORY="/path_working_to_directory"
 ```
 
 Fetch pipeline
+Choose the release you need for both GMS Poppy and poppy-uppsala, for instance `0.2.0` and `v0.2.1`:
 ```bash
-# Set version
-VERSION="v0.4.0"
+# Set versions
+VERSION="v0.2.0"
+VERSION_UU="v0.2.1"
 
-# Clone selected version
-git clone --branch ${VERSION} https://github.com/genomic-medicine-sweden/Twist_Solid.git ${WORKING_DIRECTORY}
+# Clone selected version, use SSH URL if you have configured a local SSH key to Github (preferred)
+git clone --branch ${VERSION} https://github.com/genomic-medicine-sweden/poppy.git ${WORKING_DIRECTORY}
+git clone --branch ${VERSION_UU} https://github.com/clinical-genomics-uppsala/poppy_uppsala.git ${WORKING_DIRECTORY}
 ```
 
 ### Create python environment
-To run the Twist Solid pipeline a python virtual environment is needed.
+To run the poppy-uppsala pipeline, a python virtual environments is needed.
 ```bash
 # Enter working directory
 cd ${WORKING_DIRECTORY}
 
 # Create a new virtual environment
-python3 -m venv ${WORKING_DIRECTORY}/virtual/environment
+python3 -m venv ${WORKING_DIRECTORY}/venv-poppy-uu
 ```
 
 ### Install pipeline requirements
@@ -62,7 +69,7 @@ Activate the virtual environment and install pipeline requirements specified in 
 cd ${WORKING_DIRECTORY}
 
 # Activate python environment
-source virtual/environment/bin/activate
+source venv-poppy-uu/bin/activate
 
 # Install requirements
 pip install -r requirements.txt
