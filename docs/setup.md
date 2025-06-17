@@ -1,12 +1,6 @@
 # Setup and configurations
 
-Remember you need both 
-
-Overload some config parameters: 
-- Mosdepth coverage in exon regions only,
-- Home folder of the analysis
-
-Use a bash script to start the analysis.
+Remember you need both
 
 ## Requirements
 **Recommended hardware**
@@ -87,23 +81,47 @@ hydra-genetics --debug --verbose references download -o design_and_ref_files  -v
 ```
 
 **Update config**
-```yaml 
-# file config/config.data.hg19.yaml
-# change rows:
-PROJECT_DESIGN_DATA: "PATH_TO/design_and_ref_files" # parent folder for GMS560 design, ex GMS560/design
-PROJECT_PON_DATA: "PATH_TO/design_and_ref_files" # artifact/background/PoN, ex GMS560/PoN
-PROJECT_REF_DATA: "PATH_TO/design_and_ref_files" # parent folder for ref_data, ex ref_data/hg19
-```
+You need to specify the local paths to use for some required data, for instance what files should be used for the reference genome GRCh38.
+For an example of how those local files are specified in the configurations for poppy-uppsala, please see some [reference section](https://github.com/clinical-genomics-uppsala/poppy_uppsala/blob/fffcaebdb827d1ab0bf125d196ae82c5481dfe97/config/config_uppsala_nextseq.yaml#L7).
 
-poppy-uppsala overwrites some configurations of poppy.
+Moreover, poppy-uppsala overloads some config parameters of Poppy GMS and also adds new parameters to the dictionary of parameters: 
+ - Mosdepth coverage in exon regions only,
+ - Home folder of the analysis.
+
+When starting the pipeline, the dictionary of parameters used in the workflow is created by Snakemake 
+from the options in the command line `snakemake [options] <snakefile>` with:
+ - the YAML entries in the `--configfile` for the pipeline,
+ - the single parameters passed via the `--config` argument.
 
 NB: tricky versioning for MultiQC.
 
 ## Input sample files
-The pipeline uses sample input files (`samples.tsv` and `units.tsv`) with information regarding sample information, sequencing meta information as well as the location of the fastq-files. Specification for the input files can be found at [Twist Solid schemas](https://github.com/genomic-medicine-sweden/Twist_Solid/blob/develop/workflow/schemas/). Using the python virtual environment created above it is possible to generate these files automatically using [hydra-genetics create-input-files](https://hydra-genetics.readthedocs.io/en/latest/run_pipeline/create_sample_files/):
+The pipeline uses sample input files (`samples.tsv` and `units.tsv`) with information regarding sample information,
+sequencing meta information as well as the location of the fastq-files. 
+Specification for the input files can be found at [Poppy GMS schemas](https://github.com/genomic-medicine-sweden/poppy/tree/v0.2.0/workflow/schemas/). 
+Using the python virtual environment created above it is possible to generate these files automatically using [hydra-genetics create-input-files](https://hydra-genetics.readthedocs.io/en/latest/run_pipeline/create_sample_files/):
+
 ```bash
-hydra-genetics create-input-files -d path/to/fastq-files/
+hydra-genetics create-input-files -d path/to/fastq-files/directory/
 ```
 
-## Known variants and custom filtering
-Specific table with known variants, artifacts (machine-specific), pindel regions to limit the computational cost,
+NB: you might need to adapt the regular expression used to parse the names of the fastq files, 
+please refer to the [documentation for the options](https://hydra-genetics.readthedocs.io/en/latest/run_pipeline/create_sample_files/#options).
+Consider especially having a look at the options `-s` and `-n`.
+
+## Information about known variants and custom filtering
+Writing the Excel report requires some additional information that depend on the end-usage of the reported data.
+It is up to each (group of) user(s) to adapt these additional information that drive the filtering of the reported variants.
+The analysis used at CGU uses for instance:
+ - A specific table with known variants that should be reported separately from other variants: ,
+ - Files that list artifacts (machine-specific and/or variant caller-specific): [local TSV files](https://github.com/genomic-medicine-sweden/poppy/blob/fa1dd3439a3a5d96a0c922f09f0ed2dcd2056cce/config/config.yaml#L18), 
+ - Files used to [denoise](https://github.com/genomic-medicine-sweden/poppy/blob/fa1dd3439a3a5d96a0c922f09f0ed2dcd2056cce/config/config.yaml#L20) the variant calls,
+ - pindel regions to limit the computational cost: a [local BED file](https://github.com/genomic-medicine-sweden/poppy/blob/fa1dd3439a3a5d96a0c922f09f0ed2dcd2056cce/config/config.yaml#L159),
+ - Sets of normal references for [CNVkit](https://github.com/genomic-medicine-sweden/poppy/blob/fa1dd3439a3a5d96a0c922f09f0ed2dcd2056cce/config/config.yaml#L50) and [GATK](https://github.com/genomic-medicine-sweden/poppy/blob/fa1dd3439a3a5d96a0c922f09f0ed2dcd2056cce/config/config.yaml#L84),
+ - Custom [annotation database](https://github.com/genomic-medicine-sweden/poppy/blob/fa1dd3439a3a5d96a0c922f09f0ed2dcd2056cce/config/config.yaml#L34) for annotation with bcftools,
+ - Custom filters to set what variants are shown per default upon opening of the report : YAML files in `./config/filters`,
+   there is a description line for each filter.
+
+For an example of how those local files are specified in the configurations for poppy-uppsala, please see:
+ - The configurations when the sequencing is done on a [NextSeq machine](https://github.com/clinical-genomics-uppsala/poppy_uppsala/blob/v0.2.1/config/config_uppsala_nextseq.yaml),
+ - The configurations when the sequencing is done on a [NovaSeqX machine](https://github.com/clinical-genomics-uppsala/poppy_uppsala/blob/v0.2.1/config/config_uppsala_novaseq.yaml),

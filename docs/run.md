@@ -1,39 +1,6 @@
 # Running poppy-uppsala
 
-## Requirements
-
-...
-
-## Installation
-
-### Clone the repositories 
-
-We recommend that the repositories are cloned to your working directory. 
-
-* Poppy:
-
-```bash
-git clone git@github.com:genomic-medicine-sweden/poppy.git
-```
-
-* Poppy Uppsala:
-
-```bash
-git clone git@github.com:clinical-genomics-uppsala/poppy_uppsala.git
-```
-
-### Create the python virtual environment (with the reauirements)
-
-...
-
-### Edit the configurations
-
-The values in `config/NAME_OF_CONFIG` must match the resources you have, 
-for instance the paths to BED files and to the reference genome hg38 fasta-file.
-
-## Create the input sample files
-
-...
+Once you are done with the setup and the configuration of the pipeline, you can proceed with running it.
 
 ## Run command
 Using the activated python virtual environment created above, this is a basic command to run the pipeline in dry-run mode:
@@ -57,3 +24,7 @@ in the repository on GitHub.
 <br />
 **Note:** Remember to have singularity and drmaa available on the system where the pipeline will be run.
 <br />
+
+## Example of custom start script used at Clinical Genomics Uppsala
+
+See https://github.com/clinical-genomics-uppsala/pipeline_start_scripts/blob/develop/marvin/start_wp2_tm.sh.
