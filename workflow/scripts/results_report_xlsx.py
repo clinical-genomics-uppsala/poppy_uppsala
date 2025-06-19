@@ -492,7 +492,6 @@ worksheet_snv.conditional_format(table_area_data, {"type": "formula", "criteria"
 worksheet_snv.autofilter(table_area)
 worksheet_snv.filter_column("A", "Filter != PASS")
 worksheet_snv.filter_column("I", "AF >= 0.02")
-i += 1  # do not overwrite the header
 for row_data in snv_table["data"]:
     if row_data[0] == "PASS" and float(row_data[8]) >= 0.02:
         pass
