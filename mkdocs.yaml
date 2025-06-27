@@ -8,6 +8,7 @@ nav:
       - Setup and configuration: setup.md
       - Running poppy-uppsala: run.md # Overwrite some configurations # adapts to what machine is used, overload mosdepth to use
       - Step by step:
+          - Prealignment: prealignment.md
           - SNVs and INDELs: snv-indels.md
           - Pindel: pindel.md
           - Excel report: excel.md
