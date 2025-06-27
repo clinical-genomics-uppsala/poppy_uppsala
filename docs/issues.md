@@ -4,6 +4,7 @@
 
 If opening with Excel, a warning window to recover damaged contents might pop up.
 No issue with Libre Office. Related issues found across GitHub:
+
 * https://github.com/jmcnamara/XlsxWriter/issues/1109
 * https://github.com/jmcnamara/XlsxWriter/issues/739
 

@@ -97,7 +97,7 @@ NB: tricky versioning for MultiQC.
 
 ## Input sample files
 The pipeline uses sample input files (`samples.tsv` and `units.tsv`) with information regarding sample information,
-sequencing meta information as well as the location of the fastq-files. 
+sequencing meta information as well as the location of the fastq files. 
 Specification for the input files can be found at [Poppy GMS schemas](https://github.com/genomic-medicine-sweden/poppy/tree/v0.2.0/workflow/schemas/). 
 Using the python virtual environment created above it is possible to generate these files automatically using [hydra-genetics create-input-files](https://hydra-genetics.readthedocs.io/en/latest/run_pipeline/create_sample_files/):
 

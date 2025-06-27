@@ -5,9 +5,13 @@ Essentially, a few extra steps specific to the needs of the geneticists at Clini
 on the top of the pipeline [Poppy (Genomic Medicine Sweden)](https://github.com/genomic-medicine-sweden/poppy).
 
 
-## Main processing steps from poppy
-1. **Input files**: fastq
-2. **Trimming** using fastp
+## Main processing steps from poppy GMS
+
+Depending on the sequencing setup that is used, a **preliminary demultiplexing** of the samples may be required.
+We assume in the following steps that the fastq files are demultiplexed.
+
+1. **Input files**: directory with fastq files, also used to create the `samples.tsv` and `units.tsv` files (see section "Running Poppy Uppsala")
+2. **Trimming** using fastp and **merging**
 3. **Alignment** using BWA-mem
 4. **Mark duplicates** using Picard
 5. **SNV and INDEL**  
