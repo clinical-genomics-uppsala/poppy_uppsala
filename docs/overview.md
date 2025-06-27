@@ -39,7 +39,7 @@ We assume in the following steps that the fastq files are demultiplexed.
 as well as coverage metrics. The report has been designed to address requests from the geneticists' team 
 in order to facilitate the interpretation of the genetic profile of the patients against the panel of genes "Twist Myeloid".
 12. Produce a graphical report with MultiQC and reorder the samples such that they are displayed in the same order 
-as in the samplesheet used in the wet lab.
+as in the sample sheet used in the wet lab.
 13. Take an automated screenshot in IGV of the filtered variants that are located in genes in the panel and that have a VAF > 5%.
 
 ## Rule graph
