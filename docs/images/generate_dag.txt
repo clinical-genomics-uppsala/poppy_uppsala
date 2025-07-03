@@ -1,0 +1,3 @@
+# Generate a dag graph and place it in this directory docs/images/
+# Example for bamsnap: move and modify dot-file manually and then
+dot -Tpng bamsnap.dot > bamsnap.png

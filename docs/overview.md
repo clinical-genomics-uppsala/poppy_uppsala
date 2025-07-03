@@ -34,13 +34,15 @@ We assume in the following steps that the fastq files are demultiplexed.
   9.3 Coverage report from Mosdepth  
 
 ## Additional steps specific to poppy-uppsala
-10. Calculate coverage only in chosen exon regions,
-11. Produce an Excel report with filtered and curated variants from different callers (Mutect2, VarDict, Pisces, GATK, Pindel), 
-as well as coverage metrics. The report has been designed to address requests from the geneticists' team 
-in order to facilitate the interpretation of the genetic profile of the patients against the panel of genes "Twist Myeloid".
-12. Produce a graphical report with MultiQC and reorder the samples such that they are displayed in the same order 
-as in the sample sheet used in the wet lab.
-13. Take an automated screenshot in IGV of the filtered variants that are located in genes in the panel and that have a VAF > 5%.
+10. **Coverage** calculation in chosen **exon regions** only,
+11. **Excel report** with filtered and curated variants from different callers (Mutect2, VarDict, Pisces, GATK, 
+    Pindel), as well as coverage metrics. The report has been designed to address requests from the geneticists' team 
+    in order to facilitate the interpretation of the genetic profile of the patients against the panel of genes "Twist 
+    Myeloid".
+12. **MultiQC graphical report** with reordered samples so that they are displayed in the same order as 
+    in the sample sheet used in the wet lab.
+13. **Automated screenshot in IGV** of the filtered small variants that are located in genes in the panel and that 
+    have a VAF > 5%.
 
 ## Rule graph
-![rulegraph](https://raw.githubusercontent.com/clinical-genomics-uppsala/poppy_uppsala/patch-readthedocs/images/rulegraph.png)
+![rulegraph](images/rulegraph.png)

@@ -5,14 +5,14 @@ merging together the fastq files that belong to the same sample.
 Typically, if the fastq files derive from a NextSeq machine that ran PE sequencing,
 there are 8 fastq files for each sample in the analysis:
 
-* \<analysisID>_\<sampleID>_L001_R1_001.fastq.gz: Read 1 from lane 1	
-* \<analysisID>_\<sampleID>_L002_R1_001.fastq.gz: Read 2 from lane 2
-* \<analysisID>_\<sampleID>_L003_R1_001.fastq.gz: Read 1 from lane 3	
-* \<analysisID>_\<sampleID>_L004_R1_001.fastq.gz: Read 1 from lane 4
-* \<analysisID>_\<sampleID>_L001_R2_001.fastq.gz: Read 2 from lane 1	
-* \<analysisID>_\<sampleID>_L002_R2_001.fastq.gz: Read 2 from lane 2
-* \<analysisID>_\<sampleID>_L003_R2_001.fastq.gz: Read 2 from lane 3	
-* \<analysisID>_\<sampleID>_L004_R2_001.fastq.gz: Read 2 from lane 4
+* `<analysisID>_<sampleID>_L001_R1_001.fastq.gz`: Read 1 from lane 1	
+* `<analysisID>_<sampleID>_L002_R1_001.fastq.gz`: Read 2 from lane 2
+* `<analysisID>_<sampleID>_L003_R1_001.fastq.gz`: Read 1 from lane 3	
+* `<analysisID>_<sampleID>_L004_R1_001.fastq.gz`: Read 1 from lane 4
+* `<analysisID>_<sampleID>_L001_R2_001.fastq.gz`: Read 2 from lane 1	
+* `<analysisID>_<sampleID>_L002_R2_001.fastq.gz`: Read 2 from lane 2
+* `<analysisID>_<sampleID>_L003_R2_001.fastq.gz`: Read 2 from lane 3	
+* `<analysisID>_<sampleID>_L004_R2_001.fastq.gz`: Read 2 from lane 4
 
 ## Implementation
 See the [prealignment hydra-genetics module](https://hydra-genetics-prealignment.readthedocs.io/en/latest/) 

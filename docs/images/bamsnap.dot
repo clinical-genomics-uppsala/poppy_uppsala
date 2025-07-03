@@ -1,0 +1,25 @@
+digraph snakemake_dag {
+	rankdir="LR"
+    graph[bgcolor=white, margin=0];
+    node[shape=box, style=rounded, fontname="sans",                 fontsize=10, penwidth=2];
+    edge[penwidth=2, color=grey];
+	0[label = "PNG images", color = "0.0 0.0 0.0", style="dotted"];
+	1[label = "HTML report", color = "0.0 0.0 0.0", style="dotted"];
+	2[label = "bamsnap_create_pos_list", color = "0.28 0.6 0.85", style="rounded"];
+	3[label = "bamsnap", color = "0.62 0.6 0.85", style="rounded"];
+	4[label = "copy_bamsnap", color = "0.36 0.6 0.85", style="rounded"];
+	5[label = "vcf", color = "0.0 0.0 0.0", style="dotted"];
+	6[label = "fasta", color = "0.0 0.0 0.0", style="dotted"];
+	7[label = "bam", color = "0.0 0.0 0.0", style="dotted"];
+
+	5 -> 2
+
+	6 -> 3
+	7 -> 3
+	2 -> 3
+
+	3 -> 4
+
+	4 -> 1
+	4 -> 0
+}

@@ -2,7 +2,7 @@
 
 A short introduction to our pipeline poppy_uppsala.
 
-/!\ DOCUMENTATION PAGES UNDER CONSTRUCTION, not everything is up-to-date yet
+/!\ DOCUMENTATION PAGES UNDER CONSTRUCTION, not everything is up-to-date yet!
 
 # Hydra-genetics
 

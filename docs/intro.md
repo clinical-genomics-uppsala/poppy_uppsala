@@ -6,8 +6,7 @@ Bioinformatics for the analysis of samples against the panel of genes Twist Myel
 ## The Twist Myeloid gene panel
 The **Twist Myeloid gene panel** is a gDNA target capture panel for comprehensive genomic profiling of leukemias.
 The panel was designed and validated as a collaborative effort between hematology teams within Genomic Medicine Sweden (GMS). 
-Reference genome GRCh38.
-Replaces pomfrey GRCh37.
+All genomic positions are given with respect to the reference genome GRCh38.
 The design allows for clinical use as well as for research applications.
 
 Typically, the sequencing experiments are performed in multiplexed samples on machines like NextSeq and NovaSeqX.
