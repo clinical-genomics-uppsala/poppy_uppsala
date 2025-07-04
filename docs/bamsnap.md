@@ -9,7 +9,7 @@ The custom bamsnap is [containerized](https://hub.docker.com/layers/hydragenetic
 
 The settings for bamsnap are such that **automated screenshots** are taken for **SNVs or short indels** which are 
 called in the panel and that have a **VAF > 5%**.
-This VAF threshold can be adjusted in the configuration files `config_uppsala_>machine>.yaml` under the key 
+This VAF threshold can be adjusted in the configuration files `config_uppsala_<machine>.yaml` under the key 
 `[bamsnap][extra]`.
 Note that bamsnap is rather slow.
 If your sample has many variants, it may take a while to run and you would need to 
