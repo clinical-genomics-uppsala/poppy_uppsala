@@ -8,11 +8,13 @@ nav:
       - Setup and configuration: setup.md
       - Running poppy-uppsala: run.md # Overwrite some configurations # adapts to what machine is used, overload mosdepth to use
       - Step by step:
-          - Prealignment: prealignment.md
-          - SNVs and INDELs: snv-indels.md
-          - Pindel: pindel.md
-          - Excel report: excel.md
-          - Bamsnap: bamsnap.md
+          - Poppy GMS:
+            - Prealignment: prealignment.md
+            - SNVs and INDELs: snv-indels.md
+            - Pindel: pindel.md
+          - Uppsala's specific steps:
+            - Excel report: excel.md
+            - Bamsnap: bamsnap.md
       - References # what should come in there?
   - Known issues: issues.md
 
