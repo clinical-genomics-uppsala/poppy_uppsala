@@ -24,17 +24,25 @@ Remember you need both
 - valid [SSH key to Github](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
 ## Installation
-A list of releases of the GMS Poppy pipeline can be found at: [Releases](https://github.com/genomic-medicine-sweden/poppy/releases).
-A list of releases of the poppy-uppsala pipeline can be found at: [Releases](https://github.com/clinical-genomics-uppsala/poppy_uppsala/releases).
+
+**Note:** The steps presented hereafter are thought to be run on a Linux system which has restricted
+access to the internet, typically a compute server where the login nodes have internet access 
+but the compute nodes run offline.
+Consequently, online resources like Github repositories or images from Dockerhub must be downloaded
+previously to running the pipeline.
 
 ### Clone both the GMS Poppy repo and the poppy-uppsala git repo
+
 We recommend that the poppy-uppsala repository is cloned to your working directory, on the same level as the GMS Poppy repository. 
 ```bash
 # Set up a working directory path
 WORKING_DIRECTORY="/path_working_to_directory"
 ```
 
-Fetch pipeline
+A list of releases of the  can be found at: 
+* GMS Poppy pipeline: [Releases](https://github.com/genomic-medicine-sweden/poppy/releases).
+* poppy-uppsala pipeline: [Releases](https://github.com/clinical-genomics-uppsala/poppy_uppsala/releases).
+
 Choose the release you need for both GMS Poppy and poppy-uppsala, for instance `0.2.0` and `v0.2.1`:
 ```bash
 # Set versions
@@ -56,7 +64,7 @@ cd ${WORKING_DIRECTORY}
 python3 -m venv ${WORKING_DIRECTORY}/venv-poppy-uu
 ```
 
-### Install pipeline requirements
+#### Install pipeline requirements
 Activate the virtual environment and install pipeline requirements specified in `requirements.txt`.
 ```bash
 # Enter working directory
@@ -71,7 +79,7 @@ pip install -r requirements.txt
 
 ### Setup required data and config
 
-**Download data**
+#### Download the data
 ```bash
 # make sure hydra-genetics is available
 # make sure that TMPDIR points to a location with a lot of storage, it
@@ -80,20 +88,84 @@ pip install -r requirements.txt
 hydra-genetics --debug --verbose references download -o design_and_ref_files  -v config/references/references.hg19.yaml -v config/references/design_files.hg19.yaml -v config/references/nextseq.hg19.pon.yaml
 ```
 
-**Update config**
+#### Update the config
 You need to specify the local paths to use for some required data, for instance what files should be used for the reference genome GRCh38.
 For an example of how those local files are specified in the configurations for poppy-uppsala, please see some [reference section](https://github.com/clinical-genomics-uppsala/poppy_uppsala/blob/fffcaebdb827d1ab0bf125d196ae82c5481dfe97/config/config_uppsala_nextseq.yaml#L7).
 
-Moreover, poppy-uppsala overloads some config parameters of Poppy GMS and also adds new parameters to the dictionary of parameters: 
+Note that poppy-uppsala overloads some config parameters of Poppy GMS and also adds new parameters to the dictionary of 
+parameters, as for instance: 
  - Mosdepth coverage in exon regions only,
- - Home folder of the analysis.
+ - Home folder of the analysis,
+ - Parameters for the bamsnap tool to take screenshots in IGV.
 
 When starting the pipeline, the dictionary of parameters used in the workflow is created by Snakemake 
 from the options in the command line `snakemake [options] <snakefile>` with:
  - the YAML entries in the `--configfile` for the pipeline,
  - the single parameters passed via the `--config` argument.
 
-NB: tricky versioning for MultiQC.
+#### Pulling containers
+In order to have the versions of the softwares used in the pipeline parsed correctly and reported in MultiQC, the 
+following is required:
+- each rule must have a container specified in the `container` section of the rule,
+- the image must be available on Dockerhub or locally, and have a name 
+in the form `path_or_url/<image_name>:<version_tag>`.
+
+##### Example if pulling the image from Dockerhub
+If the image is to be pulled from Dockerhub: `"container: docker://hydragenetics/bamsnap:0.2.19"`, 
+then the `<image_name>` is `bamsnap` and the `<version_tag>` is `0.2.19`.
+
+When starting the pipeline, the image will be pulled automatically if they are not available locally, before the 
+first rule is executed:
+```bash    
+Building DAG of jobs...
+Pulling singularity image docker://hydragenetics/bamsnap:0.2.19.
+Using shell: /usr/bin/bash
+Provided cores: ...
+```
+
+By default, with Snakemake, the images are saved in the local cache directory `.snakemake/singularity`.
+You can change the location of the cache directory by:
+- using the `--use-singularity --singularity-prefix` options in the snakemake command to specify the cache directory,
+- setting the entry `singularity-prefix` in `config/profile`: `singularity-prefix: 
+  "path/to/singularity/cache"`.
+
+With the example of bansmap above, you will see the followinf printout when the rule `bamsnap` is executed:
+```bash
+[Timestamp]
+rule basmsnap:
+    input: 
+        ...
+    output: 
+        ...
+    jobid: ...
+    reason: Missing output files: ...
+    wildcards: ...
+    resources: ...
+
+Activating singularity image .snakemake/singularity/<a_very_long_id_with_[a-z0-9]>.simg
+```
+
+##### Example if using a pulled image in a local path
+ 
+You may also use an image that is built locally, or that you manually pull first:
+```bash
+# Pull the image from Dockerhub
+cd <your_location_for_images>
+docker pull hydragenetics/bamsnap:0.2.19
+# Convert the image to Singularity format
+singularity build --force bamsnap_0.2.19.simg docker-daemon://hydragenetics/bamsnap:0.2.19
+```
+
+Then you can use the image in the pipeline by specifying the path to the image in the `container` section of the rule:
+```yaml
+container: "your_location_for_images/bamsnap_0.2.19.simg"
+```
+
+When starting the pipeline, the image will be used directly from the local path:
+```bash
+``` 
+
+and 
 
 ## Input sample files
 The pipeline uses sample input files (`samples.tsv` and `units.tsv`) with information regarding sample information,

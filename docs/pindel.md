@@ -10,6 +10,8 @@ Originally developed by [Ye et al. in 2009](https://watermark.silverchair.com/bi
 not be captured by standard variant calling tools like GATK Mutect2 or VarDict. 
 Pindel uses a split-read approach, where it
 analyzes reads that are split across the boundaries of an indel to accurately determine its size and location.
+For more details, see the documentation of [Poppy GMS]().
+
 In the context of the poppy-uppsala pipeline, Pindel is used to call larger indels in specific regions of 
 interest that involve the following genes:
 
