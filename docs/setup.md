@@ -129,7 +129,7 @@ You can change the location of the cache directory by:
 - setting the entry `singularity-prefix` in `config/profile`: `singularity-prefix: 
   "path/to/singularity/cache"`.
 
-With the example of bansmap above, you will see the followinf printout when the rule `bamsnap` is executed:
+With the example of bansmap above, you will see the following printout when the rule `bamsnap` is executed:
 ```bash
 [Timestamp]
 rule basmsnap:
@@ -160,12 +160,6 @@ Then you can use the image in the pipeline by specifying the path to the image i
 ```yaml
 container: "your_location_for_images/bamsnap_0.2.19.simg"
 ```
-
-When starting the pipeline, the image will be used directly from the local path:
-```bash
-``` 
-
-and 
 
 ## Input sample files
 The pipeline uses sample input files (`samples.tsv` and `units.tsv`) with information regarding sample information,
