@@ -46,7 +46,22 @@ and not as a frequency.
 Note that the artifacts are annotated w.r.t. the machines used at CGU (NextSeq and NovaSeqX), they may not be 
 relevant if other sequencing machines or other setups are used.
 
+## Implementation
+
 Pindel is run with the default options in poppy-uppsala.
+It is seen as a variant calling tool for CNVs and SVs in hydra-genetics, however the VCF output of Pindel can be 
+processed with tools for indels such as VT for decomposition and normalization.
+
+The output of Pindel requires additional processing to be usable in the context of the poppy-uppsala pipeline,
+for instance:
+- Reformat the output to regular VCF files,
+- Compute the variant allele frequency from the allelic depth and 
+  add the AF value to the INFO fields in the VCF file.
+
+The Python scripts fixing these processing steps and the related Snakemake rules can be found in the 
+`poppy/workflow/scripts/` and `poppy/workflow/rules/` directories of the Poppy GMS repository:
+- `create_artifact_file_pindel.py` and `pindel_processing_*.py` scripts,
+- `pindel_processing.smk` set of rules.
 
 As the [source code of Pindel](https://github.com/genome/pindel/tree/master) is no longer maintained in its open-source repository, we would ideally like to
 replace it with a more modern tool in the future.

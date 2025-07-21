@@ -10,6 +10,7 @@ nav:
       - Step by step:
           - Poppy GMS:
             - Prealignment: prealignment.md
+            - Alignment: alignment.md
             - SNVs and INDELs: snv-indels.md
             - Pindel: pindel.md
           - Uppsala's specific steps:
