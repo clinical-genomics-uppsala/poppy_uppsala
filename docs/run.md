@@ -12,6 +12,8 @@ snakemake -n --profile profiles/NAME_OF_PROFILE -s workflow/Snakefile --configfi
 **Important note**: The configuration file for poppy **must** be specified first after the option `--configfiles`,
 before the configuration file to use for poppy-uppsala as the latter file overrides some values in the first file.
 
+### Config files and dictionary
+
 That said, it means that if some keys are identical in the config files for Poppy GMS and poppy-uppsala, 
 the values in the poppy-uppsala config are the ones that are actually used during the execution.
 
@@ -62,3 +64,48 @@ in the repository on GitHub.
 
 See the [bash script](https://github.com/clinical-genomics-uppsala/pipeline_start_scripts/blob/develop/marvin/start_wp2_tm.sh) 
 that we use on our HPC cluster at Clinical Genomics Uppsala.
+You may use something similar to start your pipeline
+
+### Fetch the source code to be used
+The script clones the branch or tag of the Poppy GMS/Uppsala repositories that are chosen by the user
+and then install the required virtual environments.
+
+### Create the input files for hydra-genetics
+The script determines what kind of sequencing machine was used to generate the data. 
+The type of the machine is required to pass the correct options to the command `hydra-genetics create-input-files` 
+that creates `samples.tsv` and `input.tsv`. 
+For instance, one must pass the option `--default-barcode NNNNNNNN+NNNNNNNN` for NextSeq machines,
+but not for NovaSeq machines.
+Among other things, the input files let hydra-genetics know what wildcards to use for the samples in the analysis.
+
+### Pick the correct configuration file
+Different sequencing machines lead to different configurations to be used e.g. different artifact files, at CGU we 
+chose the solution to have different configuration files for each machine type. 
+After parsing the machine type, the script copies the relevant configuration file in the repository that was cloned.
+At CGU, we have a configuration file for NextSeq machines (`config/config_uppsala_nextseq.yaml`) 
+and one for NovaSeq machines (`config/config_uppsala_novaseq.yaml`).
+The configuration file for Poppy GMS is the same regardless of the machine as we can override the keys if needed in 
+in configurations of poppy-uppsala.
+
+### Run the pipeline with Snakemake
+Last, the scripts starts the analysis of the sequence data with Snakemake.
+You may generate a rule graph to see the dependencies between the rules and the order in which they are executed.
+Below is the command we would use in our CGU script:
+
+```bash
+...
+snakemake --profile ${poppy_uu_path}poppy_uppsala/profile -s ${poppy_uu_path}poppy_uppsala/workflow/Snakefile \
+        --configfiles config.yaml config_uppsala.yaml --config poppy_version=${poppy_version} poppy_uu_version=${poppy_uu_version} POPPY_HOME=${poppy_path}poppy \
+        POPPY_UU_HOME=${poppy_uu_path}poppy_uppsala sequenceid=${sequenceid} --forceall --rulegraph | dot -Tpdf > rulegraph.pdf
+```
+
+Note that this command will create a log file in the `.snakemake/log/` directory.
+This file contains only the printout "Building DAG of jobs...".
+
+## Run time
+The run time of the analysis depends on:
+- the number of samples,
+- the sequencing depth,
+- the computational resources that are available.
+
+At CGU, the analysis usually takes a couple of hours for 16 samples with 700-800x coverage on a NextSeq machine.
