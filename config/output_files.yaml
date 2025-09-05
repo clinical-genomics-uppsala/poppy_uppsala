@@ -5,7 +5,7 @@ files:
     output: "{sample}_{sequenceid}/data/{sample}_{type}_{sequenceid}.bam"
 
   - name: Alignment BAM file index
-    input: null
+    input: alignment/samtools_merge_bam/{sample}_{type}.bam.bai
     output: "{sample}_{sequenceid}/data/{sample}_{type}_{sequenceid}.bam.bai"
 
   - name: MultiQC
