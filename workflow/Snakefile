@@ -17,6 +17,7 @@ include: "rules/sample_order_multiqc.smk"
 
 # enforces version update first
 ruleorder: version_update_poppy > bamsnap_create_pos_list
+ruleorder: alignment_samtools_index > copy_alignment_bam_file_index 
 
 
 # 'All' rule, must be specified before any other modules are
