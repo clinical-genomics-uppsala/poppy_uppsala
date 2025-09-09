@@ -37,7 +37,6 @@ rule version_update_poppy:
         time=config.get("version_update_poppy", {}).get("time", config["default_resources"]["time"]),
     container:
         config.get("version_update_poppy", {}).get("container", config["default_container"])
-    localrule: True
     message:
         "{rule}: update poppy_version for multiqc since it now has poppy_uppsala version"
     shell:
