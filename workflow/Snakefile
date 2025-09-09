@@ -17,7 +17,7 @@ include: "rules/sample_order_multiqc.smk"
 
 # enforces version update first
 ruleorder: version_update_poppy > bamsnap_create_pos_list
-ruleorder: alignment_samtools_index > copy_alignment_bam_file_index 
+ruleorder: copy_alignment_bam_file_index > alignment_samtools_index
 
 
 # 'All' rule, must be specified before any other modules are
@@ -42,7 +42,8 @@ module alignment:
 use rule samtools_index from alignment as alignment_samtools_index with:
     output:
         bai="{file}.bam.bai",
-
+    wildcard_constraints:
+        file="^alignment/.+"
 
 module poppy:
     snakefile:
