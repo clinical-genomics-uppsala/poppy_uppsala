@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.4](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.3...v0.2.4) (2025-09-10)
+
+
+### Bug Fixes
+
+* adjust ruleorder ([63285b2](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/63285b232185d7f5d83ea3227ef61674c88ba006))
+* localrule and index file ([22c1f8d](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/22c1f8d3fa0e64b9a6d4abb6dceebbd63c44ca28))
+* ruleorder ([b49fdbd](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/b49fdbdb22970af7737afa12b48cf1ee528822a2))
+
 ## [0.2.1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.0...v0.2.1) (2025-06-03)
 
 
