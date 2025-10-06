@@ -8,9 +8,9 @@ reference:
   fasta: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
   fai: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"
   dict: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.dict"
-  exon_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_coding_exons_added_regions.250904.bed"
-  design_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_241211.bed"
-  design_intervals: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_241211.interval_list" #hsmetrics
+  exon_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_coding_exons_added_regions.251003.bed"
+  design_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_251003.bed"
+  design_intervals: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_251003.interval_list" #hsmetrics
   design_intervals_gatk_cnv: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/design.preprocessed.interval_list" 
   artifacts: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/artifact_panel.tsv"
   artifacts_pindel: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/artifact_panel_pindel.tsv"
