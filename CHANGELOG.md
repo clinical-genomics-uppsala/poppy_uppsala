@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.5](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.4...v0.2.5) (2025-10-09)
+
+
+### Bug Fixes
+
+* padded region in bed file ([786e731](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/786e73137f65e5094d2f257953e427804dd8b1d4))
+
 ## [0.2.4](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.3...v0.2.4) (2025-09-10)
 
 
