@@ -142,8 +142,8 @@ rule bamsnap:
 
 rule bamsnap_hd829:
     input:
-        bam="bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam",
-        bai="bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam.bai",
+        bam="alignment/samtools_merge_bam/{sample}_{type}.bam",
+        bai="alignment/samtools_merge_bam/{sample}_{type}.bam.bai",
         fasta=config["reference"]["fasta"],
     output:
         results_dir=temp(directory("bamsnap/bamsnap/{sample}_{type}/")),
