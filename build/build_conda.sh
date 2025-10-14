@@ -54,8 +54,7 @@ git clone https://github.com/hydra-genetics/snv_indels.git ${PIPELINE_NAME}_${TA
 git clone https://github.com/hydra-genetics/references.git ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics/references
 
 ## Keep DockerHub paths to create Singularity images
-cat ${PIPELINE_NAME}_${TAG_OR_BRANCH}/poppy/config/config.yaml \
-${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/config/config_uppsala_novaseq.yaml > \
+mv ${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/config/config_uppsala_novaseq.yaml > \
 ${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/config/containers.yaml
 
 ## Download the config files from the config repo
