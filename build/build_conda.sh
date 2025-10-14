@@ -7,7 +7,7 @@ eval "$(conda shell.bash hook)"
 git clone --branch ${TAG_OR_BRANCH} ${PIPELINE_GITHUB_REPO}
 cd ${PIPELINE_NAME}
 
-# Create and activate conda envrionmnet in the current directory, then install pipeline requirements
+# Create and activate conda envrionment in the current directory, then install pipeline requirements
 conda create --prefix ./${PIPELINE_NAME}_${TAG_OR_BRANCH}_env python=${PYTHON_VERSION} -y
 conda activate ./${PIPELINE_NAME}_${TAG_OR_BRANCH}_env
 conda install -c conda-forge pip -y
@@ -54,7 +54,7 @@ git clone https://github.com/hydra-genetics/snv_indels.git ${PIPELINE_NAME}_${TA
 git clone https://github.com/hydra-genetics/references.git ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics/references
 
 ## Download the config files from the config repo
-git clone --branch ${CONFIG_VERSION} ${CONFIG_GITHUB_REPO} poppy_uppsala_config/
+git clone --branch ${CONFIG_VERSION} ${CONFIG_GITHUB_REPO} ./poppy_uppsala_config
 ## copy resources.yaml files to the pipline config directory
 cp poppy_uppsala_config/config/*.yaml ./${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/config/
 cp -r poppy_uppsala_config/references ./${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/config/
