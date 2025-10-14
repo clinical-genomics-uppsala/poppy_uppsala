@@ -30,7 +30,7 @@ git clone --branch ${TAG_OR_BRANCH} ${PIPELINE_GITHUB_REPO} ${PIPELINE_NAME}_${T
 conda pack --prefix ./${PIPELINE_NAME}_${TAG_OR_BRANCH}_env -o ${PIPELINE_NAME}_${TAG_OR_BRANCH}/env.tar.gz
 
 # Clone git of Poppy GMS
-git clone https://github.com/genomic-medicine-sweden/poppy.git ${PIPELINE_NAME}_${TAG_OR_BRANCH}/poppy
+git clone ${POPPY_GMS_REPO} ${PIPELINE_NAME}_${TAG_OR_BRANCH}/poppy
 
 # Clone snakemake-wrappers and hydra-genetics
 mkdir -p ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics
@@ -53,6 +53,11 @@ git clone https://github.com/hydra-genetics/reports.git ${PIPELINE_NAME}_${TAG_O
 git clone https://github.com/hydra-genetics/snv_indels.git ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics/snv_indels
 git clone https://github.com/hydra-genetics/references.git ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics/references
 
+## Keep DockerHub paths to create Singularity images
+cat ${PIPELINE_NAME}_${TAG_OR_BRANCH}/poppy/config/config.yaml \
+${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/config/config_uppsala_novaseq.yaml > \
+${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/config/containers.yaml
+
 ## Download the config files from the config repo
 git clone --branch ${CONFIG_VERSION} ${CONFIG_GITHUB_REPO} poppy_uppsala_config
 ## copy resources.yaml files to the pipline config directory
@@ -67,7 +72,8 @@ tar -zcvf ${PIPELINE_NAME}_${TAG_OR_BRANCH}.tar.gz ${PIPELINE_NAME}_${TAG_OR_BRA
 
 # Download containers
 conda activate ./${PIPELINE_NAME}_${TAG_OR_BRANCH}_env
-hydra-genetics prepare-environment create-singularity-files -c config/config.yaml -o apptainer_cache
+hydra-genetics prepare-environment create-singularity-files -c
+./${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/config/containers.yaml -o apptainer_cache
 
 # Download references
 for reference_config in "$@"
