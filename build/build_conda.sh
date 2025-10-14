@@ -54,13 +54,13 @@ git clone https://github.com/hydra-genetics/snv_indels.git ${PIPELINE_NAME}_${TA
 git clone https://github.com/hydra-genetics/references.git ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics/references
 
 ## Download the config files from the config repo
-git clone --branch ${CONFIG_VERSION} ${CONFIG_GITHUB_REPO} ./poppy_uppsala_config
+git clone --branch ${CONFIG_VERSION} ${CONFIG_GITHUB_REPO} poppy_uppsala_config
 ## copy resources.yaml files to the pipline config directory
-cp poppy_uppsala_config/config/*.yaml ./${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/config/
-cp -r poppy_uppsala_config/references ./${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/config/
-cp -r poppy_uppsala_config/profiles/* ./${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/profiles/
+cp poppy_uppsala_config/config/miarka/*.yaml ./${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/config/
+cp -r poppy_uppsala_config/config/miarka/references ./${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/config/
+cp poppy_uppsala_config/profiles/miarka/config.yaml ./${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/profile/
 ## replace TAG_OR_BRANCH in profiles by the chosen version of the pipeline
-sed -i -E "s/TAG_OR_BRANCH/${TAG_OR_BRANCH}/g" ./${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/profiles/miarka/config.yaml
+sed -i -E "s/TAG_OR_BRANCH/${TAG_OR_BRANCH}/g" ./${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/profile/config.yaml
 
 # Pack all cloned repositories
 tar -zcvf ${PIPELINE_NAME}_${TAG_OR_BRANCH}.tar.gz ${PIPELINE_NAME}_${TAG_OR_BRANCH}
