@@ -16,8 +16,6 @@ modules:
   reports: v0.3.1
   snv_indels_uppsala: v1.1.0
 
-trimmer_software: "fastp_pe"
-
 reference:
   fasta: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
   fai: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"

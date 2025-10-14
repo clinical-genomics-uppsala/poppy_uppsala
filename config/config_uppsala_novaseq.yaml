@@ -6,8 +6,6 @@ output: "{{POPPY_UU_HOME}}/config/output_files.yaml"
 
 default_container: "docker://hydragenetics/common:1.10.2"
 
-trimmer_software: "fastp_pe"
-
 modules:
   alignment: v0.5.1
   annotation: v1.0.0
