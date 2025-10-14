@@ -60,6 +60,14 @@ module poppy:
 use rule * from poppy exclude all, copy_bamsnap
 
 
+# module alignment: ...
+
+
+# use rule picard_mark_duplicates from alignment as alignment_picard_rm_duplicates
+# input
+# output
+# params: extra = "--REMOVE_DUPLICATES true"
+
 module snv_indels:
     snakefile:
         github(
