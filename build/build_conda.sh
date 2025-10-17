@@ -7,7 +7,7 @@ eval "$(conda shell.bash hook)"
 git clone --branch ${TAG_OR_BRANCH} ${PIPELINE_GITHUB_REPO}
 cd ${PIPELINE_NAME}
 
-# Create and activate conda envrionment in the current directory, then install pipeline requirements
+# Create and activate conda environment in the current directory, then install pipeline requirements
 conda create --prefix ./${PIPELINE_NAME}_${TAG_OR_BRANCH}_env python=${PYTHON_VERSION} -y
 conda activate ./${PIPELINE_NAME}_${TAG_OR_BRANCH}_env
 conda install -c conda-forge pip -y
@@ -17,7 +17,8 @@ then
     rm -fr ${PIPELINE_NAME}_${TAG_OR_BRANCH}
 fi
 
-# The directory ${PIPELINE_NAME}_${TAG_OR_BRANCH} is created the files to be packaged and transferred elsewhere:
+# The directory ${PIPELINE_NAME}_${TAG_OR_BRANCH} is created for the files that are to be packaged and transferred
+# elsewhere:
 # - the pipeline code for poppy_uppsala as well as the "base" code from Poppy GMS
 # - the conda environment used to run the pipeline
 # - the snakemake-wrappers
