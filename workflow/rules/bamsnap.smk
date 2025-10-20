@@ -37,7 +37,7 @@ rule bamsnap_create_pos_list:
 
 rule bamsnap_downsample_bam:
     input:
-        bam="alignment/samtools_merge_bam/{sample}_{type}.bam",
+        bam="alignment/samtools_merge_bam_dedup/{sample}_{type}.bam",
     output:
         bam=temp("bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam"),
     params:
