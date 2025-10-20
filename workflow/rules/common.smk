@@ -23,6 +23,7 @@ from hydra_genetics.utils.software_versions import get_pipeline_version
 from hydra_genetics.utils.software_versions import touch_pipeline_version_file_name
 from hydra_genetics.utils.misc import replace_dict_variables
 from hydra_genetics.utils.misc import export_config_as_file
+from hydra_genetics.utils.misc import extract_chr
 
 min_version("6.8.0")
 
@@ -95,6 +96,23 @@ wildcard_constraints:
     sample="|".join(samples.index),
     type="N|T|R",
 
+def get_chrom_bams_dedup(wildcards):
+    skip_contig_patterns = config.get("reference", {}).get("skip_contigs", [])
+    merge_contig_patterns = config.get("reference", {}).get("merge_contigs", [])
+    contig_patterns = skip_contig_patterns + merge_contig_patterns
+
+    if len(contig_patterns) == 0:
+        skip_contigs = []
+    else:
+        skip_contigs = get_chr_from_re(contig_patterns)
+
+    ref_fasta = config.get("reference", {}).get("fasta", "")
+    chroms = extract_chr(f"{ref_fasta}.fai", filter_out=skip_contigs)
+
+    bam_list = [f"alignment/picard_mark_duplicates_dedup/{wildcards.sample}_{wildcards.type}_{chr}.bam" for chr in
+                chroms]
+
+    return bam_list
 
 def compile_output_file_list(wildcards):
     outdir = pathlib.Path(output_spec["directory"])
