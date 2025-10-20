@@ -30,14 +30,16 @@ git clone --branch ${TAG_OR_BRANCH} ${PIPELINE_GITHUB_REPO} ${PIPELINE_NAME}_${T
 ./${PIPELINE_NAME}_${TAG_OR_BRANCH}_env/bin/pip3 install -r ${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/requirements.txt
 conda pack --prefix ./${PIPELINE_NAME}_${TAG_OR_BRANCH}_env -o ${PIPELINE_NAME}_${TAG_OR_BRANCH}/env.tar.gz
 
-# Clone git of Poppy GMS
-git clone ${POPPY_GMS_REPO} ${PIPELINE_NAME}_${TAG_OR_BRANCH}/poppy
-
 # Clone snakemake-wrappers and hydra-genetics
 mkdir -p ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics
 
+# Clone git of Poppy GMS as a "fake" hydra module
+git clone ${POPPY_GMS_REPO} ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics/poppy
+
+# Clone wrappers
 git clone https://github.com/snakemake/snakemake-wrappers.git ${PIPELINE_NAME}_${TAG_OR_BRANCH}/snakemake-wrappers
 
+# Clone atual hydra modules
 git clone https://github.com/hydra-genetics/alignment.git ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics/alignment
 git clone https://github.com/hydra-genetics/annotation.git ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics/annotation
 git clone https://github.com/hydra-genetics/biomarker.git ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics/biomarker

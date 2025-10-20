@@ -23,6 +23,7 @@ from hydra_genetics.utils.software_versions import get_pipeline_version
 from hydra_genetics.utils.software_versions import touch_pipeline_version_file_name
 from hydra_genetics.utils.misc import replace_dict_variables
 from hydra_genetics.utils.misc import export_config_as_file
+from hydra_genetics.utils.misc import get_module_snakefile
 
 min_version("6.8.0")
 

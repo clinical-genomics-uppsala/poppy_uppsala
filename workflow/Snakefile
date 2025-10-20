@@ -33,6 +33,7 @@ rule all:
 module alignment:
     snakefile:
         get_module_snakefile(
+            config,
             "hydra-genetics/alignment",
             path="workflow/Snakefile",
             tag=config["modules"]["alignment"],
@@ -50,9 +51,9 @@ use rule samtools_index from alignment as alignment_samtools_index with:
 
 module poppy:
     snakefile:
-        get_module_snakefile(
+	get_module_snakefile(
                 config,
-                os.path.join(os.path.pardir(os.getcwd()), "poppy"),
+                "poppy",
                 path="workflow/Snakefile",
                 tag=config["poppy_version"],
             )
