@@ -41,41 +41,6 @@ use rule samtools_index from alignment as alignment_samtools_index with:
         file="^alignment/.+",
 
 
-use rule picard_mark_duplicates from alignment as alignment_picard_rm_duplicates with:
-    input:
-        bams="alignment/samtools_extract_reads/{sample}_{type}_{chr}.bam",
-    output:
-        bam=temp("alignment/picard_mark_duplicates_dedup/{sample}_{type}_{chr}.bam"),
-        metrics=temp("alignment/picard_mark_duplicates_dedup/{sample}_{type}_{chr}.metrics.txt"),
-    params:
-        extra=config.get("picard_mark_duplicates_dedup", {}).get("extra", ""),
-    log:
-        "alignment/picard_mark_duplicates_dedup/{sample}_{type}_{chr}.log",
-    benchmark:
-        repeat(
-            "alignment/picard_mark_duplicates_dedup/{sample}_{type}_{chr}.benchmark.tsv",
-            config.get("picard_mark_duplicates_dedup", {}).get("benchmark_repeats", 1),
-        )
-
-use rule samtools_merge_bam from alignment as alignment_samtools_merge_bam_dedup with:
-    input:
-        bams=get_chrom_bams_dedup,
-        non_chr_bams="alignment/picard_mark_duplicates_dedup/{sample}_{type}_non_chr.bam"
-        if config.get("reference", {}).get("merge_contigs", None) is not None
-        else [],
-    output:
-        bam=temp("alignment/samtools_merge_bam_dedup/{sample}_{type}.bam_unsorted"),
-    params:
-        extra=config.get("samtools_merge_bam_dedup", {}).get("extra", ""),
-    log:
-        "alignment/samtools_merge_bam_dedup/{sample}_{type}.bam_unsorted.log",
-    benchmark:
-        repeat(
-            "alignment/samtools_merge_bam_dedup/{sample}_{type}.bam_unsorted.benchmark.tsv",
-            config.get("samtools_merge_bam_dedup", {}).get("benchmark_repeats", 1),
-        )
-
-
 module poppy:
     snakefile:
         github(

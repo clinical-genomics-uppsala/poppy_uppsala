@@ -35,9 +35,39 @@ rule bamsnap_create_pos_list:
         "../scripts/create_pos_list.py"
 
 
+rule samtools_view_dedup:
+    input:
+        bam="alignment/samtools_merge_bam/{sample}_{type}.bam",
+        bai="alignment/samtools_merge_bam/{sample}_{type}.bam.bai",
+    output:
+        bam=temp("alignment/samtools_view_dedup/{sample}_{type}.bam"),
+    params:
+        extra=config.get("samtools_view_dedup", {}).get("extra", ""),
+    log:
+        "alignment/samtools_view_dedup/{sample}_{type}.bam.log",
+    benchmark:
+        repeat(
+            "alignment/samtools_view_dedup/{sample}_{type}.bam.benchmark.tsv",
+            config.get("samtools_view_dedup", {}).get("benchmark_repeats", 1),
+        )
+    threads: config.get("samtools_view_dedup", {}).get("threads", config["default_resources"]["threads"])
+    resources:
+        mem_mb=config.get("samtools_view_dedup", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
+        mem_per_cpu=config.get("samtools_view_dedup", {}).get("mem_per_cpu", config["default_resources"]["mem_per_cpu"]),
+        partition=config.get("samtools_view_dedup", {}).get("partition", config["default_resources"]["partition"]),
+        threads=config.get("samtools_view_dedup", {}).get("threads", config["default_resources"]["threads"]),
+        time=config.get("samtools_view_dedup", {}).get("time", config["default_resources"]["time"]),
+    container:
+        config.get("samtools_view_dedup", {}).get("container", config["default_container"])
+    message:
+        "{rule}: create bam {output} with deduplicated reads reads from {input.bam}"
+    shell:
+        "(samtools view -@ {threads} -F 1024 {params.extra} -b {input} > {output}) &> {log}"
+
+
 rule bamsnap_downsample_bam:
     input:
-        bam="alignment/samtools_merge_bam_dedup/{sample}_{type}.bam",
+        bam="alignment/samtools_view_dedup/{sample}_{type}.bam",
     output:
         bam=temp("bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam"),
     params:
