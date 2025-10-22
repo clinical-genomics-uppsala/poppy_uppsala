@@ -62,7 +62,7 @@ rule samtools_view_dedup:
     message:
         "{rule}: create bam {output} with deduplicated reads reads from {input.bam}"
     shell:
-        "(samtools view -@ {threads} -F 1024 {params.extra} -b {input} > {output}) &> {log}"
+        "(samtools view -@ {threads} -F 1024 {params.extra} -b {input.bam} > {output.bam}) &> {log}"
 
 
 rule bamsnap_downsample_bam:
