@@ -196,7 +196,7 @@ bamsnap:
 
 bamsnap_downsample_bam:
   container: "docker://hydragenetics/common:3.1.1.2"
-  max_reads: 15000000
+  max_reads: 6000000
 
 bcftools_annotate:
   annotation_db: /data/ref_genomes/GNOMAD/small_exac_common_3.hg38.vcf.gz
