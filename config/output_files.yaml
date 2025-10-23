@@ -5,7 +5,7 @@ files:
     output: "{sample}_{sequenceid}/data/{sample}_{type}_{sequenceid}.bam"
 
   - name: Alignment BAM file index
-    input: null
+    input: alignment/samtools_merge_bam/{sample}_{type}.bam.bai
     output: "{sample}_{sequenceid}/data/{sample}_{type}_{sequenceid}.bam.bai"
 
   - name: MultiQC
@@ -27,10 +27,6 @@ files:
   - name: CNV HTML report, pathology TC
     input: reports/cnv_html_report/{sample}_{type}.pathology.cnv_report.html
     output: "{sample}_{sequenceid}/reports/{sample}_{type}_{sequenceid}.pathology.cnv_report.html"
-
-  - name: CNV HTML report, purecn TC
-    input: reports/cnv_html_report/{sample}_{type}.purecn.cnv_report.html
-    output: "{sample}_{sequenceid}/reports/{sample}_{type}_{sequenceid}.purecn.cnv_report.html"
 
   - name: bamsnap
     input: bamsnap/bamsnap/{sample}_{type}/
