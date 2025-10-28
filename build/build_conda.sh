@@ -34,7 +34,7 @@ conda pack --prefix ./${PIPELINE_NAME}_${TAG_OR_BRANCH}_env -o ${PIPELINE_NAME}_
 mkdir -p ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics
 
 # Clone git of Poppy GMS as a "fake" hydra module
-git clone --branch ${TAG_OR_BRANCH} ${POPPY_GMS_REPO} ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics/poppy
+git clone --branch ${TAG_OR_BRANCH} ${POPPY_GMS_REPO} ${PIPELINE_NAME}_${TAG_OR_BRANCH}/poppy
 
 # Clone wrappers
 git clone https://github.com/snakemake/snakemake-wrappers.git ${PIPELINE_NAME}_${TAG_OR_BRANCH}/snakemake-wrappers

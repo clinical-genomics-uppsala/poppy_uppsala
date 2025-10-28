@@ -49,20 +49,28 @@ use rule samtools_index from alignment as alignment_samtools_index with:
         file="^alignment/.+",
 
 
-module poppy:
-    snakefile:
-	get_module_snakefile(
-                config,
-                "poppy",
+try:  # if on a system that is connected to the internet
+    response = requests.get("https://github.com/genomic-medicine-sweden/poppy.git", timeout=3)
+    module poppy:
+        snakefile:
+            github(
+                "genomic-medicine-sweden/poppy",
                 path="workflow/Snakefile",
                 tag=config["poppy_version"],
             )
-    config:
-        config
+        config:
+            config
+
+except ConnectionError as e:
+    module poppy:
+        snakefile:
+            os.path.join(os.path.dirname(os.getcwd()), "poppy", "workflow", "Snakefile")
+        config:
+            config
 
 
 use rule * from poppy exclude all, copy_bamsnap
-
+print(workflow.__dict__.keys())
 
 module snv_indels:
     snakefile:
@@ -70,7 +78,7 @@ module snv_indels:
                 config,
                 "hydra-genetics/snv_indels",
                 path="workflow/Snakefile",
-                tag=config["modules"]["snv_indels"],
+                tag=config["modules"]["snv_indels_uppsala"],
             )
     config:
         config
