@@ -4,6 +4,7 @@ __email__ = "arielle.munters@scilifelab.uu.se"
 __license__ = "GPL-3"
 
 import os.path
+import requests
 
 
 ruleorder: filtering_bcftools_filter_include_region > snv_indels_bgzip
@@ -61,16 +62,17 @@ try:  # if on a system that is connected to the internet
         config:
             config
 
-except ConnectionError as e:
+except OSError as e:
     module poppy:
         snakefile:
-            os.path.join(os.path.dirname(os.getcwd()), "poppy", "workflow", "Snakefile")
+            # os.path.join(os.path.dirname(os.getcwd()), "poppy", "workflow", "Snakefile")
+            os.path.join(config["POPPY_HOME"], "workflow", "Snakefile")
         config:
             config
 
 
 use rule * from poppy exclude all, copy_bamsnap
-print(workflow.__dict__.keys())
+
 
 module snv_indels:
     snakefile:
