@@ -6,6 +6,16 @@ output: "{{POPPY_UU_HOME}}/config/output_files.yaml"
 
 default_container: "docker://hydragenetics/common:1.10.2"
 
+modules:
+  alignment: v0.5.1
+  annotation: v1.0.0
+  cnv_sv: "1aa9a68" # v0.5.0
+  filtering: v0.3.0
+  prealignment: v1.2.0
+  qc: v0.4.1
+  reports: v0.3.1
+  snv_indels_uppsala: v1.1.0
+
 trimmer_software: "fastp_pe"
 
 reference:
