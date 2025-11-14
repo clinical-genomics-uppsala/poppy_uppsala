@@ -16,16 +16,6 @@ modules:
   reports: v0.3.1
   snv_indels_uppsala: v1.1.0
 
-modules:
-  alignment: v0.5.1
-  annotation: v1.0.0
-  cnv_sv: "1aa9a68" # v0.5.0
-  filtering: v0.3.0
-  prealignment: v1.2.0
-  qc: v0.4.1
-  reports: v0.3.1
-  snv_indels_uppsala: v1.1.0
-
 reference:
   fasta: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
   fai: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"
