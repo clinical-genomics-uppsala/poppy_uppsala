@@ -110,8 +110,8 @@ rule bamsnap_downsample_bam:
 rule bamsnap:
     input:
         pos_list="bamsnap/create_pos_list/{sample}_{type}.pos.bed",
-        bam="alignment/samtools_merge_bam/{sample}_{type}.bam",
-        bai="alignment/samtools_merge_bam/{sample}_{type}.bam.bai",
+        bam="bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam",
+        bai="bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam.bai",
         fasta=config["reference"]["fasta"],
     output:
         results_dir=temp(directory("bamsnap/bamsnap/{sample}_{type}/")),
@@ -144,8 +144,8 @@ rule bamsnap:
 
 rule bamsnap_hd829:
     input:
-        bam="alignment/samtools_merge_bam/{sample}_{type}.bam",
-        bai="alignment/samtools_merge_bam/{sample}_{type}.bam.bai",
+        bam="bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam",
+        bai="bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam.bai",
         fasta=config["reference"]["fasta"],
     output:
         results_dir=temp(directory("bamsnap/bamsnap/{sample}_{type}/")),
