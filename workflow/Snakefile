@@ -49,10 +49,10 @@ use rule samtools_index from alignment as alignment_samtools_index with:
 module poppy:
     snakefile:
         github(
-            "genomic-medicine-sweden/poppy",
-            path="workflow/Snakefile",
-            tag=config["poppy_version"],
-        )
+                "genomic-medicine-sweden/poppy",
+                path="workflow/Snakefile",
+                tag=config["poppy_version"],
+            )
     config:
         config
 
@@ -126,26 +126,7 @@ use rule merge_af_complex_variants from snv_indels as snv_indels_merge_af_comple
             "cnv_sv/pindel_vcf/{sample}_{type}.no_tc.normalized.merged_af.vcf.gz.benchmark.tsv",
             config.get("merge_af_complex_variants", {}).get("benchmark_repeats", 1),
         )
-
-
-use rule bcbio_variation_recall_ensemble from snv_indels as snv_indels_bcbio_variation_recall_ensemble with:
-    input:
-        vcfs=expand(
-            "snv_indels/{caller}/{{sample}}_{{type}}.normalized.merged_af.sorted.vcf.gz",
-            caller=config.get("bcbio_variation_recall_ensemble", {}).get("callers", []),
-        ),
-        ref=config["reference"]["fasta"],
-    output:
-        vcf=temp("snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vcf.gz"),
-        bcbio_work=temp(directory("snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled-work/")),
-    log:
-        "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vcf.gz.log",
-    benchmark:
-        repeat(
-            "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vcf.gz.benchmark.tsv",
-            config.get("bcbio_variation_recall_ensemble", {}).get("benchmark_repeats", 1),
-        )
-
+        
 
 use rule bcftools_concat from snv_indels as snv_indels_concat_vcfs with:
     input:
@@ -179,6 +160,7 @@ module qc:
         )
     config:
         config
+        
 
 
 use rule mosdepth_bed from qc as qc_mosdepth_bed_coding with:
