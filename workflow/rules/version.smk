@@ -25,7 +25,7 @@ rule version_update_poppy:
         yaml_uu=f"versions/software_{date_string}/poppy_uppsala_mqc_versions.yaml",
     params:
         poppy_version=config["poppy_version"],
-        poppy_uu_version=config["poppy_uu_version"]
+        poppy_uu_version=config["poppy_uu_version"],
     log:
         "versions/update_poppy.temp.log",
     benchmark:
