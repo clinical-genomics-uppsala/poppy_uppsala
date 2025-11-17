@@ -169,4 +169,3 @@ rule bamsnap_hd829:
         "{rule}: create dummy folder for {wildcards.sample} "
     shell:
         "(mkdir -p {output.results_dir}) &> {log}"
-
