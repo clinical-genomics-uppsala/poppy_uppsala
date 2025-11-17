@@ -160,7 +160,7 @@ module qc:
         )
     config:
         config
-        
+
 
 use rule mosdepth_bed from qc as qc_mosdepth_bed_coding with:
     input:
