@@ -193,6 +193,7 @@ annotate_cnv:
 
 bamsnap:
   extra: " -coverage_vaf 0.05 -show_soft_clipped -read_thickness 2 -read_gap_height 1 "
+  container: "docker://hydragenetics/bamsnap:0.2.19"
 
 bamsnap_downsample_bam:
   container: "docker://hydragenetics/common:3.1.1.2"
