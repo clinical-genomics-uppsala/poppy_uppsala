@@ -96,6 +96,7 @@ wildcard_constraints:
     sample="|".join(samples.index),
     type="N|T|R",
 
+
 def get_chrom_bams_dedup(wildcards):
     skip_contig_patterns = config.get("reference", {}).get("skip_contigs", [])
     merge_contig_patterns = config.get("reference", {}).get("merge_contigs", [])
@@ -109,10 +110,10 @@ def get_chrom_bams_dedup(wildcards):
     ref_fasta = config.get("reference", {}).get("fasta", "")
     chroms = extract_chr(f"{ref_fasta}.fai", filter_out=skip_contigs)
 
-    bam_list = [f"alignment/picard_mark_duplicates_dedup/{wildcards.sample}_{wildcards.type}_{chr}.bam" for chr in
-                chroms]
+    bam_list = [f"alignment/picard_mark_duplicates_dedup/{wildcards.sample}_{wildcards.type}_{chr}.bam" for chr in chroms]
 
     return bam_list
+
 
 def compile_output_file_list(wildcards):
     outdir = pathlib.Path(output_spec["directory"])

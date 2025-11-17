@@ -31,4 +31,4 @@ jobs:
       - name: Linting
         working-directory: .tests/integration
         run: |
-          snakemake --lint -n -s ../../workflow/Snakefile --configfiles ../../config/config_uppsala_nextseq.yaml config/config.yaml --config POPPY_HOME=../.. POPPY_UU_HOME=../.. sequenceid="dry_run" poppy_version="v0.2.0"
+          snakemake --lint -n -s ../../workflow/Snakefile --configfiles ../../config/config_uppsala_nextseq.yaml config/config.yaml --config POPPY_HOME=../.. POPPY_UU_HOME=../.. sequenceid="dry_run" poppy_version="v0.2.1" poppy_version="v0.2.5"
