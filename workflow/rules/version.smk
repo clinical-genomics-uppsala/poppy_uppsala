@@ -42,6 +42,5 @@ rule version_update_poppy:
     shell:
         """
         set -x
-        echo 'poppy_uppsala: {params.poppy_uu_version}'>{output.yaml_uu}
         echo 'poppy: {params.poppy_version}'>{input.yaml} && echo 'poppy_uppsala: {params.poppy_uu_version}'>{input.yaml_uu} &> versions/update_poppy.stdout
         """
