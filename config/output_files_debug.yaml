@@ -1,5 +1,0 @@
-directory: ./results
-files:
-  - name: Prealignment file
-    input: prealignment/pbmarkdup/{sample}_{type}_{processing_unit}_{barcode}.bam
-    output: "prealignment/pbmarkdup/{sample}_{type}_{processing_unit}_{barcode}.bam"
