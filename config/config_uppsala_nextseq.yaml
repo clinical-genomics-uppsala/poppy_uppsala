@@ -239,6 +239,9 @@ gatk_collect_allelic_counts:
 gatk_denoise_read_counts:
   normal_reference: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/gatk.PoN.hdf5"
 
+merge_af_complex_variants:
+  merge_method: "sum"
+
 merge_cnv_json:
   cytobands: "{{POPPY_UU_HOME}}/config/cytoBand.hg38.txt"
   annotations:

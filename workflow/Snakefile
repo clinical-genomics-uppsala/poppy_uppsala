@@ -128,6 +128,25 @@ use rule merge_af_complex_variants from snv_indels as snv_indels_merge_af_comple
         )
 
 
+use rule bcbio_variation_recall_ensemble from snv_indels as snv_indels_bcbio_variation_recall_ensemble with:
+    input:
+        vcfs=expand(
+            "snv_indels/{caller}/{{sample}}_{{type}}.normalized.merged_af.sorted.vcf.gz",
+            caller=config.get("bcbio_variation_recall_ensemble", {}).get("callers", []),
+        ),
+        ref=config["reference"]["fasta"],
+    output:
+        vcf=temp("snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vcf.gz"),
+        bcbio_work=temp(directory("snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled-work/")),
+    log:
+        "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vcf.gz.log",
+    benchmark:
+        repeat(
+            "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vcf.gz.benchmark.tsv",
+            config.get("bcbio_variation_recall_ensemble", {}).get("benchmark_repeats", 1),
+        )
+
+
 use rule bcftools_concat from snv_indels as snv_indels_concat_vcfs with:
     input:
         calls=[
