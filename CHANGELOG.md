@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.3.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.5...v0.3.0) (2025-11-19)
+
+
+### Features
+
+* downsample bam file to bamsnap ([1c89f9c](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/1c89f9c566c43518faa0bd4e7b69c68c1234dc7b))
+* downsampling deduplicated bam files that are input to bamsnap ([f06b1fc](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/f06b1fca496887c5f62770d737588c94daebfe18))
+* downsampling merged deduplicated bam files that are input to bamsnap ([24ee530](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/24ee5307ce81598f756765bfaa76a5c6b7b636b1))
+
+
+### Bug Fixes
+
+* cleaned unwanted rebased sections ([5c04ced](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/5c04ced1a09b89ec139f75c639cc1796fb9494fe))
+* container for bamsnap ([7245c3f](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/7245c3f98f017464091b452dbfcc3e0f41cbcc5c))
+* input and output file extensions in bamsnap rule ([67410b9](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/67410b9e6a2ac31a01837ec597d268c89c0cf5e8))
+* linting and poppy uu version ([e1ce1ba](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e1ce1baa06dd866d54d46d1b18aeedfe390089b6))
+* linting and poppy uu version ([c7ab302](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/c7ab302e2f2911dc26ac5eaf51abf69484bee469))
+* linting and poppy uu version ([b345193](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/b3451934d8136f76b16f6f894a4f40868aa8e458))
+* missing white space ([51901be](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/51901be447be9425641278aaef5cce22d2645c0b))
+* poppies versions in snakemake-dry-run.yaml ([de47d4a](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/de47d4aa8a403d6db41a9496a21012784630e00f))
+* Reduce max_reads in bamsnap_downsample_bam config ([10f4f1f](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/10f4f1f39a6b136ab2cef23249ec9af7d81e826d))
+* Reduce max_reads in bamsnap_downsample_bam config ([5203c18](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/5203c1834802af1e72390307515093a626702f3e))
+* remove echo for poppy_uppsala version in version.smk ([2f46f27](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/2f46f277f014cb551c1d32e31b127eedd8e9b967))
+* smkfmt ([585bc1e](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/585bc1ed83d3d0974d0d9d448c26ad4c605dca21))
+* smkfmt ([1e4425a](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/1e4425a1d92d25816091ac36f9280f5a2ede0329))
+* use downsampled files in bamsnap ([6cf9cdf](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/6cf9cdfaf2e9bdb524eabf8d4327db79eefbaa2f))
+
 ## [0.2.5](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.4...v0.2.5) (2025-10-09)
 
 
