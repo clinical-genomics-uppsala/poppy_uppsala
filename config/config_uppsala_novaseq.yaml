@@ -195,6 +195,10 @@ bamsnap:
   extra: " -coverage_vaf 0.05 -show_soft_clipped -read_thickness 2 -read_gap_height 1 "
   container: "docker://hydragenetics/bamsnap:0.2.19"
 
+bamsnap_downsample_bam:
+  container: "docker://hydragenetics/common:3.1.1.2"
+  max_reads: 6000000
+
 bcftools_annotate:
   annotation_db: /data/ref_genomes/GNOMAD/small_exac_common_3.hg38.vcf.gz
 
@@ -236,7 +240,7 @@ gatk_denoise_read_counts:
   normal_reference: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/gatk.PoN.hdf5"
 
 merge_af_complex_variants:
-  merge_method: "sum" 
+  merge_method: "sum"
 
 merge_cnv_json:
   cytobands: "{{POPPY_UU_HOME}}/config/cytoBand.hg38.txt"

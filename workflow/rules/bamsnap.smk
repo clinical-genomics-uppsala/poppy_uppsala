@@ -35,11 +35,83 @@ rule bamsnap_create_pos_list:
         "../scripts/create_pos_list.py"
 
 
+rule bamsnap_samtools_view_dedup:
+    input:
+        bam="alignment/samtools_merge_bam/{sample}_{type}.bam",
+        bai="alignment/samtools_merge_bam/{sample}_{type}.bam.bai",
+    output:
+        bam=temp("bamsnap/bamsnap_samtools_view_dedup/{sample}_{type}.bam"),
+    params:
+        extra=config.get("bamsnap_samtools_view_dedup", {}).get("extra", ""),
+    log:
+        "bamsnap/bamsnap_samtools_view_dedup/{sample}_{type}.bam.log",
+    benchmark:
+        repeat(
+            "bamsnap/bamsnap_samtools_view_dedup/{sample}_{type}.bam.benchmark.tsv",
+            config.get("bamsnap_samtools_view_dedup", {}).get("benchmark_repeats", 1),
+        )
+    threads: config.get("bamsnap_samtools_view_dedup", {}).get("threads", config["default_resources"]["threads"])
+    resources:
+        mem_mb=config.get("bamsnap_samtools_view_dedup", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
+        mem_per_cpu=config.get("bamsnap_samtools_view_dedup", {}).get("mem_per_cpu", config["default_resources"]["mem_per_cpu"]),
+        partition=config.get("bamsnap_samtools_view_dedup", {}).get("partition", config["default_resources"]["partition"]),
+        threads=config.get("bamsnap_samtools_view_dedup", {}).get("threads", config["default_resources"]["threads"]),
+        time=config.get("bamsnap_samtools_view_dedup", {}).get("time", config["default_resources"]["time"]),
+    container:
+        config.get("bamsnap_samtools_view_dedup", {}).get("container", config["default_container"])
+    message:
+        "{rule}: create bam {output} with deduplicated reads reads from {input.bam}"
+    shell:
+        "(samtools view -@ {threads} -F 1024 {params.extra} -b {input.bam} > {output.bam}) &> {log}"
+
+
+rule bamsnap_downsample_bam:
+    input:
+        bam="bamsnap/bamsnap_samtools_view_dedup/{sample}_{type}.bam",
+    output:
+        bam=temp("bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam"),
+    params:
+        extra_count=config.get("bamsnap_downsample_bam", {}).get("extra_count", ""),
+        extra_subsample=config.get("bamsnap_downsample_bam", {}).get("extra_subsample", ""),
+        filter_reads=config.get("bamsnap_downsample_bam", {}).get("filter_reads", "-F2060"),
+        max_reads=config.get("bamsnap_downsample_bam", {}).get("max_reads", 2500000),
+        float_precision=config.get("bamsnap_downsample_bam", {}).get("float_precision", 3),
+    log:
+        "bamsnap/bamsnap_downsample_bam/{sample}_{type}.output.log",
+    benchmark:
+        repeat(
+            "bamsnap/bamsnap_downsample_bam/{sample}_{type}.output.benchmark.tsv",
+            config.get("bamsnap_downsample_bam", {}).get("benchmark_repeats", 1),
+        )
+    threads: config.get("bamsnap_downsample_bam", {}).get("threads", config["default_resources"]["threads"])
+    resources:
+        mem_mb=config.get("bamsnap_downsample_bam", {}).get("mem_mb", config["default_resources"]["mem_mb"]),
+        mem_per_cpu=config.get("bamsnap_downsample_bam", {}).get("mem_per_cpu", config["default_resources"]["mem_per_cpu"]),
+        partition=config.get("bamsnap_downsample_bam", {}).get("partition", config["default_resources"]["partition"]),
+        threads=config.get("bamsnap_downsample_bam", {}).get("threads", config["default_resources"]["threads"]),
+        time=config.get("bamsnap_downsample_bam", {}).get("time", config["default_resources"]["time"]),
+    container:
+        config.get("bamsnap_downsample_bam", {}).get("container", config["default_container"])
+    message:
+        "{rule}: Output only a proportion of the alignments in {input} based on a maximum number of reads equal to {params.max_reads}"
+    shell:
+        "nb_reads=$(samtools view -c {params.filter_reads} {params.extra_count} {input.bam}) &> {log} && "
+        "frac_reads=$( bc -l <<< \"scale={params.float_precision}; ({params.max_reads}-1)/${{nb_reads}}\" ) &>> {log} "
+        "&& "
+        "if (( $( bc -l <<< \"$frac_reads < 1\" ) )); then "
+        "echo \"File has more than {params.max_reads} reads, downsampling to ca. {params.max_reads} reads (fraction: "
+        "$frac_reads)\" &>> {log} && "
+        "(samtools view -@ {threads} --subsample $frac_reads {params.extra_subsample} -b {input.bam} > {output.bam}) "
+        "&>> {log}; "
+        "else echo \"File has fewer than {params.max_reads} reads, no subsampling was done.\" &>> {log} && "
+        "(samtools view -@ {threads} -b {input.bam} > {output.bam}) &>> {log}; fi"
+
+
 rule bamsnap:
     input:
         pos_list="bamsnap/create_pos_list/{sample}_{type}.pos.bed",
-        bam="alignment/samtools_merge_bam/{sample}_{type}.bam",
-        bai="alignment/samtools_merge_bam/{sample}_{type}.bam.bai",
+        bam="bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam",
+        bai="bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam.bai",
         fasta=config["reference"]["fasta"],
     output:
         results_dir=temp(directory("bamsnap/bamsnap/{sample}_{type}/")),
@@ -72,8 +144,8 @@ rule bamsnap:
 
 rule bamsnap_hd829:
     input:
-        bam="alignment/samtools_merge_bam/{sample}_{type}.bam",
-        bai="alignment/samtools_merge_bam/{sample}_{type}.bam.bai",
+        bam="bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam",
+        bai="bamsnap/bamsnap_downsample_bam/{sample}_{type}.bam.bai",
         fasta=config["reference"]["fasta"],
     output:
         results_dir=temp(directory("bamsnap/bamsnap/{sample}_{type}/")),
