@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.3.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.5...v0.3.0) (2025-11-19)
+
+
+### Features
+
+* downsampling merged deduplicated bam files that are input to bamsnap ([24ee530](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/24ee5307ce81598f756765bfaa76a5c6b7b636b1))
+
+
+### Bug Fixes
+
+* container for bamsnap ([7245c3f](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/7245c3f98f017464091b452dbfcc3e0f41cbcc5c))
+* input and output file extensions in bamsnap rule ([67410b9](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/67410b9e6a2ac31a01837ec597d268c89c0cf5e8))
+* poppies versions in snakemake-dry-run.yaml ([de47d4a](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/de47d4aa8a403d6db41a9496a21012784630e00f))
+* Reduce max_reads in bamsnap_downsample_bam config ([10f4f1f](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/10f4f1f39a6b136ab2cef23249ec9af7d81e826d))
+* use downsampled files in bamsnap ([6cf9cdf](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/6cf9cdfaf2e9bdb524eabf8d4327db79eefbaa2f))
+
 ## [0.2.5](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.4...v0.2.5) (2025-10-09)
 
 
