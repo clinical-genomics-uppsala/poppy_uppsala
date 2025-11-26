@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.3.0...v0.3.1) (2025-11-26)
+
+
+### Bug Fixes
+
+* force all similar jobs to using the same copy of the container ([fa7b546](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/fa7b546c99b1fa8b1de0e40d38dd0979561d52a1))
+
 ## [0.3.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.5...v0.3.0) (2025-11-19)
 
 
