@@ -7,7 +7,7 @@ PIPELINE_NAME="poppy_uppsala"
 PIPELINE_GITHUB_REPO="https://github.com/clinical-genomics-uppsala/poppy_uppsala.git"
 TAG_OR_BRANCH="miarka"
 # poppy_uppsala is build on the top of poppy GMS
-POPPY_GMS_VERSION="miarka"
+POPPY_GMS_VERSION="v1.0.0"
 POPPY_GMS_REPO="https://github.com/genomic-medicine-sweden/poppy.git"
 CONFIG_GITHUB_REPO="https://github.com/clinical-genomics-uppsala/poppy_uppsala_config.git"
 CONFIG_VERSION="develop"
