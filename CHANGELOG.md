@@ -1,44 +1,5 @@
 # Changelog
 
-## [0.3.1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.3.0...v0.3.1) (2025-11-26)
-
-
-### Bug Fixes
-
-* force all similar jobs to using the same copy of the container ([fa7b546](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/fa7b546c99b1fa8b1de0e40d38dd0979561d52a1))
-
-## [0.3.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.5...v0.3.0) (2025-11-19)
-
-
-### Features
-
-* downsampling merged deduplicated bam files that are input to bamsnap ([24ee530](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/24ee5307ce81598f756765bfaa76a5c6b7b636b1))
-
-
-### Bug Fixes
-
-* container for bamsnap ([7245c3f](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/7245c3f98f017464091b452dbfcc3e0f41cbcc5c))
-* input and output file extensions in bamsnap rule ([67410b9](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/67410b9e6a2ac31a01837ec597d268c89c0cf5e8))
-* poppies versions in snakemake-dry-run.yaml ([de47d4a](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/de47d4aa8a403d6db41a9496a21012784630e00f))
-* Reduce max_reads in bamsnap_downsample_bam config ([10f4f1f](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/10f4f1f39a6b136ab2cef23249ec9af7d81e826d))
-* use downsampled files in bamsnap ([6cf9cdf](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/6cf9cdfaf2e9bdb524eabf8d4327db79eefbaa2f))
-
-## [0.2.5](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.4...v0.2.5) (2025-10-09)
-
-
-### Bug Fixes
-
-* padded region in bed file ([786e731](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/786e73137f65e5094d2f257953e427804dd8b1d4))
-
-## [0.2.4](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.3...v0.2.4) (2025-09-10)
-
-
-### Bug Fixes
-
-* adjust ruleorder ([63285b2](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/63285b232185d7f5d83ea3227ef61674c88ba006))
-* localrule and index file ([22c1f8d](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/22c1f8d3fa0e64b9a6d4abb6dceebbd63c44ca28))
-* ruleorder ([b49fdbd](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/b49fdbdb22970af7737afa12b48cf1ee528822a2))
-
 ## [0.2.1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.0...v0.2.1) (2025-06-03)
 
 
