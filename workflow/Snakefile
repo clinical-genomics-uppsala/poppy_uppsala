@@ -50,7 +50,8 @@ use rule samtools_index from alignment as alignment_samtools_index with:
         file="^alignment/.+",
 
 
-try:  # if on a system that is connected to the internet
+# if on a system that is connected to the internet
+try:
     response = requests.get("https://github.com/genomic-medicine-sweden/poppy.git", timeout=3)
     module poppy:
         snakefile:
@@ -65,7 +66,6 @@ try:  # if on a system that is connected to the internet
 except OSError as e:
     module poppy:
         snakefile:
-            # os.path.join(os.path.dirname(os.getcwd()), "poppy", "workflow", "Snakefile")
             os.path.join(config["POPPY_HOME"], "workflow", "Snakefile")
         config:
             config
