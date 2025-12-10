@@ -24,6 +24,7 @@ from hydra_genetics.utils.software_versions import touch_pipeline_version_file_n
 from hydra_genetics.utils.misc import replace_dict_variables
 from hydra_genetics.utils.misc import export_config_as_file
 from hydra_genetics.utils.misc import get_module_snakefile
+from hydra_genetics.utils.misc import extract_chr
 
 min_version("6.8.0")
 
@@ -89,7 +90,6 @@ with open(config["output"]) as output:
         output_spec = yaml.safe_load(output.read())
 
 validate(output_spec, schema="../schemas/output_files.schema.yaml")
-
 
 ### Set wildcard constraints
 wildcard_constraints:
