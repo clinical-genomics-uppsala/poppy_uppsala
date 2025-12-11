@@ -63,10 +63,10 @@ try:
     #     config:
     #         config
     poppy_gms_snakefile = github(
-                "genomic-medicine-sweden/poppy",
-                path="workflow/Snakefile",
-                tag=config["poppy_version"],
-            )
+        "genomic-medicine-sweden/poppy",
+        path="workflow/Snakefile",
+        tag=config["poppy_version"],
+    )
 
 except OSError as e:
     # module poppy:
@@ -76,11 +76,12 @@ except OSError as e:
     #         config
     poppy_gms_snakefile = os.path.join(config["POPPY_HOME"], "workflow", "Snakefile")
 
+
 module poppy:
-        snakefile:
-            poppy_gms_snakefile
-        config:
-            config
+    snakefile:
+        poppy_gms_snakefile
+    config:
+        config
 
 
 use rule * from poppy exclude all, copy_bamsnap
@@ -89,11 +90,11 @@ use rule * from poppy exclude all, copy_bamsnap
 module snv_indels:
     snakefile:
         get_module_snakefile(
-                config,
-                "hydra-genetics/snv_indels",
-                path="workflow/Snakefile",
-                tag=config["modules"]["snv_indels_uppsala"],
-            )
+            config,
+            "hydra-genetics/snv_indels",
+            path="workflow/Snakefile",
+            tag=config["modules"]["snv_indels_uppsala"],
+        )
     config:
         config
 
