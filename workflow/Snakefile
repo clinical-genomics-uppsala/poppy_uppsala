@@ -53,20 +53,32 @@ use rule samtools_index from alignment as alignment_samtools_index with:
 # if on a system that is connected to the internet
 try:
     response = requests.get("https://github.com/genomic-medicine-sweden/poppy.git", timeout=3)
-    module poppy:
-        snakefile:
-            github(
+    # module poppy:
+    #     snakefile:
+    #         github(
+    #             "genomic-medicine-sweden/poppy",
+    #             path="workflow/Snakefile",
+    #             tag=config["poppy_version"],
+    #         )
+    #     config:
+    #         config
+    poppy_gms_snakefile = github(
                 "genomic-medicine-sweden/poppy",
                 path="workflow/Snakefile",
                 tag=config["poppy_version"],
             )
-        config:
-            config
 
 except OSError as e:
-    module poppy:
+    # module poppy:
+    #     snakefile:
+    #         os.path.join(config["POPPY_HOME"], "workflow", "Snakefile")
+    #     config:
+    #         config
+    poppy_gms_snakefile = os.path.join(config["POPPY_HOME"], "workflow", "Snakefile")
+
+module poppy:
         snakefile:
-            os.path.join(config["POPPY_HOME"], "workflow", "Snakefile")
+            poppy_gms_snakefile
         config:
             config
 
