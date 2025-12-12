@@ -18,6 +18,26 @@ properties:
   poppy_version:
     type: string
     description: version tag or commit to use for Poppy pipeline
+  modules:
+    type: object
+    description: version tag or commit to use for each hydra module
+    properties:
+      alignment:
+        type: string
+      annotation:
+        type: string
+      cnv_sv:
+        type: string
+      filtering:
+        type: string
+      prealignment:
+        type: string
+      qc:
+        type: string
+      reports:
+        type: string
+      snv_indels_uppsala:
+          type: string
 
   pacbio_alignment:
     type: boolean

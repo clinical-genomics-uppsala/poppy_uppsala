@@ -4,6 +4,18 @@ samples: "samples.tsv"
 units: "units.tsv"
 output: "{{POPPY_UU_HOME}}/config/output_files.yaml"
 
+default_container: "docker://hydragenetics/common:1.10.2"
+
+modules:
+  alignment: v0.5.1
+  annotation: v1.0.0
+  cnv_sv: "1aa9a68" # v0.5.0
+  filtering: v0.3.0
+  prealignment: v1.2.0
+  qc: v0.4.1
+  reports: v0.3.1
+  snv_indels_uppsala: v1.1.0
+
 reference:
   fasta: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
   fai: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"
@@ -11,7 +23,7 @@ reference:
   exon_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_coding_exons_added_regions.251003.bed"
   design_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_251003.bed"
   design_intervals: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_251003.interval_list" #hsmetrics
-  design_intervals_gatk_cnv: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/design.preprocessed.interval_list" 
+  design_intervals_gatk_cnv: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/design.preprocessed.interval_list"
   artifacts: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/artifact_panel.tsv"
   artifacts_pindel: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/artifact_panel_pindel.tsv"
   background: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/background_panel.tsv"
@@ -245,7 +257,7 @@ merge_af_complex_variants:
 merge_cnv_json:
   cytobands: "{{POPPY_UU_HOME}}/config/cytoBand.hg38.txt"
   annotations:
-    - "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv_annotation.240227.bed" 
+    - "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv_annotation.240227.bed"
   germline_vcf: snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.filter.germline.vcf.gz
   filtered_cnv_vcfs:
     - cnv_sv/svdb_query/{sample}_{type}.{tc_method}.svdb_query.annotate_cnv.cnv_genes.filter.cnv_hard_filter.vcf.gz
