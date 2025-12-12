@@ -21,8 +21,6 @@ rule version_update_poppy:
         yaml_uu=poppy_uu_yaml,
     output:
         touch_file=temp(touch("versions/update_poppy.temp")),
-        yaml=f"versions/software_{date_string}/poppy_mqc_versions.yaml",
-        yaml_uu=f"versions/software_{date_string}/poppy_uppsala_mqc_versions.yaml",
     params:
         poppy_version=config["poppy_version"],
         poppy_uu_version=config["poppy_uu_version"],
@@ -43,7 +41,6 @@ rule version_update_poppy:
         "{rule}: update poppy_version for multiqc since it now has poppy_uppsala version"
     shell:
         """
-        echo 'poppy: {params.poppy_version}'>{output.yaml}
-        echo 'poppy_uppsala: {params.poppy_uu_version}'>{output.yaml_uu}
-        rm -f {input.yaml} {input.yaml_uu}
+        set -x
+        echo 'poppy: {params.poppy_version}'>{input.yaml} && echo 'poppy_uppsala: {params.poppy_uu_version}'>{input.yaml_uu} &> versions/update_poppy.stdout
         """
