@@ -10,3 +10,4 @@ drmaa-log-dir: "slurm"
 default-resources: [threads=1, time="04:00:00", partition="core", mem_mb="3074", mem_per_cpu="3074"]
 singularity-args: "--cleanenv --bind /data,/projects,/home,/beegfs-storage,/scratch,/beegfs-scratch,/beegfs-scratch/wp4/Twist_Myeloid_tmp:/tmp,$HOME --containall"
 singularity-prefix: "/projects/wp4/nobackup/singularity_cache/"
+
