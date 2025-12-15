@@ -3,6 +3,9 @@ __copyright__ = "Copyright 2024, Arielle R. Munters"
 __email__ = "arielle.munters@scilifelab.uu.se"
 __license__ = "GPL-3"
 
+import os.path
+import requests
+
 
 ruleorder: filtering_bcftools_filter_include_region > snv_indels_bgzip
 
@@ -30,10 +33,11 @@ rule all:
 # Include modules
 module alignment:
     snakefile:
-        github(
+        get_module_snakefile(
+            config,
             "hydra-genetics/alignment",
             path="workflow/Snakefile",
-            tag="v0.5.1",
+            tag=config["modules"]["alignment"],
         )
     config:
         config
@@ -46,13 +50,22 @@ use rule samtools_index from alignment as alignment_samtools_index with:
         file="^alignment/.+",
 
 
+# if on a system that is connected to the internet
+try:
+    response = requests.get("https://github.com/genomic-medicine-sweden/poppy.git", timeout=3)
+    poppy_gms_snakefile = github(
+        "genomic-medicine-sweden/poppy",
+        path="workflow/Snakefile",
+        tag=config["poppy_version"],
+    )
+
+except OSError as e:
+    poppy_gms_snakefile = os.path.join(config["POPPY_HOME"], "workflow", "Snakefile")
+
+
 module poppy:
     snakefile:
-        github(
-            "genomic-medicine-sweden/poppy",
-            path="workflow/Snakefile",
-            tag=config["poppy_version"],
-        )
+        poppy_gms_snakefile
     config:
         config
 
@@ -62,10 +75,11 @@ use rule * from poppy exclude all, copy_bamsnap
 
 module snv_indels:
     snakefile:
-        github(
+        get_module_snakefile(
+            config,
             "hydra-genetics/snv_indels",
             path="workflow/Snakefile",
-            tag="v1.1.0",
+            tag=config["modules"]["snv_indels_uppsala"],
         )
     config:
         config
@@ -147,6 +161,25 @@ use rule bcbio_variation_recall_ensemble from snv_indels as snv_indels_bcbio_var
         )
 
 
+use rule bcbio_variation_recall_ensemble from snv_indels as snv_indels_bcbio_variation_recall_ensemble with:
+    input:
+        vcfs=expand(
+            "snv_indels/{caller}/{{sample}}_{{type}}.normalized.merged_af.sorted.vcf.gz",
+            caller=config.get("bcbio_variation_recall_ensemble", {}).get("callers", []),
+        ),
+        ref=config["reference"]["fasta"],
+    output:
+        vcf=temp("snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vcf.gz"),
+        bcbio_work=temp(directory("snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled-work/")),
+    log:
+        "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vcf.gz.log",
+    benchmark:
+        repeat(
+            "snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vcf.gz.benchmark.tsv",
+            config.get("bcbio_variation_recall_ensemble", {}).get("benchmark_repeats", 1),
+        )
+
+
 use rule bcftools_concat from snv_indels as snv_indels_concat_vcfs with:
     input:
         calls=[
@@ -172,10 +205,11 @@ use rule bcftools_concat from snv_indels as snv_indels_concat_vcfs with:
 
 module qc:
     snakefile:
-        github(
+        get_module_snakefile(
+            config,
             "hydra-genetics/qc",
             path="workflow/Snakefile",
-            tag="v0.4.1",
+            tag=config["modules"]["qc"],
         )
     config:
         config
