@@ -2,7 +2,7 @@ samples: samples.tsv
 units: units.tsv
 
 reference:
-  mappability: "poppy_uppsala/access-10kb.mm10.bed"
+  mappability: "/data/ref_genomes/GRCh38/cnvkit/access-10kb.mm10.bed"
 
 create_background_file:
   min_dp: 300
