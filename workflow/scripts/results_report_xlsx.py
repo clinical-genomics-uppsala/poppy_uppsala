@@ -327,7 +327,7 @@ worksheet_overview.write(i, 0, "Twist Myeloid capture panel TE-96463385_hg38 use
 worksheet_overview.write(
     i + 1,
     0,
-    "with the pipeline Poppy (v" + poppy_version + ") and local uppsala implementations (v" + uppsala_version + ").",
+    "with the pipeline Poppy (" + poppy_version + ") and local uppsala implementations (" + uppsala_version + ").",
 )
 worksheet_overview.write_url(i + 3, 0, "https://gms-poppy.readthedocs.io/en/latest/", string="Poppy documentation")
 worksheet_overview.write_url(
