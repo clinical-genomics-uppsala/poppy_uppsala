@@ -2,15 +2,15 @@ name: Snakemake dry run
 
 # Controls when the action will run.
 on:
-   # Triggers the workflow on push or pull request events but only for the master and develop branch
+  # Triggers the workflow on push or pull request events but only for the master and develop branch
   push:
     branches:
-     - develop
-     - main
+      - develop
+      - main
   pull_request:
     branches:
-     - develop
-     - main
+      - develop
+      - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -34,4 +34,4 @@ jobs:
       - name: snakemake dry run
         working-directory: .tests/integration
         run: |
-          snakemake -n -s ../../workflow/Snakefile --configfiles ../../config/config_uppsala_nextseq.yaml config/config.yaml --config POPPY_HOME=../.. POPPY_UU_HOME=../.. sequenceid="dry_run" poppy_version="v0.2.1" poppy_uu_version="v0.2.5"
+          snakemake -n -s ../../workflow/Snakefile --configfiles config/config_poppy.yaml ../../config/config_marvin.yaml config/config_integration_test.yaml --config POPPY_HOME=../.. POPPY_UU_HOME=../.. REFERENCE_DIRECTORY=. sequenceid="dry_run" poppy_version="v1.0.0" poppy_uu_version="v0.4.0"

@@ -1,8 +1,17 @@
 ---
-
 default_container: "docker://hydragenetics/common:1.10.2"
 
 trimmer_software: "fastp_pe"
+
+modules:
+  alignment: v0.5.1
+  annotation: v1.0.0
+  cnv_sv: "1aa9a68"
+  filtering: v0.3.0
+  prealignment: v1.2.0
+  qc: v0.4.1
+  reports: v0.3.1
+  snv_indels_gms: v0.6.0
 
 reference:
   fasta: "reference/hg19.fasta"
@@ -10,15 +19,14 @@ reference:
   exon_bed: "data/bed/design.bed"
   dict: "reference/hg19.dict"
   design_bed: "data/bed/design.bed"
-  design_intervals: "data/bed/design.intervals" 
-  design_intervals_gatk_cnv: "data/bed/design.bed"
-  artifacts: "reference/artifact_panel.tsv"
-  artifacts_pindel: "reference/artifact_panel.tsv"
-  background: "reference/background_panel.tsv"
+  design_intervals: "data/bed/design.intervals"
+  design_intervals_gatk_cnv: "{{REFERENCE_DIRECTORY}}/reference_files/design.preprocessed.interval_list"
+  artifacts: "{{REFERENCE_DIRECTORY}}/reference_files/artifact_panel.tsv"
+  artifacts_pindel: "{{REFERENCE_DIRECTORY}}/reference_files/artifact_panel_pindel.tsv"
+  background: "{{REFERENCE_DIRECTORY}}/reference_files/background_panel.tsv"
 
 annotate_cnv:
   cnv_genes: data/bed/cnv_genes.bed
-
 
 bcbio_variation_recall_ensemble:
   container: "docker://hydragenetics/bcbio-vc:0.2.6"
@@ -29,11 +37,6 @@ bcbio_variation_recall_ensemble:
 bcftools_annotate:
   annotation_db: "reference/annotation.vcf.gz"
 
-bcftools_filter_include_region:
-  cll: "data/bed/design.bed"
-  myeloid: "data/bed/design.bed"
-  hotspot: "data/bed/design.bed"
-
 bwa_mem:
   container: "docker://hydragenetics/bwa_mem:0.7.17"
   amb: "reference/hg19.fasta.amb"
@@ -42,9 +45,14 @@ bwa_mem:
   pac: "reference/hg19.fasta.pac"
   sa: "reference/hg19.fasta.sa"
 
+cnv_html_report:
+  cytobands: false
+  show_table: true
+
 cnvkit_batch:
   container: "docker://hydragenetics/cnvkit:0.9.9"
-  normal_reference: "data/cnvkit/cnvkit_pon.cnn"
+  normal_reference: "{{REFERENCE_DIRECTORY}}/reference_files/cnvkit.PoN.cnn"
+  method: hybrid
 
 cnvkit_call:
   container: "docker://hydragenetics/cnvkit:0.9.9"
@@ -62,11 +70,11 @@ fastqc:
   container: "docker://hydragenetics/fastqc:0.11.9"
 
 filter_vcf:
-  germline: "config/filter_config.yaml"
-  somatic: "config/filter_config.yaml"
-  somatic_hard: "config/filter_config.yaml"
-  pindel: "config/filter_config.yaml"
-  cnv_hard_filter: "config/filter_config.yaml"
+  germline: "{{POPPY_HOME}}/config/config_hard_filter_germline.yaml"
+  somatic: "{{POPPY_HOME}}/config/config_soft_filter_somatic.yaml"
+  somatic_hard: "{{POPPY_HOME}}/config/config_hard_filter_somatic.yaml"
+  pindel: "{{POPPY_HOME}}/config/config_soft_filter_pindel.yaml"
+  cnv_hard_filter: "{{POPPY_HOME}}/config/config_hard_filter_cnv.yaml"
 
 gatk_collect_allelic_counts:
   container: "docker://hydragenetics/gatk4:4.1.9.0"
@@ -77,7 +85,7 @@ gatk_collect_read_counts:
 
 gatk_denoise_read_counts:
   container: "docker://hydragenetics/gatk4:4.1.9.0"
-  normal_reference: "data/gatk/pon.hdf5"
+  normal_reference: "{{REFERENCE_DIRECTORY}}/reference_files/gatk.PoN.hdf5"
 
 gatk_model_segments:
   container: "docker://hydragenetics/gatk4:4.1.9.0"
@@ -97,6 +105,11 @@ gatk_mutect2_merge_stats:
 merge_cnv_json:
   annotations:
     - config/cnv_annotation.bed
+  germline_vcf: snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.filter.germline.vcf.gz
+  filtered_cnv_vcfs:
+    - cnv_sv/svdb_query/{sample}_{type}.{tc_method}.svdb_query.annotate_cnv.cnv_genes.filter.cnv_hard_filter.vcf.gz
+  unfiltered_cnv_vcfs:
+    - cnv_sv/svdb_query/{sample}_{type}.{tc_method}.svdb_query.annotate_cnv.cnv_genes.vcf.gz
 
 mosdepth_bed:
   container: "docker://hydragenetics/mosdepth:0.3.2"
@@ -107,10 +120,24 @@ multiqc:
   container: "docker://hydragenetics/multiqc:1.21"
   reports:
     DNA:
-      config: "config/config_multiqc.yaml"
+      config: "{{POPPY_HOME}}/config/config_multiqc.yaml"
       included_unit_types:
         - T
         - N
+      qc_files:
+        - "qc/fastqc/{sample}_{type}_{flowcell}_{lane}_{barcode}_{read}_fastqc.zip"
+        - "prealignment/fastp_pe/{sample}_{type}_{flowcell}_{lane}_{barcode}_fastp.json"
+        - "qc/mosdepth_bed/{sample}_{type}.mosdepth.summary.txt"
+        - "qc/mosdepth_bed/{sample}_{type}.per-base.bed.gz"
+        - "qc/mosdepth_bed/{sample}_{type}.mosdepth.region.dist.txt"
+        - "qc/mosdepth_bed/{sample}_{type}.regions.bed.gz"
+        - "qc/mosdepth_bed/{sample}_{type}.thresholds.bed.gz"
+        - "qc/picard_collect_hs_metrics/{sample}_{type}.HsMetrics.txt"
+        - "qc/picard_collect_alignment_summary_metrics/{sample}_{type}.alignment_summary_metrics.txt"
+        - "qc/picard_collect_duplication_metrics/{sample}_{type}.duplication_metrics.txt"
+        - "qc/picard_collect_insert_size_metrics/{sample}_{type}.insert_size_metrics.txt"
+        - "qc/picard_collect_gc_bias_metrics/{sample}_{type}.gc_bias.summary_metrics"
+        - "qc/samtools_stats/{sample}_{type}.samtools-stats.txt"
 
 picard_collect_alignment_summary_metrics:
   container: "docker://hydragenetics/picard:2.25.0"
@@ -132,26 +159,31 @@ picard_mark_duplicates:
 
 pindel_call:
   container: "docker://hydragenetics/pindel:0.2.5b9"
+  extra: "-x 2 -B 60"
   include_bed: "data/bed/pindel_regions.bed"
+
+pindel_update_vcf:
+  container: "docker://hydragenetics/picard:2.25.4"
 
 pindel2vcf:
   container: "docker://hydragenetics/pindel:0.2.5b9"
+  extra: "-e 10 -mc 10 -is 5 -he 0.01 -G" # num reads support
+  refname: "GCA_000001405.15_GRCh38_no_alt"
+  refdate: "2022"
 
 purecn:
+  genome: GRCh38
   container: docker://hydragenetics/purecn:2.2.0
   interval_padding: 100
   segmentation_method: internal
   fun_segmentation: PSCBS
-  normaldb: reference/purecn_normal_db.rds
-  intervals: reference/purecn_target_intervals.txt
-  mapping_bias_file: reference/purecn_mapping_bias.rds
+  normaldb: "{{REFERENCE_DIRECTORY}}/reference_files/purecn_normal_db.rds"
+  intervals: "{{REFERENCE_DIRECTORY}}/reference_files/purecn_targets_intervals.txt"
+  mapping_bias_file: "{{REFERENCE_DIRECTORY}}/reference_files/purecn_mapping_bias.rds"
 
 purecn_coverage:
   container: docker://hydragenetics/purecn:2.2.0
-  intervals: reference/purecn_target_intervals.txt
-
-results_report_xlsx:
-  wanted_transcripts: "data/bed/design.bed"
+  intervals: "{{REFERENCE_DIRECTORY}}/reference_files/purecn_targets_intervals.txt"
 
 svdb_merge:
   container: docker://hydragenetics/svdb:2.6.0
@@ -167,6 +199,7 @@ svdb_merge:
 
 svdb_query:
   container: docker://hydragenetics/svdb:2.6.0
+  db_string: "--db {{REFERENCE_DIRECTORY}}/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_OCC"
 
 vardict:
   container: "docker://hydragenetics/vardict:1.8.3"
