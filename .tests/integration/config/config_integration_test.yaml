@@ -1,0 +1,88 @@
+---
+REFERENCE_DIRECTORY: "./"
+
+resources: "{{POPPY_UU_HOME}}/config/resources.yaml"
+samples: "samples.tsv"
+units: "units.tsv"
+output: "{{POPPY_UU_HOME}}/config/output_files.yaml"
+
+reference:
+  design_bed: "data/bed/design.bed"
+  design_intervals: "data/bed/design.intervals"
+  dict: "reference/hg19.dict"
+  exon_bed: "data/bed/design.bed"
+  fasta: "reference/hg19.fasta"
+  fai: "reference/hg19.fasta.fai"
+
+annotate_cnv:
+  cnv_genes: data/bed/cnv_genes.bed
+
+bamsnap:
+  extra: " -coverage_vaf 0.05 -show_soft_clipped -read_thickness 2 -read_gap_height 1 "
+  container: "docker://hydragenetics/bamsnap:0.2.19"
+
+bcftools_annotate:
+  annotation_db: "reference/annotation.vcf.gz"
+
+bcftools_concat_vcfs:
+  extra: " -a "
+
+bcftools_filter_include_region:
+  cll: "data/bed/design.bed"
+  myeloid: "data/bed/design.bed"
+  hotspot: "data/bed/design.bed"
+
+bwa_mem:
+  amb: "reference/hg19.fasta.amb"
+  ann: "reference/hg19.fasta.ann"
+  bwt: "reference/hg19.fasta.bwt"
+  pac: "reference/hg19.fasta.pac"
+  sa: "reference/hg19.fasta.sa"
+
+cnv_html_report:
+  cytobands: true
+  show_table: true
+
+gatk_collect_allelic_counts:
+  SNP_interval: "data/gatk/gnomad_SNP_0.001_target.annotated.interval_list"
+
+merge_af_complex_variants:
+  merge_method: "sum"
+
+merge_cnv_json:
+  annotations:
+    - config/cnv_annotation.bed
+
+multiqc:
+  reports:
+    DNA:
+      config: "{{POPPY_UU_HOME}}/config/config_multiqc.yaml"
+      qc_files:
+        - "qc/fastqc/{sample}_{type}_{flowcell}_{lane}_{barcode}_{read}_fastqc.zip"
+        - "prealignment/fastp_pe/{sample}_{type}_{flowcell}_{lane}_{barcode}_fastp.json"
+        - "qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.summary.txt"
+        - "qc/mosdepth_bed_coding/{sample}_{type}.per-base.bed.gz"
+        - "qc/mosdepth_bed_coding/{sample}_{type}.mosdepth.region.dist.txt"
+        - "qc/mosdepth_bed_coding/{sample}_{type}.regions.bed.gz"
+        - "qc/mosdepth_bed_coding/{sample}_{type}.thresholds.bed.gz"
+        - "qc/picard_collect_hs_metrics/{sample}_{type}.HsMetrics.txt"
+        - "qc/picard_collect_alignment_summary_metrics/{sample}_{type}.alignment_summary_metrics.txt" #inga general stats
+        - "qc/picard_collect_duplication_metrics/{sample}_{type}.duplication_metrics.txt"
+        - "qc/picard_collect_insert_size_metrics/{sample}_{type}.insert_size_metrics.txt"
+        - "qc/picard_collect_gc_bias_metrics/{sample}_{type}.gc_bias.summary_metrics"
+        - "qc/samtools_stats/{sample}_{type}.samtools-stats.txt"
+        - "versions/update_poppy.temp"
+
+pindel_call:
+  include_bed: "data/bed/pindel_regions.bed"
+
+pindel2vcf:
+  extra: "-e 10 -mc 10 -is 5 -he 0.01 -G" # num reads support
+  refname: "GCA_000001405.15_GRCh38_no_alt"
+  refdate: "2022"
+
+results_report_xlsx:
+  wanted_transcripts: "data/bed/design.bed"
+
+vep:
+  vep_cache: "data/vep_cache"

@@ -1,32 +1,23 @@
 ---
+POPPY_HOME: ""
+POPPY_UU_HOME: ""
+REFERENCE_DIRECTORY: ""
+
 resources: "{{POPPY_UU_HOME}}/config/resources.yaml"
 samples: "samples.tsv"
 units: "units.tsv"
 output: "{{POPPY_UU_HOME}}/config/output_files.yaml"
 
-default_container: "docker://hydragenetics/common:1.10.2"
-
 modules:
-  alignment: v0.5.1
-  annotation: v1.0.0
-  cnv_sv: "1aa9a68" # v0.5.0
-  filtering: v0.3.0
-  prealignment: v1.2.0
-  qc: v0.4.1
-  reports: v0.3.1
   snv_indels_uppsala: v1.1.0
 
 reference:
+  design_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_241211.bed"
+  design_intervals: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_241211.interval_list"
+  dict: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.dict"
+  exon_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_coding_exons_added_regions.250904.bed"
   fasta: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
   fai: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"
-  dict: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.dict"
-  exon_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_coding_exons_added_regions.251003.bed"
-  design_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_251003.bed"
-  design_intervals: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_251003.interval_list" #hsmetrics
-  design_intervals_gatk_cnv: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/design.preprocessed.interval_list"
-  artifacts: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/artifact_panel.tsv"
-  artifacts_pindel: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/artifact_panel_pindel.tsv"
-  background: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/background_panel.tsv"
   skip_chrs:
     - "chrM"
     - "chr1_KI270706v1_random"
@@ -233,10 +224,6 @@ cnv_html_report:
   cytobands: true
   show_table: true
 
-cnvkit_batch:
-  normal_reference: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/cnvkit.PoN.cnn"
-  method: hybrid
-
 filter_vcf:
   sample_name_regex: ^([A-Za-z0-9-]+_[NRT]\{1\})$
   germline: "{{POPPY_UU_HOME}}/config/filters/config_hard_filter_germline.yaml"
@@ -247,9 +234,6 @@ filter_vcf:
 
 gatk_collect_allelic_counts:
   SNP_interval: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv100.241211.interval_list"
-
-gatk_denoise_read_counts:
-  normal_reference: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/gatk.PoN.hdf5"
 
 merge_af_complex_variants:
   merge_method: "sum"
@@ -295,18 +279,12 @@ pindel2vcf:
 
 purecn:
   genome: GRCh38
-  normaldb: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_normal_db.rds"
-  intervals: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_targets_intervals.txt"
-  mapping_bias_file: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_mapping_bias.rds"
-
-purecn_coverage:
-  intervals: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_targets_intervals.txt"
 
 results_report_xlsx:
   wanted_transcripts: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/tm_mane_transcript.240404.txt"
 
 svdb_query:
-  db_string: "--db /projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_NextSeq"
+  db_string: "--db {{REFERENCE_DIRECTORY}}/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_OCC"
 
 vep:
   vep_cache: "/data/ref_genomes/VEP"
