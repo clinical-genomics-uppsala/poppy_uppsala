@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.4.0...v0.4.1) (2026-04-28)
+
+
+### Bug Fixes
+
+* profile ([78b8e07](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/78b8e07bec42852ad47e10e6d699b2fd3763c94b))
+
 ## [0.4.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.3.1...v0.4.0) (2025-12-15)
 
 
