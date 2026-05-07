@@ -31,15 +31,3 @@ files:
   - name: bamsnap
     input: bamsnap/bamsnap/{sample}_{type}/
     output: "{sample}_{sequenceid}/reports/{sample}_{type}_{sequenceid}_bamsnap/"
-
-  - name: bamsnap-index
-    input: bamsnap/bamsnap/{sample}_{type}/index.html
-    output: "{sample}_{sequenceid}/reports/{sample}_{type}_{sequenceid}_bamsnap/index.html"
-
-  - name: bamsnap-samplelist
-    input: "bamsnap/bamsnap/{sample}_{type}/sample_list.html"
-    output: "{sample}_{sequenceid}/reports/{sample}_{type}_{sequenceid}_bamsnap/sample_list.html"
-
-  - name: bamsnap-variantlist
-    input: "bamsnap/bamsnap/{sample}_{type}/variant_list.html"
-    output: "{sample}_{sequenceid}/reports/{sample}_{type}_{sequenceid}_bamsnap/variant_list.html"
