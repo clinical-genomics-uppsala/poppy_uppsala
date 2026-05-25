@@ -345,7 +345,7 @@ worksheet_overview.write(i + 5, 0, "Pindel artifact panel used: " + snakemake.pa
 i += 6
 if sample.lower() != "hd829":
     for panel in panels.keys():
-        worksheet_overview.write(i, 0, panel.upper() + "bedfile used: " + panels[panel]["bedfile"])
+        worksheet_overview.write(i, 0, panel.upper() + " bedfile used: " + panels[panel]["bedfile"])
         i += 1
 
 
