@@ -237,8 +237,7 @@ merge_af_complex_variants:
   merge_method: "sum"
 
 merge_cnv_json:
-  ref_genes:
-    - "/data/ref_genomes/GRCh38/cnv_report/refGene_hg38.txt"
+  ref_genes: "/data/ref_genomes/GRCh38/cnv_report/refGene_hg38.txt"
   cytobands: "{{POPPY_UU_HOME}}/config/cytoBand.hg38.txt"
   annotations:
     - "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv_annotation.240227.bed"
