@@ -1,0 +1,36 @@
+# Local Linux workstation site config for poppy_uppsala
+REFERENCE_DATA: "references"
+APPTAINER_CACHE: "apptainer_cache"
+hydra_local_path: "develop/hydra-genetics"
+
+POPPY_UU_HOME: "develop/poppy_uppsala"
+
+# Containers for Local Workstation (uses standard Docker URIs locally)
+CONTAINER_PREFIX: "docker://hydragenetics"
+CONTAINER_SUFFIX: ":"
+CONTAINER_EXT: ""
+
+HYDRAGENETICS_PREFIX: "docker://hydragenetics"
+
+# Platform Independent References (resolved locally)
+ref_fasta: "references/poppy_uppsala/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
+ref_fai: "references/poppy_uppsala/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"
+ref_dict: "references/poppy_uppsala/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.dict"
+ref_exon_bed: "references/poppy_uppsala/Twist_myeloid_coding_exons_added_regions.251003.bed"
+ref_design_bed: "references/poppy_uppsala/Twist_myeloid_TE-96463385_hg38_251003.bed"
+ref_design_intervals: "references/poppy_uppsala/Twist_myeloid_TE-96463385_hg38_251003.interval_list"
+
+ref_annotate_cnv_genes: "references/poppy_uppsala/Twist_myeloid_cnv_annotation.240227.bed"
+ref_bcftools_annotate_db: "references/poppy_uppsala/small_exac_common_3.hg38.vcf.gz"
+ref_cll_genes: "references/poppy_uppsala/CLL_genes_for_xlsx.250114.sorted.bed"
+ref_myeloid_genes: "references/poppy_uppsala/Myeloid_genes_for_xlsx.250114.sorted.bed"
+ref_hotspot_genes: "references/poppy_uppsala/hotspot_genes_for_xlsx.250602.sorted.bed"
+ref_bwa_amb: "references/poppy_uppsala/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb"
+ref_bwa_ann: "references/poppy_uppsala/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.ann"
+ref_bwa_bwt: "references/poppy_uppsala/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.bwt"
+ref_bwa_pac: "references/poppy_uppsala/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.pac"
+ref_bwa_sa: "references/poppy_uppsala/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.sa"
+ref_gatk_snp_interval: "references/poppy_uppsala/Twist_myeloid_cnv100.241211.interval_list"
+ref_pindel_include_bed: "references/poppy_uppsala/Twist_myeloid_pindel_240628.bed"
+ref_wanted_transcripts: "references/poppy_uppsala/tm_mane_transcript.240404.txt"
+ref_vep_cache: "references/poppy_uppsala/VEP"

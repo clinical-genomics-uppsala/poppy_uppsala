@@ -108,6 +108,7 @@ multiqc:
   reports:
     DNA:
       config: "config/config_multiqc.yaml"
+      qc_files: []
       included_unit_types:
         - T
         - N

@@ -1,0 +1,12 @@
+# NovaSeq Marvin reference configuration
+ref_design_intervals_gatk_cnv: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/design.preprocessed.interval_list"
+ref_artifacts: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/artifact_panel.tsv"
+ref_artifacts_pindel: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/artifact_panel_pindel.tsv"
+ref_background: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/background_panel.tsv"
+ref_cnvkit_pon: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/cnvkit.PoN.cnn"
+ref_gatk_pon: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/gatk.PoN.hdf5"
+ref_purecn_normaldb: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/purecn_normal_db.rds"
+ref_purecn_intervals: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/purecn_targets_intervals.txt"
+ref_purecn_mapping_bias_file: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/purecn_mapping_bias.rds"
+ref_svdb_db: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/svdb_cnv.vcf"
+platform: "NovaSeq"

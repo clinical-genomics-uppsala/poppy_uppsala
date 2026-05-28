@@ -1,0 +1,36 @@
+# Marvin site config for poppy_uppsala
+REFERENCE_DATA: "/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files"
+APPTAINER_CACHE: "/projects/wp4/nobackup/singularity_cache"
+hydra_local_path: "/beegfs-storage/projects/wp4/nobackup/workspace/camille_test/hydra-genetics"
+
+POPPY_UU_HOME: (passed or set at runtime)
+
+# Containers for Marvin
+CONTAINER_PREFIX: "docker://hydragenetics"
+CONTAINER_SUFFIX: ":"
+CONTAINER_EXT: ""
+
+HYDRAGENETICS_PREFIX: "docker://hydragenetics"
+
+# Platform Independent References
+ref_fasta: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
+ref_fai: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"
+ref_dict: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.dict"
+ref_exon_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_coding_exons_added_regions.251003.bed"
+ref_design_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_251003.bed"
+ref_design_intervals: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_251003.interval_list"
+
+ref_annotate_cnv_genes: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv_annotation.240227.bed"
+ref_bcftools_annotate_db: "/data/ref_genomes/GNOMAD/small_exac_common_3.hg38.vcf.gz"
+ref_cll_genes: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/CLL_genes_for_xlsx.250114.sorted.bed"
+ref_myeloid_genes: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Myeloid_genes_for_xlsx.250114.sorted.bed"
+ref_hotspot_genes: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/hotspot_genes_for_xlsx.250602.sorted.bed"
+ref_bwa_amb: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb"
+ref_bwa_ann: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.ann"
+ref_bwa_bwt: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.bwt"
+ref_bwa_pac: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.pac"
+ref_bwa_sa: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.sa"
+ref_gatk_snp_interval: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv100.241211.interval_list"
+ref_pindel_include_bed: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_pindel_240628.bed"
+ref_wanted_transcripts: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/tm_mane_transcript.240404.txt"
+ref_vep_cache: "/data/ref_genomes/VEP"

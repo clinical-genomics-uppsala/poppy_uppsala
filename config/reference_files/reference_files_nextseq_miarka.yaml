@@ -1,0 +1,12 @@
+# NextSeq Miarka reference configuration
+ref_design_intervals_gatk_cnv: "{{REFERENCE_DATA}}/poppy_uppsala/NextSeq/design.preprocessed.interval_list"
+ref_artifacts: "{{REFERENCE_DATA}}/poppy_uppsala/NextSeq/artifact_panel.tsv"
+ref_artifacts_pindel: "{{REFERENCE_DATA}}/poppy_uppsala/NextSeq/artifact_panel_pindel.tsv"
+ref_background: "{{REFERENCE_DATA}}/poppy_uppsala/NextSeq/background_panel.tsv"
+ref_cnvkit_pon: "{{REFERENCE_DATA}}/poppy_uppsala/NextSeq/cnvkit.PoN.cnn"
+ref_gatk_pon: "{{REFERENCE_DATA}}/poppy_uppsala/NextSeq/gatk.PoN.hdf5"
+ref_purecn_normaldb: "{{REFERENCE_DATA}}/poppy_uppsala/NextSeq/purecn_normal_db.rds"
+ref_purecn_intervals: "{{REFERENCE_DATA}}/poppy_uppsala/NextSeq/purecn_targets_intervals.txt"
+ref_purecn_mapping_bias_file: "{{REFERENCE_DATA}}/poppy_uppsala/NextSeq/purecn_mapping_bias.rds"
+ref_svdb_db: "{{REFERENCE_DATA}}/poppy_uppsala/NextSeq/svdb_cnv.vcf"
+platform: "NextSeq"
