@@ -650,5 +650,6 @@ worksheet_qci.write("A6", "Eventuella avvikelser: ")
 
 worksheet_qci.write_row(9, 0, qci_table_header, format_table_heading)
 
+workbook.set_size(1800, 1200)
 workbook.close()
 logging.info(f"All done!")
