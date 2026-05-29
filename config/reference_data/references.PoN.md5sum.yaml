@@ -1,0 +1,131 @@
+---
+  reference:
+    design_intervals_gatk_cnv:
+        novaseq:
+          checksum: 83469cb0efb00eb813d1654924ee99c1
+          path: pon_data/NovaSeq/design.preprocessed.interval_list
+          type: file
+          url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/design.preprocessed.interval_list
+        nextseq:
+          checksum: 83469cb0efb00eb813d1654924ee99c1
+          path: pon_data/NextSeq/design.preprocessed.interval_list
+          type: file
+          url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/design.preprocessed.interval_list
+    artifacts:
+      novaseq:
+        checksum: 30597e9b82caa51e89f49530a234280a
+        path: pon_data/NovaSeq/artifact_panel.tsv
+        type: file
+        url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/artifact_panel.tsv
+      nextseq:
+        checksum: dfef3382a044de17e1e3bcce77fbc412
+        path: pon_data/NextSeq/artifact_panel.tsv
+        type: file
+        url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/artifact_panel.tsv
+    artifacts_pindel:
+      novaseq:
+        checksum: 8259b05fd650b73b2798726d2e781c5b
+        path: pon_data/NovaSeq/artifact_panel_pindel.tsv
+        type: file
+        url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/artifact_panel_pindel.tsv
+      nextseq:
+        checksum: 829ad8b2f7566468fed0fba68f1764e3
+        path: pon_data/NextSeq/artifact_panel_pindel.tsv
+        type: file
+        url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/artifact_panel_pindel.tsv
+    background:
+      novaseq:
+        checksum: 3198a1e0d85694cd8602cdb20a6147c0
+        path: pon_data/NovaSeq/background_panel.tsv
+        type: file
+        url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/background_panel.tsv
+      nextseq:
+        checksum: cd7e48273ff20a82446a82a919e4b030
+        path: pon_data/NextSeq/background_panel.tsv
+        type: file
+        url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/background_panel.tsv
+  
+  cnvkit_batch:
+    novaseq:
+      checksum: 458257f896444afaebbf133f30c8f670
+      path: pon_data/NovaSeq/cnvkit.PoN.cnn
+      type: file
+      url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/cnvkit.PoN.cnn
+    nextseq:
+      checksum: 053d2bf91ac36ff51dafbf904a064c7a
+      path: pon_data/NextSeq/cnvkit.PoN.cnn
+      type: file
+      url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/cnvkit.PoN.cnn
+
+  gatk_denoise_read_counts:
+    novaseq:
+      checksum: c940b19ea02211f17f8da3b98e3a8e26
+      path: pon_data/NovaSeq/gatk.PoN.hdf5
+      type: file
+      url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/gatk.PoN.hdf5
+    nextseq:
+      checksum: 4ddcb61e7003b38bb17f7b47ead5b8f3
+      path: pon_data/NextSeq/gatk.PoN.hdf5
+      type: file
+      url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/gatk.PoN.hdf5
+
+  # Not used in poppy_uppsala
+  # purecn_coverage:
+  #   intervals:
+  #     novaseq:
+  #       checksum: e266a7b071a1d65e20fccf22a57361b2
+  #       path: pon_data/NovaSeq/purecn_targets_intervals.txt
+  #       type: file
+  #       url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/purecn_targets_intervals.txt
+  #     nextseq:
+  #       checksum: e266a7b071a1d65e20fccf22a57361b2
+  #       path: pon_data/NextSeq/purecn_targets_intervals.txt
+  #       type: file
+  #       url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_targets_intervals.txt
+  # pure_cn:
+  #   nextseq:
+  #     normaldb:
+  #       checksum: 3e337b3469d752f2e9a8dda15c0f1f1c
+  #       path: pon_data/NextSeq/purecn_normal_db.rds
+  #       type: file
+  #       url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_normal_db.rds
+  #     intervals:
+  #       checksum: e266a7b071a1d65e20fccf22a57361b2
+  #       path: pon_data/NextSeq/purecn_targets_intervals.txt
+  #       type: file
+  #       url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_targets_intervals.txt
+  #     mapping_bias_file:
+  #       checksum: cef75f3bf8f181033830013b52b799ab
+  #       path: pon_data/NextSeq/purecn_mapping_bias.rds
+  #       type: file
+  #       url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_mapping_bias.rds
+  #   novaseq:
+  #     normaldb:
+  #       checksum: 3e5c30972da14f919334113025078fa0
+  #       path: pon_data/NovaSeq/purecn_normal_db.rds
+  #       type: file
+  #       url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/purecn_normal_db.rds
+  #     intervals:
+  #       checksum: e266a7b071a1d65e20fccf22a57361b2
+  #       path: pon_data/NovaSeq/purecn_targets_intervals.txt
+  #       type: file
+  #       url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/purecn_targets_intervals.txt
+  #     mapping_bias_file:
+  #       checksum: c2eff67f4aa8f83a76329ca95fe037a3
+  #       path: pon_data/NovaSeq/purecn_mapping_bias.rds
+  #       type: file
+  #       url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/purecn_mapping_bias.rds
+
+  svdb_query:
+    cnv:
+      novaseq:
+        checksum: bb67b442381eaed1dc86ff8a8e3ec807
+        path: pon_data/NovaSeq/svdb_cnv.vcf
+        type: file
+        url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NovaSeq/reference_files/svdb_cnv.vcf
+      nextseq:
+        checksum: bb67b442381eaed1dc86ff8a8e3ec807
+        path: pon_data/NextSeq/svdb_cnv.vcf
+        type: file
+        url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/svdb_cnv.vcf
+  

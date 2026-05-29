@@ -1,0 +1,56 @@
+---
+
+REFERENCE_DATA: /proj/ngi2024001/nobackup/bin/wp2_tm/design_and_ref_files
+
+APPTAINER_CACHE: /proj/ngi2024001/nobackup/bin/wp2_tm/apptainer_cache
+
+hydra_local_path: /proj/ngi2024001/nobackup/bin/wp2_tm/poppy_uppsala_${POPPY_UU_VERSION}/hydra-genetics
+
+
+#Needs to be defined
+PROJECT_DESIGN_DATA: "" 
+PROJECT_REF_DATA: ""
+REFERENCE_DIRECTORY: "" #PoN data
+POPPY_UU_HOME: "" #poppy uppsala home directory
+POPPY_HOME: ""
+
+resources: "{{POPPY_UU_HOME}}/config/resources_miarka.yaml"
+
+
+reference:
+  design_bed: "{{PROJECT_DESIGN_DATA}}/Twist_myeloid_TE-96463385_hg38_251003.bed"
+  design_intervals: "{{PROJECT_DESIGN_DATA}}/Twist_myeloid_TE-96463385_hg38_251003.interval_list" #hsmetrics
+  dict: "{{PROJECT_REF_DATA}}/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.dict"
+  exon_bed: "{{PROJECT_DESIGN_DATA}}/Twist_myeloid_coding_exons_added_regions.250904.bed"
+  fasta: "{{PROJECT_REF_DATA}}/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta"
+  fai: "{{PROJECT_REF_DATA}}/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai"
+
+annotate_cnv:
+  cnv_genes: "{{PROJECT_DESIGN_DATA}}/Twist_myeloid_cnv_annotation.240227.bed"
+
+bcftools_annotate:
+  annotation_db: "{{PROJECT_REF_DATA}}/small_exac_common_3.hg38.vcf.gz"
+
+bwa_mem:
+  amb: "{{PROJECT_REF_DATA}}/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb"
+  ann: "{{PROJECT_REF_DATA}}/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.ann"
+  bwt: "{{PROJECT_REF_DATA}}/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.bwt"
+  pac: "{{PROJECT_REF_DATA}}/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.pac"
+  sa: "{{PROJECT_REF_DATA}}/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.sa"
+
+gatk_collect_allelic_counts:
+  SNP_interval: "{{PROJECT_DESIGN_DATA}}/Twist_myeloid_cnv100.241211.interval_list"
+
+merge_cnv_json:
+  ref_genes: "{{PROJECT_REF_DATA}}/refGene_hg38.txt"
+  annotations:
+    - "{{PROJECT_DESIGN_DATA}}/Twist_myeloid_cnv_annotation.240227.bed"
+
+pindel_call:
+  include_bed: "{{PROJECT_DESIGN_DATA}}/Twist_myeloid_pindel_240628.bed"
+
+results_report_xlsx:
+  wanted_transcripts: "{{PROJECT_DESIGN_DATA}}/tm_mane_transcript.240404.txt"
+
+vep:
+  vep_cache: "{{PROJECT_REF_DATA}}/VEP"

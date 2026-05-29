@@ -3,7 +3,7 @@ POPPY_HOME: ""
 POPPY_UU_HOME: ""
 REFERENCE_DIRECTORY: ""
 
-resources: "{{POPPY_UU_HOME}}/config/resources.yaml"
+resources: "{{POPPY_UU_HOME}}/config/resources_marvin.yaml"
 output: "{{POPPY_UU_HOME}}/config/output_files.yaml"
 
 modules:
