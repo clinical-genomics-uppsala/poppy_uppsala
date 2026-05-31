@@ -1,0 +1,54 @@
+---
+pipeline:
+  id: wp2_tm
+  name: poppy_uppsala
+  assay: twist_myeloid
+  genome_build: GRCh38
+
+entrypoints:
+  analysis: workflow/Snakefile
+  references: null
+
+layout:
+  local_rules_dir: workflow/rules
+  local_scripts_dir: workflow/scripts
+  schemas_dir: workflow/schemas
+  report: null
+
+rule_groups:
+  common: workflow/rules/common.smk
+  bamsnap: workflow/rules/bamsnap.smk
+  results_report: workflow/rules/results_report.smk
+  multiqc_order: workflow/rules/sample_order_multiqc.smk
+  version: workflow/rules/version.smk
+
+hydra_modules:
+  source: config.modules
+  loader: hydra_genetics.utils.misc.get_module_snakefile
+  local_module_root_config_key: module_root
+  modules:
+    - alignment
+    - qc
+    - snv_indels
+
+external_modules:
+  - repo: genomic-medicine-sweden/poppy
+    source: config.poppy_version
+    local_root_config_key: POPPY_HOME
+
+scripts:
+  pipeline_specific:
+    - workflow/scripts/create_pos_list.py
+    - workflow/scripts/results_report_create_tables.py
+    - workflow/scripts/results_report_xlsx.py
+  shared_report_candidates:
+    - workflow/scripts/sample_order_multiqc.py
+  cleanup_candidates:
+    - workflow/scripts/dummy.py
+    - workflow/scripts/test_dummy.py
+
+harmonization_notes:
+  - Wrapper-style pipeline with an external genomic-medicine-sweden/poppy module.
+  - Module loading mixes module_root, POPPY_HOME, and get_module_snakefile fallback.
+  - Results workbook helpers overlap with Neville and may belong in hydra-genetics/report later.
+  - Keep external poppy module handling explicit in the manifest before changing loader behavior.
