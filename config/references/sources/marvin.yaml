@@ -1,0 +1,172 @@
+# Samlad källista (D14): allt pipelinen behöver enligt Marvins produktionsconfig,
+# med Marvin-sökväg (url), plats i den gemensamma strukturen (path) och md5.
+# 0 poster har checksum: null - kör tools/fill_checksums.py på Marvin.
+# Genererad av tools/build_reference_tree.py; checkas in som
+# config/references/sources/marvin.yaml på pipelinens harmonize-branch.
+annotate_cnv:
+  cnv_genes:
+    checksum: null
+    path: pipelines/poppy/capture_kits/Twist_myeloid_cnv_annotation.240227.bed
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv_annotation.240227.bed
+bcftools_annotate:
+  annotation_db:
+    checksum: null
+    path: GRCh38/annotation/gnomad/small_exac_common_3.hg38.vcf.gz
+    type: file
+    url: file:/data/ref_genomes/GNOMAD/small_exac_common_3.hg38.vcf.gz
+  annotation_db_tbi:
+    checksum: null
+    path: GRCh38/annotation/gnomad/small_exac_common_3.hg38.vcf.gz.tbi
+    type: file
+    url: file:/data/ref_genomes/GNOMAD/small_exac_common_3.hg38.vcf.gz.tbi
+bcftools_filter_include_region:
+  cll:
+    checksum: null
+    path: pipelines/poppy/capture_kits/CLL_genes_for_xlsx.250114.sorted.bed
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/CLL_genes_for_xlsx.250114.sorted.bed
+  hotspot:
+    checksum: null
+    path: pipelines/poppy/capture_kits/hotspot_genes_for_xlsx.250602.sorted.bed
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/hotspot_genes_for_xlsx.250602.sorted.bed
+  myeloid:
+    checksum: null
+    path: pipelines/poppy/capture_kits/Myeloid_genes_for_xlsx.250114.sorted.bed
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Myeloid_genes_for_xlsx.250114.sorted.bed
+bwa_mem:
+  amb:
+    checksum: f84b47b7ec12946b92d9762cec04b835
+    path: GRCh38/genome/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb
+    type: file
+    url: file:/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb
+  ann:
+    checksum: d8a1ff524ec2150c0b9b7e544dc086a6
+    path: GRCh38/genome/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.ann
+    type: file
+    url: file:/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.ann
+  bwt:
+    checksum: 3fce90c2d2c1ea3eafcdcd5f17ec8724
+    path: GRCh38/genome/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.bwt
+    type: file
+    url: file:/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.bwt
+  pac:
+    checksum: 586a1236048aa02f47296f799eacc175
+    path: GRCh38/genome/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.pac
+    type: file
+    url: file:/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.pac
+  sa:
+    checksum: 678c3326343f00c18ff05aa5e67c090a
+    path: GRCh38/genome/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.sa
+    type: file
+    url: file:/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.sa
+cnvkit_batch:
+  normal_reference:
+    checksum: null
+    path: pipelines/poppy/pon/cnvkit.PoN.cnn
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/cnvkit.PoN.cnn
+gatk_collect_allelic_counts:
+  SNP_interval:
+    checksum: null
+    path: pipelines/poppy/capture_kits/Twist_myeloid_cnv100.241211.interval_list
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv100.241211.interval_list
+gatk_denoise_read_counts:
+  normal_reference:
+    checksum: null
+    path: pipelines/poppy/pon/gatk.PoN.hdf5
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/gatk.PoN.hdf5
+pindel_call:
+  include_bed:
+    checksum: null
+    path: pipelines/poppy/capture_kits/Twist_myeloid_pindel_240628.bed
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_pindel_240628.bed
+purecn:
+  intervals:
+    checksum: null
+    path: pipelines/poppy/capture_kits/purecn_targets_intervals.txt
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_targets_intervals.txt
+  mapping_bias_file:
+    checksum: null
+    path: pipelines/poppy/pon/purecn_mapping_bias.rds
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_mapping_bias.rds
+  normaldb:
+    checksum: null
+    path: pipelines/poppy/pon/purecn_normal_db.rds
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/purecn_normal_db.rds
+reference:
+  artifacts:
+    checksum: null
+    path: pipelines/poppy/pon/artifact_panel.tsv
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/artifact_panel.tsv
+  artifacts_pindel:
+    checksum: null
+    path: pipelines/poppy/pon/artifact_panel_pindel.tsv
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/artifact_panel_pindel.tsv
+  background:
+    checksum: null
+    path: pipelines/poppy/pon/background_panel.tsv
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/background_panel.tsv
+  design_bed:
+    checksum: null
+    path: pipelines/poppy/capture_kits/Twist_myeloid_TE-96463385_hg38_251003.bed
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_251003.bed
+  design_intervals:
+    checksum: null
+    path: pipelines/poppy/capture_kits/Twist_myeloid_TE-96463385_hg38_251003.interval_list
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_TE-96463385_hg38_251003.interval_list
+  design_intervals_gatk_cnv:
+    checksum: null
+    path: pipelines/poppy/capture_kits/design.preprocessed.interval_list
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/design.preprocessed.interval_list
+  dict:
+    checksum: null
+    path: GRCh38/genome/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.dict
+    type: file
+    url: file:/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.dict
+  exon_bed:
+    checksum: null
+    path: pipelines/poppy/capture_kits/Twist_myeloid_coding_exons_added_regions.251003.bed
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_coding_exons_added_regions.251003.bed
+  fai:
+    checksum: a44cb7b437c4d34a78047d4d42519f3f
+    path: GRCh38/genome/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai
+    type: file
+    url: file:/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.fai
+  fasta:
+    checksum: e433a4bc249c92feba4805ac011f0e2d
+    path: GRCh38/genome/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta
+    type: file
+    url: file:/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta
+results_report_xlsx:
+  wanted_transcripts:
+    checksum: null
+    path: pipelines/poppy/gene_panels/tm_mane_transcript.240404.txt
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/tm_mane_transcript.240404.txt
+svdb_query:
+  db_string:
+    checksum: null
+    path: pipelines/poppy/pon/svdb_cnv.vcf
+    type: file
+    url: file:/projects/wp2/nobackup/Twist_Myeloid/ReferenceFiles/Poppy_references_files/250129_NextSeq/reference_files/svdb_cnv.vcf
+vep:
+  vep_cache:
+    path: GRCh38/annotation/vep/VEP
+    type: folder
+    url: file:/data/ref_genomes/VEP
