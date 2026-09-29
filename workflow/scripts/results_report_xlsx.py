@@ -42,6 +42,11 @@ panels = {
     "myeloid": {"bedfile": snakemake.input.myeloidbed, "vcf": snakemake.input.myeloid_vcf},
     "mpn": {"bedfile": snakemake.input.mpnbed, "vcf": snakemake.input.mpn_vcf},
 }
+# Min AF for variants shown by default, per panel sheet with "default" fallback (also used for the SNVs sheet)
+filter_vaf = snakemake.params.filter_vaf
+default_filter_vaf = float(filter_vaf.get("default", 0.02))
+for panel in panels.keys():
+    panels[panel]["filter_vaf"] = float(filter_vaf.get(panel, default_filter_vaf))
 
 non_coding_regions = {
     "TERC": ["chr3", 169764300, 169766000, "entire gene + promotor"],
@@ -387,7 +392,7 @@ else:
             "A" + str(i),
             "Only variants with ",
             format_bold,
-            "> 2 % AF",
+            f">= {panels[panel]['filter_vaf'] * 100:g} % AF",
             " and filter-flag ",
             format_bold,
             "PASS",
@@ -423,9 +428,9 @@ else:
 
         worksheet_panel.autofilter(table_area)
         worksheet_panel.filter_column("A", "Filter != PASS")
-        worksheet_panel.filter_column("I", "AF >= 0.02")
+        worksheet_panel.filter_column("I", f"AF >= {panels[panel]['filter_vaf']}")
         for row_data in panels[panel]["table"]["data"]:
-            if row_data[0] == "PASS" and float(row_data[8]) >= 0.02:
+            if row_data[0] == "PASS" and float(row_data[8]) >= panels[panel]["filter_vaf"]:
                 pass
             else:
                 worksheet_panel.set_row(i, options={"hidden": True})
@@ -449,7 +454,14 @@ for i, filter_txt in enumerate(filters_snv):
 
 i += 2
 worksheet_snv.write_rich_string(
-    "A" + str(i), "Only variants with ", format_bold, "> 2 % AF", " and filter-flag ", format_bold, "PASS", " shown by default."
+    "A" + str(i),
+    "Only variants with ",
+    format_bold,
+    f">= {default_filter_vaf * 100:g} % AF",
+    " and filter-flag ",
+    format_bold,
+    "PASS",
+    " shown by default.",
 )
 worksheet_snv.write(
     "A" + str(i + 1),
@@ -480,9 +492,9 @@ worksheet_snv.conditional_format(table_area_data, {"type": "formula", "criteria"
 
 worksheet_snv.autofilter(table_area)
 worksheet_snv.filter_column("A", "Filter != PASS")
-worksheet_snv.filter_column("I", "AF >= 0.02")
+worksheet_snv.filter_column("I", f"AF >= {default_filter_vaf}")
 for row_data in snv_table["data"]:
-    if row_data[0] == "PASS" and float(row_data[8]) >= 0.02:
+    if row_data[0] == "PASS" and float(row_data[8]) >= default_filter_vaf:
         pass
     else:
         worksheet_snv.set_row(i, options={"hidden": True})

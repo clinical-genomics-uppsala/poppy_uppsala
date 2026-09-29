@@ -282,6 +282,9 @@ purecn:
 
 results_report_xlsx:
   wanted_transcripts: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/tm_mane_transcript.240404.txt"
+  filter_vaf:
+    default: 0.02
+    mpn: 0.009
 
 svdb_query:
   db_string: "--db {{REFERENCE_DIRECTORY}}/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_OCC"

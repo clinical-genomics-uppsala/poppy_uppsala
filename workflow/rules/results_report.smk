@@ -81,6 +81,7 @@ rule results_report_xlsx:
         filter_somatic=config["filter_vcf"]["somatic"],
         filter_somatic_hard=config["filter_vcf"]["somatic_hard"],
         filter_pindel=config["filter_vcf"]["pindel"],
+        filter_vaf=config["results_report_xlsx"].get("filter_vaf", {}),
     log:
         "reports/xlsx/{sample}_{type}.xlsx.log",
     benchmark:
