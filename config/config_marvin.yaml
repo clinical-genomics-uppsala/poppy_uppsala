@@ -211,7 +211,7 @@ bcftools_concat_vcfs:
 bcftools_filter_include_region:
   cll: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/CLL_genes_for_xlsx.250114.sorted.bed"
   myeloid: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Myeloid_genes_for_xlsx.250114.sorted.bed"
-  hotspot: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/hotspot_genes_for_xlsx.250602.sorted.bed"
+  mpn: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/hotspot_genes_for_xlsx.250602.sorted.bed"
 
 bwa_mem:
   amb: "/data/ref_genomes/GRCh38/GRCmasked/GCA_000001405.15_GRCh38_no_alt_analysis_set_GRCmasked.fasta.amb"
@@ -282,6 +282,9 @@ purecn:
 
 results_report_xlsx:
   wanted_transcripts: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/tm_mane_transcript.240404.txt"
+  filter_vaf:
+    default: 0.02
+    mpn: 0.009
 
 svdb_query:
   db_string: "--db {{REFERENCE_DIRECTORY}}/reference_files/svdb_cnv.vcf --out_frq Normal_AF --out_occ Normal_OCC"
