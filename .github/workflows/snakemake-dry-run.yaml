@@ -34,4 +34,6 @@ jobs:
       - name: snakemake dry run
         working-directory: .tests/integration
         run: |
-          snakemake -n -s ../../workflow/Snakefile --configfiles ../../config/config_uppsala_nextseq.yaml config/config.yaml --config POPPY_HOME=../.. POPPY_UU_HOME=../.. sequenceid="dry_run" poppy_version="v0.2.1" poppy_uu_version="v0.2.5"
+          snakemake -n -s ../../workflow/Snakefile \
+            --configfiles config/config_poppy_v1.1.0.yaml ../../config/config_uppsala_novaseq.yaml config/config_test.yaml \
+            --config POPPY_HOME=../.. POPPY_UU_HOME=../.. sequenceid="dry_run" poppy_version="v1.1.0" poppy_uu_version="v0.4.0"
