@@ -16,7 +16,7 @@ bcftools_annotate:
 bcftools_filter_include_region:
   cll: "data/bed/design.bed"
   myeloid: "data/bed/design.bed"
-  hotspot: "data/bed/design.bed"
+  mpn: "data/bed/design.bed"
 
 bwa_mem:
   amb: "reference/hg19.fasta.amb"
