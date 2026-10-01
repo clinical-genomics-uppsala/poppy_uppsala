@@ -127,34 +127,33 @@ def create_snv_table(vcf_input, sequenceid):
     ]
     for record in vcf_file.fetch():
         record_values = extract_vcf_values(record, csq_index)
-        if record_values["af"] > 0.01:
-            outline = [
-                record_values["filter_flag"],
-                sequenceid,
-                sample,
-                record_values["gene"],
-                record.contig,
-                int(record.pos),
-                record.ref,
-                record.alts[0],
-                record_values["af"],
-                record_values["dp"],
-                record_values["transcript"],
-                record_values["coding_name"],
-                record_values["ensp"],
-                record_values["consequence"],
-                record_values["cosmic"],
-                record_values["clinical"],
-                record_values["rs"],
-                record_values["max_pop_af"],
-                record_values["max_pops"],
-                record_values["artifact_median"],
-                record_values["artifact_callers"],
-                record_values["background_nr_sd"],
-                record_values["background_median"],
-                record_values["callers"],
-            ]
-            snv_table["data"].append(outline)
+        outline = [
+            record_values["filter_flag"],
+            sequenceid,
+            sample,
+            record_values["gene"],
+            record.contig,
+            int(record.pos),
+            record.ref,
+            record.alts[0],
+            record_values["af"],
+            record_values["dp"],
+            record_values["transcript"],
+            record_values["coding_name"],
+            record_values["ensp"],
+            record_values["consequence"],
+            record_values["cosmic"],
+            record_values["clinical"],
+            record_values["rs"],
+            record_values["max_pop_af"],
+            record_values["max_pops"],
+            record_values["artifact_median"],
+            record_values["artifact_callers"],
+            record_values["background_nr_sd"],
+            record_values["background_median"],
+            record_values["callers"],
+        ]
+        snv_table["data"].append(outline)
     return snv_table
 
 
@@ -190,32 +189,31 @@ def create_pindel_table(vcf_input, sequenceid):
     ]
     for record in pindel_file.fetch():
         record_values = extract_vcf_values(record, csq_index)
-        if record_values["af"] > 0.01:
-            outline = [
-                record_values["filter_flag"],
-                sequenceid,
-                sample,
-                record_values["gene"],
-                record.contig,
-                int(record.pos),
-                record.ref,
-                record.alts[0],
-                record_values["svlen"],
-                record_values["af"],
-                record_values["dp"],
-                record_values["transcript"],
-                record_values["coding_name"],
-                record_values["ensp"],
-                record_values["consequence"],
-                record_values["cosmic"],
-                record_values["clinical"],
-                record_values["rs"],
-                record_values["max_pop_af"],
-                record_values["max_pops"],
-                record_values["artifact_median"],
-                record_values["artifact_callers"],
-            ]
-            pindel_table["data"].append(outline)
+        outline = [
+            record_values["filter_flag"],
+            sequenceid,
+            sample,
+            record_values["gene"],
+            record.contig,
+            int(record.pos),
+            record.ref,
+            record.alts[0],
+            record_values["svlen"],
+            record_values["af"],
+            record_values["dp"],
+            record_values["transcript"],
+            record_values["coding_name"],
+            record_values["ensp"],
+            record_values["consequence"],
+            record_values["cosmic"],
+            record_values["clinical"],
+            record_values["rs"],
+            record_values["max_pop_af"],
+            record_values["max_pops"],
+            record_values["artifact_median"],
+            record_values["artifact_callers"],
+        ]
+        pindel_table["data"].append(outline)
     return pindel_table
 
 

@@ -2,15 +2,15 @@ name: Lint
 
 # Controls when the action will run.
 on:
-   # Triggers the workflow on push or pull request events but only for the master and develop branch
+  # Triggers the workflow on push or pull request events but only for the master and develop branch
   push:
     branches:
-     - develop
-     - main
+      - develop
+      - main
   pull_request:
     branches:
-     - develop
-     - main
+      - develop
+      - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -32,5 +32,5 @@ jobs:
         working-directory: .tests/integration
         run: |
           snakemake --lint -n -s ../../workflow/Snakefile \
-            --configfiles config/config_poppy_v1.1.0.yaml ../../config/config_uppsala_novaseq.yaml config/config_test.yaml \
-            --config POPPY_HOME=../.. POPPY_UU_HOME=../.. sequenceid="dry_run" poppy_version="v1.1.0" poppy_uu_version="v0.4.0"
+            --configfiles config/config_poppy_v1.1.0.yaml ../../config/config_marvin.yaml config/config_test.yaml \
+            --config POPPY_HOME=../.. POPPY_UU_HOME=../.. REFERENCE_DIRECTORY=. sequenceid="lint" poppy_version="v1.1.0" poppy_uu_version="v0.4.0"

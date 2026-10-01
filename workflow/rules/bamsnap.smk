@@ -115,9 +115,9 @@ rule bamsnap:
         fasta=config["reference"]["fasta"],
     output:
         results_dir=temp(directory("bamsnap/bamsnap/{sample}_{type}/")),
-        index=temp("bamsnap/bamsnap/{sample}_{type}/index.html"),
-        sample_list=temp("bamsnap/bamsnap/{sample}_{type}/sample_list.html"),
-        variant_list=temp("bamsnap/bamsnap/{sample}_{type}/variant_list.html"),
+        index="bamsnap/bamsnap/{sample}_{type}/index.html",
+        sample_list="bamsnap/bamsnap/{sample}_{type}/sample_list.html",
+        variant_list="bamsnap/bamsnap/{sample}_{type}/variant_list.html",
     params:
         margin=config.get("bamsnap", {}).get("margin", "50"),
         extra=config.get("bamsnap", {}).get("extra", "-show_soft_clipped "),

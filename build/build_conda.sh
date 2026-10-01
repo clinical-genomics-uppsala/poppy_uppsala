@@ -5,7 +5,7 @@ eval "$(conda shell.bash hook)"
 
 PIPELINE_NAME="poppy_uppsala"
 PIPELINE_GITHUB_REPO="https://github.com/clinical-genomics-uppsala/poppy_uppsala.git"
-TAG_OR_BRANCH="miarka"
+TAG_OR_BRANCH="v0.4.1"
 # poppy_uppsala is build on the top of poppy GMS
 POPPY_GMS_VERSION="v1.0.0"
 POPPY_GMS_REPO="https://github.com/genomic-medicine-sweden/poppy.git"
@@ -37,14 +37,14 @@ mkdir -p ${PIPELINE_NAME}_${TAG_OR_BRANCH}
 
 # Clone git of poppy_uppsala
 git clone --branch ${TAG_OR_BRANCH} ${PIPELINE_GITHUB_REPO} ${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}
-./${PIPELINE_NAME}_${TAG_OR_BRANCH}_env/bin/pip3 install -r ${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/requirements.txt
+./${PIPELINE_NAME}_${TAG_OR_BRANCH}_env/bin/pip3 install --no-cache-dir -I -r ${PIPELINE_NAME}_${TAG_OR_BRANCH}/${PIPELINE_NAME}/requirements.txt
 conda pack --prefix ./${PIPELINE_NAME}_${TAG_OR_BRANCH}_env -o ${PIPELINE_NAME}_${TAG_OR_BRANCH}/env.tar.gz
 
 # Clone snakemake-wrappers and hydra-genetics
 mkdir -p ${PIPELINE_NAME}_${TAG_OR_BRANCH}/hydra-genetics
 
 # Clone the relevant branch only of Poppy GMS
-git clone --single-branch --branch ${TAG_OR_BRANCH} ${POPPY_GMS_REPO} ${PIPELINE_NAME}_${TAG_OR_BRANCH}/poppy
+git clone --single-branch --branch ${POPPY_GMS_VERSION} ${POPPY_GMS_REPO} ${PIPELINE_NAME}_${TAG_OR_BRANCH}/poppy
 
 # Clone wrappers
 git clone https://github.com/snakemake/snakemake-wrappers.git ${PIPELINE_NAME}_${TAG_OR_BRANCH}/snakemake-wrappers
