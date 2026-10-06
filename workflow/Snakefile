@@ -73,6 +73,26 @@ module poppy:
 use rule * from poppy exclude all, copy_bamsnap
 
 
+module cnv_sv:
+    snakefile:
+        get_module_snakefile(
+            config,
+            "hydra-genetics/cnv_sv",
+            path="workflow/Snakefile",
+            tag=config["modules"]["cnv_sv"],
+        )
+    config:
+        config
+
+
+use rule cnvkit_call from cnv_sv as cnv_sv_cnvkit_call with:
+    input:
+        segment="cnv_sv/cnvkit_batch/{sample}/{sample}_{type}.cns",
+        vcf="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.filter.germline.vcf.gz",
+    params:
+        extra=config.get("cnvkit_call", {}).get("extra", ""),
+
+
 module snv_indels:
     snakefile:
         get_module_snakefile(
