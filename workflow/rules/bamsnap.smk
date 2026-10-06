@@ -139,7 +139,7 @@ rule bamsnap:
     message:
         "{rule}: create bamsnaps based on {input.pos_list} and {input.bam}"
     shell:
-        "(bamsnap -bam {input.bam} -ref {input.fasta} -out {output.results_dir} -process {threads} -margin {params.margin} -bed {input.pos_list} {params.extra}) &> {log}"
+        "(bamsnap -bam {input.bam} -ref {input.fasta} -out {output.results_dir} -process {threads} -margin {params.margin} -bed {input.pos_list} -separated_bam {params.extra}) &> {log}"
 
 
 rule bamsnap_hd829:
