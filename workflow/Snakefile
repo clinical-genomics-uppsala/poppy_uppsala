@@ -14,6 +14,7 @@ ruleorder: filtering_bcftools_filter_include_region > snv_indels_bgzip
 include: "rules/common.smk"
 include: "rules/version.smk"
 include: "rules/bamsnap.smk"
+include: "rules/cnv_large_calls_table.smk"
 include: "rules/results_report.smk"
 include: "rules/sample_order_multiqc.smk"
 
@@ -71,6 +72,7 @@ module poppy:
 
 
 use rule * from poppy exclude all, copy_bamsnap, reports_cnv_html_report
+
 
 module cnv_sv:
     snakefile:

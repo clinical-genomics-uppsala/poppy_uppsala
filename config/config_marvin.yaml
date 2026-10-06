@@ -231,7 +231,17 @@ cnv_html_report:
   show_table: true
   default_gene_focus: true
   default_show_all_datapoints: true
-  # extra_tables:
+  default_simulate_purity: true
+  extra_tables:
+    - name: CNVs larger than 100 kb
+      path: reports/cnv_html_report/{sample}_{type}.{tc_method}.large_cnvs.tsv
+      description: >
+        Gains and losses longer than 100 kb from all callers, excluding copy neutral
+        calls and calls found in more than 15% of the normal panel (Normal_AF > 0.15).
+
+cnv_large_calls_table:
+  min_length: 100000
+  max_normal_af: 0.15
 
 cnvkit_batch:
   normal_reference: "{{REFERENCE_DIRECTORY}}/reference_files/cnvkit.PoN.cnn"
