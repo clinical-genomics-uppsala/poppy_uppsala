@@ -8,7 +8,7 @@ import sys
 
 from pysam import VariantFile
 
-HEADER = ["Chromosome", "Start", "End", "Cytoband", "Type", "Copy number", "Length", "Caller"]
+HEADER = ["Chromosome", "Start", "End", "Cytoband", "Type", "Copy number", "BAF", "Length", "Caller"]
 
 
 def read_cytobands(filename):
@@ -34,6 +34,18 @@ def get_cytoband(cytobands, chrom, start, end):
     return f"{chrom_name}{bands[0]}-{bands[-1]}"
 
 
+def chrom_sort_key(chrom):
+    """Sort chromosomes alphanumerically: chr1, chr2, ..., chr10, ..., chr22, chrX, chrY."""
+    name = chrom.removeprefix("chr")
+    if name.isdigit():
+        return (0, int(name), "")
+    return (1, 0, name)
+
+
+def round_or_empty(value):
+    return "" if value is None else round(value, 2)
+
+
 def first_value(value):
     if isinstance(value, (list, tuple)):
         return value[0]
@@ -47,9 +59,8 @@ def get_large_cnvs(vcf_filename, cytobands, min_length, max_normal_af):
         svtype = record.info.get("SVTYPE")
         length = abs(first_value(record.info.get("SVLEN")))
         normal_af = first_value(record.info.get("Normal_AF", 0))
-        if svtype == "COPY_NORMAL" or length <= min_length or normal_af > max_normal_af:
+        if svtype == "COPY_NORMAL" or length < min_length or normal_af > max_normal_af:
             continue
-        copy_number = first_value(record.info.get("CORR_CN"))
         rows.append(
             {
                 "Chromosome": record.chrom,
@@ -57,12 +68,13 @@ def get_large_cnvs(vcf_filename, cytobands, min_length, max_normal_af):
                 "End": record.stop,
                 "Cytoband": get_cytoband(cytobands, record.chrom, record.pos, record.stop),
                 "Type": svtype,
-                "Copy number": "" if copy_number is None else round(copy_number, 2),
+                "Copy number": round_or_empty(first_value(record.info.get("CORR_CN"))),
+                "BAF": round_or_empty(first_value(record.info.get("BAF"))),
                 "Length": length,
                 "Caller": record.info.get("CALLER"),
             }
         )
-    return rows
+    return sorted(rows, key=lambda row: (chrom_sort_key(row["Chromosome"]), row["Start"], row["End"]))
 
 
 def write_table(rows, filename):

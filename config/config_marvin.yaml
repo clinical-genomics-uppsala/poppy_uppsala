@@ -229,7 +229,7 @@ bwa_mem:
 cnv_html_report:
   cytobands: true
   show_table: true
-  default_gene_focus: true
+  default_gene_focus: false
   default_show_all_datapoints: true
   default_simulate_purity: true
   extra_tables:
@@ -238,6 +238,7 @@ cnv_html_report:
       description: >
         Gains and losses longer than 100 kb from all callers, excluding copy neutral
         calls and calls found in more than 15% of the normal panel (Normal_AF > 0.15).
+        Be aware that the CN does NOT adapt to purity changes.
 
 cnv_large_calls_table:
   min_length: 100000
