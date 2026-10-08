@@ -115,9 +115,9 @@ rule bamsnap:
         fasta=config["reference"]["fasta"],
     output:
         results_dir=temp(directory("bamsnap/bamsnap/{sample}_{type}/")),
-        index=temp("bamsnap/bamsnap/{sample}_{type}/index.html"),
-        sample_list=temp("bamsnap/bamsnap/{sample}_{type}/sample_list.html"),
-        variant_list=temp("bamsnap/bamsnap/{sample}_{type}/variant_list.html"),
+        index="bamsnap/bamsnap/{sample}_{type}/index.html",
+        sample_list="bamsnap/bamsnap/{sample}_{type}/sample_list.html",
+        variant_list="bamsnap/bamsnap/{sample}_{type}/variant_list.html",
     params:
         margin=config.get("bamsnap", {}).get("margin", "50"),
         extra=config.get("bamsnap", {}).get("extra", "-show_soft_clipped "),
@@ -139,7 +139,7 @@ rule bamsnap:
     message:
         "{rule}: create bamsnaps based on {input.pos_list} and {input.bam}"
     shell:
-        "(bamsnap -bam {input.bam} -ref {input.fasta} -out {output.results_dir} -process {threads} -margin {params.margin} -bed {input.pos_list} {params.extra}) &> {log}"
+        "(bamsnap -bam {input.bam} -ref {input.fasta} -out {output.results_dir} -process {threads} -margin {params.margin} -bed {input.pos_list} -separated_bam {params.extra}) &> {log}"
 
 
 rule bamsnap_hd829:

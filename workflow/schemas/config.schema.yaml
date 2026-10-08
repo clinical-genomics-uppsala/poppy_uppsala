@@ -107,9 +107,9 @@ properties:
       myeloid:
         type: string
         description: path to bedfile that contains region to be included in myeloid panel
-      hotspot:
+      mpn:
         type: string
-        description: path to bedfile that contains hotspot regions
+        description: path to bedfile that contains mpn regions
 
   results_report_bedtools_intersect:
     type: object
@@ -138,6 +138,17 @@ properties:
       wanted_transcripts:
         type: string
         description: txt file with interested transcripts (matching NM- annotation in config["reference"]["exon_bed"])
+      filter_vaf:
+        type: object
+        description: >
+          minimum AF for variants shown by default (others hidden by autofilter) in the xlsx report.
+          Keys are panel sheet names (e.g. cll, myeloid, mpn); "default" is used for the SNVs sheet and
+          panels not listed. Falls back to 0.02 if not set.
+        properties:
+          default:
+            type: number
+        additionalProperties:
+          type: number
 
   version_update_poppy:
     type: object

@@ -1,7 +1,7 @@
 filters:
   vaf:
-    description: "Hard filter variants with low vaf (AF lower than 0.01)"
-    expression: "(INFO:AF:0 < 0.01)"
+    description: "Hard filter variants with low vaf (AF lower than 0.005)"
+    expression: "(INFO:AF:0 < 0.005)"
     soft_filter: "False"
   depth:
     description: "Hard filter on depth lower than 100"
