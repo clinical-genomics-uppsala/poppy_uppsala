@@ -10,7 +10,7 @@ output: "{{POPPY_UU_HOME}}/config/output_files.yaml"
 general_report: "{{POPPY_UU_HOME}}/config/general_report.yaml"
 
 modules:
-  reports: v2.2.3
+  reports: v2.2.5
   snv_indels_uppsala: v1.1.0
 
 reference:
@@ -198,7 +198,7 @@ reference:
     - "chrEBV"
 
 annotate_cnv:
-  cnv_genes: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv_annotation.240227.bed"
+  cnv_genes: "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv_annotation.261006.bed"
 
 bamsnap:
   extra: " -coverage_vaf 0.05 -show_soft_clipped -read_thickness 2 -read_gap_height 1 "
