@@ -1,5 +1,30 @@
 # Changelog
 
+## [2.0.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v1.0.0...v2.0.0) (2026-10-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* update to use REFERENCE_DIRECTORY for files from ref-pipeline
+
+### Features
+
+* add filter_vaf variable and change hotspot to mpn ([88d2e58](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/88d2e5858607e2d62942d77165e83caf66a18b4e))
+* update to use REFERENCE_DIRECTORY for files from ref-pipeline ([88d2e58](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/88d2e5858607e2d62942d77165e83caf66a18b4e))
+
+
+### Bug Fixes
+
+* add missing html files from bamsnap in outputfiles ([88d2e58](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/88d2e5858607e2d62942d77165e83caf66a18b4e))
+* lock setuptools&lt;70.0.0 ([88d2e58](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/88d2e5858607e2d62942d77165e83caf66a18b4e))
+* remove bamsnap ([88d2e58](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/88d2e5858607e2d62942d77165e83caf66a18b4e))
+* remove hardcoded xlsx filter ([88d2e58](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/88d2e5858607e2d62942d77165e83caf66a18b4e))
+
+
+### Documentation
+
+* add missing changelog entries for 0.1.1 and 0.2.3 ([eeb690f](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/eeb690fbd99581f486d9dcac19e43d88fe85cf0b))
+
 ## [1.0.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.4.1...v1.0.0) (2026-05-07)
 
 
