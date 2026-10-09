@@ -93,6 +93,30 @@ properties:
             description: directory for bamsnap output
 
 
+  cnv_large_calls_table:
+    type: object
+    description: input and output parameters for cnv_large_calls_table
+    properties:
+      input:
+        type: object
+        description: list of inputs
+        properties:
+          vcf:
+            type: string
+            description: svdb merged and annotated CNV vcf file
+          cytobands:
+            type: string
+            description: UCSC cytoBand file, same as merge_cnv_json cytobands
+
+      output:
+        type: object
+        description: list of outputs
+        properties:
+          tsv:
+            type: string
+            description: tsv table with CNVs larger than min_length, used as an extra table in the CNV html report
+
+
   results_report_bedtools_intersect:
     type: object
     description: input and output parameters for results_report_bedtools_intersect

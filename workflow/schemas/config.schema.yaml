@@ -111,6 +111,23 @@ properties:
         type: string
         description: path to bedfile that contains mpn regions
 
+  cnv_large_calls_table:
+    type: object
+    description: parameters for cnv_large_calls_table, an extra table of large CNVs for the CNV html report
+    properties:
+      benchmark_repeats:
+        type: integer
+        description: set number of times benchmark should be repeated
+      container:
+        type: string
+        description: name or path to docker/singularity container
+      min_length:
+        type: integer
+        description: only list CNVs longer than this many bp (default 100000)
+      max_normal_af:
+        type: number
+        description: exclude CNVs with Normal_AF from svdb_query above this value (default 0.15)
+
   results_report_bedtools_intersect:
     type: object
     description: parameters for bedtools intersect 

@@ -1,0 +1,46 @@
+# Table filter for the CNV HTML report (hydra-genetics/reports >= v2.0.0).
+#
+# Each top-level group is a named CNV class. Groups are evaluated in order:
+#   - the "Type" column shows the first group a call matches ("Copy neutral" if none),
+#   - the filter toggle shows a call if it matches any group that does not set `filter: false`.
+# adjusted_cn is recomputed live in the report when purity/ploidy are adjusted.
+# Normal_AF comes from svdb_query (fraction of normal samples with the CNV) and
+# must be listed under merge_cnv_json.extra_info_fields.
+# Copy number thresholds follow cnvkit_vcf on Marvin (het_del_limit 1.68, dup_limit 2.3).
+
+# Recurrent in the normal panel. Listed first so such calls are typed "Artifact",
+# but `filter: false` keeps the group itself from passing the filter toggle.
+artifact:
+  label: "Artifact"
+  filter: false
+  all_of:
+    - {field: Normal_AF, operator: ">", value: 0.15}
+
+# Must come before `deletion`, which would otherwise match first. At purity 1 the
+# cut-off only catches homozygous deletions in samples with high tumor content.
+homozygous_deletion:
+  all_of:
+    - {field: adjusted_cn, operator: "<", value: 0.47}
+    - {field: Normal_AF, operator: "<=", value: 0.15, default: 0}
+
+deletion:
+  all_of:
+    - {field: adjusted_cn, operator: "<", value: 1.68}
+    - {field: Normal_AF, operator: "<=", value: 0.15, default: 0}
+
+amplification:
+  all_of:
+    - {field: adjusted_cn, operator: ">", value: 2.3}
+    - {field: Normal_AF, operator: "<=", value: 0.15, default: 0}
+
+# Copy neutral with an allelic imbalance. Calls without BAF stay "Copy neutral".
+loh:
+  label: "LOH"
+  all_of:
+    - {field: adjusted_cn, operator: ">=", value: 1.68}
+    - {field: adjusted_cn, operator: "<=", value: 2.3}
+    - {field: Normal_AF, operator: "<=", value: 0.15, default: 0}
+    - not:
+        all_of:
+          - {field: baf, operator: ">", value: 0.3}
+          - {field: baf, operator: "<", value: 0.7}

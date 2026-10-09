@@ -14,6 +14,7 @@ ruleorder: filtering_bcftools_filter_include_region > snv_indels_bgzip
 include: "rules/common.smk"
 include: "rules/version.smk"
 include: "rules/bamsnap.smk"
+include: "rules/cnv_large_calls_table.smk"
 include: "rules/results_report.smk"
 include: "rules/sample_order_multiqc.smk"
 
@@ -70,7 +71,55 @@ module poppy:
         config
 
 
-use rule * from poppy exclude all, copy_bamsnap
+use rule * from poppy exclude all, copy_bamsnap, reports_cnv_html_report
+
+
+module cnv_sv:
+    snakefile:
+        get_module_snakefile(
+            config,
+            "hydra-genetics/cnv_sv",
+            path="workflow/Snakefile",
+            tag=config["modules"]["cnv_sv"],
+        )
+    config:
+        config
+
+
+use rule cnvkit_call from cnv_sv as cnv_sv_cnvkit_call with:
+    input:
+        segment="cnv_sv/cnvkit_batch/{sample}/{sample}_{type}.cns",
+        vcf="snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.filter.germline.vcf.gz",
+    params:
+        extra=config.get("cnvkit_call", {}).get("extra", ""),
+
+
+module reports:
+    snakefile:
+        get_module_snakefile(
+            config,
+            "hydra-genetics/reports",
+            path="workflow/Snakefile",
+            tag=config["modules"]["reports"],
+        )
+    config:
+        config
+
+
+# Do not use tumor_content from samples.tsv in the CNV report.
+use rule cnv_html_report from reports as reports_cnv_html_report with:
+    params:
+        include_table=config.get("cnv_html_report", {}).get("show_table", True),
+        extra_tables=config.get("cnv_html_report", {}).get("extra_tables", []),
+        tc=lambda wildcards: None,
+        ploidy=lambda wildcards: reports.get_ploidy(wildcards),
+        tc_method=lambda wildcards: wildcards.tc_method,
+        include_cytobands=config.get("cnv_html_report", {}).get("cytobands", False),
+        wide_plot_width=config.get("cnv_html_report", {}).get("wide_plot_width", False),
+        default_simulate_purity=config.get("cnv_html_report", {}).get("default_simulate_purity", False),
+        default_absolute_copy_number=config.get("cnv_html_report", {}).get("default_absolute_copy_number", False),
+        default_gene_focus=config.get("cnv_html_report", {}).get("default_gene_focus", False),
+        default_show_all_datapoints=config.get("cnv_html_report", {}).get("default_show_all_datapoints", False),
 
 
 module snv_indels:
