@@ -3,6 +3,11 @@
 ## [1.0.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.4.1...v1.0.0) (2026-05-07)
 
 
+### ⚠ BREAKING CHANGES
+
+* No functional changes compared to 0.4.1. This release only bumps the major version because the breaking change in 0.4.0 (pipeline packaged and made executable offline on Miarka, [bf2f46b](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/bf2f46b78f91f1247595cbd40b020de5dd768076)) was not marked as breaking when it was released.
+
+
 ### Miscellaneous Chores
 
 * release 1.0.0 ([58e5cbe](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/58e5cbe4d2a6f871726c38f429d4ab463d821957))
@@ -15,6 +20,11 @@
 * profile ([78b8e07](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/78b8e07bec42852ad47e10e6d699b2fd3763c94b))
 
 ## [0.4.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.3.1...v0.4.0) (2025-12-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* make the pipeline executable offline on miarka ([bf2f46b](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/bf2f46b78f91f1247595cbd40b020de5dd768076))
 
 
 ### Features
@@ -34,27 +44,21 @@
 * container for bamsnap ([a6d8fec](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/a6d8fec3a2554ce19bfee4f2ed8b6a356938af73))
 * dockerhub paths to containers in config ([6807815](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/680781541ce14f56209de1a1ca43cfabbe93602d))
 * incorporate changes for bamsnap downsampling ([6bf7c18](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/6bf7c1802bae0686ca3da05db20eea2451a1c8b2))
-* indentation in blankline linting ([b2ef976](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/b2ef9769af9feccfeddc092e4e8061ab499efec7))
-* indentation linting ([0a03b4b](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/0a03b4b9f1935cdde32c6fff82378b46c077a837))
+* indentation linting ([0a03b4b](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/0a03b4b9f1935cdde32c6fff82378b46c077a837), [b2ef976](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/b2ef9769af9feccfeddc092e4e8061ab499efec7))
 * keep intronic variants in UTBF ([b2792af](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/b2792af91b566bbe130695f38c50a7343d0294f0))
-* linting and poppy uu version ([5f8ad54](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/5f8ad545f086244816170448123f6e154d4b30b4))
-* linting and poppy uu version ([2a78b87](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/2a78b877dfef3fa362187be892696eca5aed9587))
-* linting smkfmt ([e71c59b](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e71c59b24dc895a6a7597871d9a5ccccadb6096f))
-* linting smkfmt ([c7a7c06](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/c7a7c063978fe7175974eb503b39a8765c3328d7))
+* linting and poppy uu version ([5f8ad54](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/5f8ad545f086244816170448123f6e154d4b30b4), [2a78b87](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/2a78b877dfef3fa362187be892696eca5aed9587))
+* linting smkfmt ([e71c59b](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e71c59b24dc895a6a7597871d9a5ccccadb6096f), [c7a7c06](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/c7a7c063978fe7175974eb503b39a8765c3328d7), [ab3fe81](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/ab3fe8169d85a01ff6dfe34f869e243e98b5941b))
 * merge conflict ([dcad331](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/dcad331817b32e46e605198be43a367ea8959ebe))
 * missing white space ([a597258](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/a597258a1c5d73451b5c951da5980e1833ce6855))
-* Reduce max_reads in bamsnap_downsample_bam config ([9cd632d](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/9cd632d5b7b924a8bd5565cf20f2786bdef58a59))
-* Reduce max_reads in bamsnap_downsample_bam config ([446fe5e](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/446fe5e576636136cc3a9f9a77e6cc9a2506cca8))
+* Reduce max_reads in bamsnap_downsample_bam config ([9cd632d](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/9cd632d5b7b924a8bd5565cf20f2786bdef58a59), [446fe5e](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/446fe5e576636136cc3a9f9a77e6cc9a2506cca8))
 * remove echo for poppy_uppsala version in version.smk ([8adb83b](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/8adb83be75239d059fe6670fa22fd601f2ff54bd))
 * requested changes ([ca5b594](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/ca5b594af803825752e473a417cbf8183f75cfc0))
-* smkfmt ([ab3fe81](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/ab3fe8169d85a01ff6dfe34f869e243e98b5941b))
 * time resources for pindel2vcf with containall ([f31cb54](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/f31cb544340098ebb96595e26b538d6a7b584bb5))
 * try/except path to poppy gms ([4e8f972](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/4e8f97238065493ddd008ba9915ce05e03ec1646))
 * update super-linter version in workflow ([3498ba6](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/3498ba64e524808e5437a3e5750da29bff56302c))
 * updated poppy GMS version to use ([abf0bcf](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/abf0bcf2a535c9875c1e32cf8a238cb39e7929da))
 * use downsampled files in bamsnap ([6f8773a](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/6f8773ac363103cda2737638ca833ff511e32c6b))
-* versions of hydra-modules required in config ([16ec082](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/16ec0822dda7da681bbc0f32cfe4855f069f3e57))
-* versions of hydra-modules required in config ([a198803](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/a198803e8ffd55e5674e2b07cb8ad0343a9d1a77))
+* versions of hydra-modules required in config ([16ec082](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/16ec0822dda7da681bbc0f32cfe4855f069f3e57), [a198803](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/a198803e8ffd55e5674e2b07cb8ad0343a9d1a77))
 
 ## [0.3.1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.3.0...v0.3.1) (2025-11-26)
 
@@ -95,6 +99,13 @@
 * localrule and index file ([22c1f8d](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/22c1f8d3fa0e64b9a6d4abb6dceebbd63c44ca28))
 * ruleorder ([b49fdbd](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/b49fdbdb22970af7737afa12b48cf1ee528822a2))
 
+## [0.2.3](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.1...v0.2.3) (2025-09-04)
+
+
+### Miscellaneous Chores
+
+* add GATA2 to exon bed file ([c907193](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/c907193726c88156f7d0d5f23a5f6d2996df1e19), [da3378d](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/da3378dddd83077a8dc1cb34c46d51dad0052b9c))
+
 ## [0.2.1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.2.0...v0.2.1) (2025-06-03)
 
 
@@ -114,9 +125,7 @@
 ### Bug Fixes
 
 * linting container directive ([351504c](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/351504c0761bc746ac236fb0eeb6bf29f82d38c4))
-* linting snakefmt ([3f33f43](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/3f33f43052a50452a68325ea133e288e52dafe41))
-* linting snakefmt ([eb913af](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/eb913afb7e49ff17e55631953cc490106e175b18))
-* linting snakefmt ([beca1f4](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/beca1f43909b03096588724893b58f79072cbbbd))
+* linting snakefmt ([beca1f4](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/beca1f43909b03096588724893b58f79072cbbbd), [eb913af](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/eb913afb7e49ff17e55631953cc490106e175b18), [3f33f43](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/3f33f43052a50452a68325ea133e288e52dafe41))
 * merge AF after normalization if 2 variants at same pos ([e328e9e](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e328e9e51b70d95bd29c3c146b3c8ed65fcda5e2))
 
 ## [0.1.2](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.1.1...v0.1.2) (2025-02-19)
@@ -124,9 +133,20 @@
 
 ### Bug Fixes
 
-* format of the sample names ([096ddab](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/096ddab4cd0e52c65db208ffe34ccd16fa1c0aa7))
-* format of the sample names ([99f16d1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/99f16d1d3d2cc2adef14831486b485b5c264ad62))
+* format of the sample names ([99f16d1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/99f16d1d3d2cc2adef14831486b485b5c264ad62), [096ddab](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/096ddab4cd0e52c65db208ffe34ccd16fa1c0aa7))
 * make multiqc output comply with stackstorm setup ([e096040](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e0960401dff1fb1367913f4966f924d7474ef684))
+
+## [0.1.1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v0.1.0...v0.1.1) (2025-02-18)
+
+
+### Bug Fixes
+
+* calculate mosdepth coverage over coding exons only ([2ea13aa](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/2ea13aa7bfaaf0fe2336158891a8d4850f0c0aa4), [5398868](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/5398868695de4c9923120017a8098ab66814b900))
+* lock Pillow version for bamsnap ([f5e90df](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/f5e90dfccd4dd128000f79ec6a22e70ad092da5f))
+* pass poppy and poppy_uppsala versions to multiqc, fixing versioning error when running two analyses simultaneously ([eb9ef28](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/eb9ef2813e2c263232ee3d9935bf069ca420b322))
+* path to ref intervals (bed files) in nextseq config ([6b40ca0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/6b40ca02709d2ad0182c1ab80f7265c549863c79))
+* repo linting with python 3.9 ([dabbc90](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/dabbc90713fbfbc1425e4eb0d7e3c5b67102054b), [e870f0d](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e870f0d49e4164d6af1158e3adaa89d334c888cc), [f498fad](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/f498fadc871e015bff1dc69950d883db71c01dac), [ee3c086](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/ee3c0862d82a5beffb0025c2de5892f77862d0db), [bfb0009](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/bfb00098b32a66e4146ac5226e7bfbb655b8a028))
+* sample order in multiqc ([e5f13c4](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/e5f13c41dc6012111cee21fa2c28362bf6818507), [2df8d66](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/2df8d664f524ac1691d3232c257eba504b6050d4), [5f8a7a0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/5f8a7a0aad19abe8780dd705c79cbc986a8d387d))
 
 ## 0.1.0 (2025-01-31)
 
