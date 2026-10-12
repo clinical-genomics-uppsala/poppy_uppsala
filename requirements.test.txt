@@ -1,4 +1,5 @@
 networkx==2.7
 pycodestyle==2.8.0
 pytest==6.2.5
-snakefmt>=0.8
+snakefmt==2.0.2; python_version >= "3.11"  # same version as super-linter v8.7.0
+shfmt-py==4.2.0; python_version >= "3.11"  # snakefmt >= 2.0 formats shell blocks with shfmt
