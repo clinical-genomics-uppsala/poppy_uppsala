@@ -267,7 +267,7 @@ merge_cnv_json:
   ref_genes: "/data/ref_genomes/GRCh38/cnv_report/refGene_hg38.txt"
   cytobands: "{{POPPY_UU_HOME}}/config/cytoBand.hg38.txt"
   annotations:
-    - "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv_annotation.240227.bed"
+    - "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/Twist_myeloid_cnv_annotation.261006.bed"
   germline_vcf: snv_indels/bcbio_variation_recall_ensemble/{sample}_{type}.ensembled.vep_annotated.filter.germline.vcf.gz
   unfiltered_cnv_vcfs:
     - cnv_sv/svdb_query/{sample}_{type}.{tc_method}.svdb_query.annotate_cnv.cnv_genes.vcf.gz
