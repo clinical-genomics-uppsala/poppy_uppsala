@@ -54,17 +54,20 @@ def write_cnv_vcf(vcf_file, calls):
 
 def test_get_large_cnvs(tmp_path):
     vcf_file = tmp_path / "cnv.vcf"
-    write_cnv_vcf(vcf_file, [
-        # (chrom, start, end, svtype, normal_af, baf), in lexicographic chromosome order
-        ("chr1", 1000, 2500000, "DEL", None, 0.123),  # kept, no Normal_AF annotation
-        ("chr1", 3000000, 3050000, "DUP", 0.0, None),  # too short
-        ("chr1", 3000000, 5000000, "COPY_NORMAL", 0.0, None),  # copy neutral
-        ("chr1", 5400000, 7000000, "DUP", 0.5, None),  # artifact
-        ("chr1", 5400000, 7000000, "DUP", 0.1, None),  # kept
-        ("chr10", 1000, 2500000, "DEL", 0.0, None),  # kept
-        ("chr2", 1000, 2500000, "DEL", 0.0, None),  # kept
-        ("chrX", 1000, 2500000, "DUP", 0.0, None),  # kept
-    ])
+    write_cnv_vcf(
+        vcf_file,
+        [
+            # (chrom, start, end, svtype, normal_af, baf), in lexicographic chromosome order
+            ("chr1", 1000, 2500000, "DEL", None, 0.123),  # kept, no Normal_AF annotation
+            ("chr1", 3000000, 3050000, "DUP", 0.0, None),  # too short
+            ("chr1", 3000000, 5000000, "COPY_NORMAL", 0.0, None),  # copy neutral
+            ("chr1", 5400000, 7000000, "DUP", 0.5, None),  # artifact
+            ("chr1", 5400000, 7000000, "DUP", 0.1, None),  # kept
+            ("chr10", 1000, 2500000, "DEL", 0.0, None),  # kept
+            ("chr2", 1000, 2500000, "DEL", 0.0, None),  # kept
+            ("chrX", 1000, 2500000, "DUP", 0.0, None),  # kept
+        ],
+    )
 
     rows = get_large_cnvs(str(vcf_file), CYTOBANDS, min_length=100000, max_normal_af=0.15)
 
@@ -91,14 +94,17 @@ def test_get_large_cnvs(tmp_path):
 
 def test_get_large_cnvs_excludes_small_aberrations(tmp_path):
     vcf_file = tmp_path / "cnv.vcf"
-    write_cnv_vcf(vcf_file, [
-        # (chrom, start, end, svtype, normal_af, baf), SVLEN = end - start
-        ("chr1", 1000, 2000, "DEL", 0.0, None),  # 1 kb, well below min_length
-        ("chr1", 3000000, 3099999, "DUP", 0.0, None),  # min_length - 1
-        ("chr1", 4000000, 4100000, "DEL", 0.0, None),  # exactly min_length, included
-        ("chr1", 5000000, 5100001, "DUP", 0.0, None),  # min_length + 1, kept
-    ])
+    write_cnv_vcf(
+        vcf_file,
+        [
+            # (chrom, start, end, svtype, normal_af, baf), SVLEN = end - start
+            ("chr1", 1000, 2000, "DEL", 0.0, None),  # 1 kb, well below min_length
+            ("chr1", 3000000, 3099999, "DUP", 0.0, None),  # min_length - 1
+            ("chr1", 4000000, 4100000, "DEL", 0.0, None),  # exactly min_length, included
+            ("chr1", 5000000, 5100001, "DUP", 0.0, None),  # min_length + 1, kept
+        ],
+    )
 
     rows = get_large_cnvs(str(vcf_file), CYTOBANDS, min_length=100000, max_normal_af=0.15)
 
-    assert [(row["Start"], row["Length"]) for row in rows] == [(4000000, 100000),(5000000, 100001)]
+    assert [(row["Start"], row["Length"]) for row in rows] == [(4000000, 100000), (5000000, 100001)]
