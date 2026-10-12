@@ -91,6 +91,8 @@ with open(config["output"]) as output:
 
 validate(output_spec, schema="../schemas/output_files.schema.yaml")
 
+export_config_as_file(config, date_string=date_string)
+
 
 ### Set wildcard constraints
 wildcard_constraints:
