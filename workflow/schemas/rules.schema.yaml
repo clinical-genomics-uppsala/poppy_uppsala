@@ -164,7 +164,7 @@ properties:
           pindel_tbi:
             type: string
             description: tbi-index to input.pindel
-          pindel_bed:
+          pindelbed:
             type: string
             description: bedfile used with pindel
           mosdepth_summary:

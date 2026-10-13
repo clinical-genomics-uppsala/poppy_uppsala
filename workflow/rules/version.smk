@@ -7,7 +7,6 @@ from datetime import datetime
 from hydra_genetics.utils.software_versions import get_pipeline_version
 from hydra_genetics.utils.software_versions import touch_pipeline_version_file_name
 
-
 date_string = datetime.now().strftime("%Y%m%d")
 pipeline_version = get_pipeline_version(workflow, pipeline_name="poppy")
 poppy_yaml = touch_pipeline_version_file_name(pipeline_version, date_string=date_string, directory="versions/software")
@@ -42,5 +41,5 @@ rule version_update_poppy:
     shell:
         """
         set -x
-        echo 'poppy: {params.poppy_version}'>{input.yaml} && echo 'poppy_uppsala: {params.poppy_uu_version}'>{input.yaml_uu} &> versions/update_poppy.stdout
+        echo 'poppy: {params.poppy_version}' >{input.yaml} && echo 'poppy_uppsala: {params.poppy_uu_version}' >{input.yaml_uu} &>versions/update_poppy.stdout
         """
