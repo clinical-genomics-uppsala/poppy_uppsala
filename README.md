@@ -59,7 +59,7 @@ $ pip install -r requirements.txt -r requirements.test.txt
 
 ### Snakemake dry run and lint
 
-The workflow repository contains a small test dataset `.tests/integration`:
+`.tests/integration` contains the config and input files needed to build the workflow graph. They are only meant for a dry run and linting, not for a full run of the pipeline:
 
 ```bash
 $ cd .tests/integration
@@ -87,6 +87,13 @@ The GitHub Action runs snakefmt through [super-linter](https://github.com/super-
 $ uvx --from snakefmt==2.0.2 --with shfmt-py snakefmt --config .github/linters/.snakefmt.toml --check workflow/
 ```
 Remove `--check` to let snakefmt format the files. If super-linter is updated in `.github/workflows/snakefmt.yaml`, update the snakefmt version above to the one listed in super-linter's `dependencies/python/snakefmt.txt`.
+
+The environment created by uvx is cached (in `~/.cache/uv` by default, see `uv cache dir`), so later runs are fast. To remove it and free the space, clear the cache:
+
+```bash
+$ uv cache clean
+```
+
 ## :rocket: Usage
 
 To use this module in your workflow, follow the description in the
