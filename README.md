@@ -51,13 +51,42 @@ The following information need to be added to these files:
 
 ## :white_check_mark: Testing
 
-The workflow repository contains a small test dataset `.tests/integration` which can be run like so:
+The checks below are the same as the ones run by the GitHub Actions. Run them from the pipeline environment (Python 3.9) with the test requirements installed:
+
+```bash
+$ pip install -r requirements.txt -r requirements.test.txt
+```
+
+### Snakemake dry run and lint
+
+The workflow repository contains a small test dataset `.tests/integration`:
 
 ```bash
 $ cd .tests/integration
-$ snakemake -s ../../Snakefile --configfiles ../../config/config.yaml config/config.yaml -j1 --use-singularity
+$ snakemake -n -s ../../workflow/Snakefile \
+    --configfiles config/config_poppy_v1.1.0.yaml ../../config/config_marvin.yaml config/config_test.yaml \
+    --config POPPY_HOME=../.. POPPY_UU_HOME=../.. REFERENCE_DIRECTORY=. sequenceid="dry_run" poppy_version="v1.1.0" poppy_uu_version="v2.0.0"
+$ snakemake --lint -n -s ../../workflow/Snakefile \
+    --configfiles config/config_poppy_v1.1.0.yaml ../../config/config_marvin.yaml config/config_test.yaml \
+    --config POPPY_HOME=../.. POPPY_UU_HOME=../.. REFERENCE_DIRECTORY=. sequenceid="lint" poppy_version="v1.1.0" poppy_uu_version="v2.0.0"
 ```
-`../../config/config.yaml` is the original config-file, while `config/config.yaml` is the test config. By defining two config-files the latter overwrites any overlapping variables in the first config-file.
+`config/config_poppy_v1.1.0.yaml` is the poppy GMS config, `../../config/config_marvin.yaml` the Uppsala config and `config/config_test.yaml` the test config. Config files given later overwrite overlapping variables in earlier ones.
+
+### Python scripts
+
+```bash
+$ pytest workflow/scripts
+$ pycodestyle --max-line-length=130 --statistics workflow/scripts
+```
+
+### Snakefmt
+
+The GitHub Action runs snakefmt through [super-linter](https://github.com/super-linter/super-linter) (v8.7.0, which uses snakefmt 2.0.2). snakefmt 2 requires Python >= 3.11 and can therefore not be installed in the pipeline environment. Instead, run it with [uv](https://docs.astral.sh/uv/) (install once, e.g. `pip install uv`), which creates a small cached environment with the pinned version:
+
+```bash
+$ uvx --from snakefmt==2.0.2 --with shfmt-py snakefmt --config .github/linters/.snakefmt.toml --check workflow/
+```
+Remove `--check` to let snakefmt format the files. If super-linter is updated in `.github/workflows/snakefmt.yaml`, update the snakefmt version above to the one listed in super-linter's `dependencies/python/snakefmt.txt`.
 ## :rocket: Usage
 
 To use this module in your workflow, follow the description in the
