@@ -29,6 +29,7 @@ gatk_collect_allelic_counts:
   SNP_interval: "data/gatk/gnomad_SNP_0.001_target.annotated.interval_list"
 
 merge_cnv_json:
+  ref_genes: "reference/refGenes.txt"
   annotations:
     - config/cnv_annotation.bed
 
