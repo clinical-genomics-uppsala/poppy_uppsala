@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v2.0.0...v2.1.0) (2026-10-13)
+
+
+### Features
+
+* remove purity cnvkit, update cnv report and add large cnv table, config print ([#80](https://github.com/clinical-genomics-uppsala/poppy_uppsala/issues/80)) ([48b76c0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/48b76c06c8237e533ef20f59cad68302133cfc8d))
+
+
+### Miscellaneous Chores
+
+* develop to main ([12b893a](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/12b893a6994cf1e4bd1f96b27398d9139c5f2334))
+
 ## [2.0.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v1.0.0...v2.0.0) (2026-10-09)
 
 
