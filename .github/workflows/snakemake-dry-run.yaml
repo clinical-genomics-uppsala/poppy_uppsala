@@ -20,9 +20,9 @@ jobs:
     name: Run snakemake dry run
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Set up Python 3.9
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: 3.9
       - name: Install requirements.txt
@@ -36,4 +36,4 @@ jobs:
         run: |
           snakemake -n -s ../../workflow/Snakefile \
             --configfiles config/config_poppy_v1.1.0.yaml ../../config/config_marvin.yaml config/config_test.yaml \
-            --config POPPY_HOME=../.. POPPY_UU_HOME=../.. REFERENCE_DIRECTORY=. sequenceid="dry_run" poppy_version="v1.1.0" poppy_uu_version="v0.4.0"
+            --config POPPY_HOME=../.. POPPY_UU_HOME=../.. REFERENCE_DIRECTORY=. sequenceid="dry_run" poppy_version="v1.1.0" poppy_uu_version="v2.1.0"

@@ -1,0 +1,3 @@
+# Required by hydra-genetics/reports >= v2.0.0. The general HTML report is not
+# used in poppy_uppsala, so no files are listed.
+files: []

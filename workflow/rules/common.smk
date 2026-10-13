@@ -37,8 +37,8 @@ version_files = touch_pipeline_version_file_name(pipeline_version, date_string=d
 add_version_files_to_multiqc(config, version_files)
 export_pipeline_version_as_file(pipeline_version, date_string=date_string, directory="versions/software")
 
-### Set and validate config file
 
+### Set and validate config file
 if not workflow.overwrite_configfiles:
     sys.exit("At least one config file must be passed using --configfile/--configfiles, by command line or a profile!")
 config = replace_dict_variables(config)
@@ -90,6 +90,8 @@ with open(config["output"]) as output:
         output_spec = yaml.safe_load(output.read())
 
 validate(output_spec, schema="../schemas/output_files.schema.yaml")
+
+export_config_as_file(config, date_string=date_string)
 
 
 ### Set wildcard constraints
