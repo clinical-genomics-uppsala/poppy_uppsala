@@ -60,7 +60,7 @@ def test_get_large_cnvs(tmp_path):
             # (chrom, start, end, svtype, normal_af, baf), in lexicographic chromosome order
             ("chr1", 1000, 2500000, "DEL", None, 0.123),  # kept, no Normal_AF annotation
             ("chr1", 3000000, 3050000, "DUP", 0.0, None),  # too short
-            ("chr1", 3000000, 5000000, "COPY_NORMAL", 0.0, None),  # copy neutral
+            ("chr1", 3000000, 5000000, "COPY_NORMAL", 0.0, None),  # copy normal
             ("chr1", 5400000, 7000000, "DUP", 0.5, None),  # artifact
             ("chr1", 5400000, 7000000, "DUP", 0.1, None),  # kept
             ("chr10", 1000, 2500000, "DEL", 0.0, None),  # kept
