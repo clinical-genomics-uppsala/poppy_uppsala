@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v2.1.0...v2.1.1) (2026-10-22)
+
+
+### Bug Fixes
+
+* wrap hgvsp in parenthesis ([#87](https://github.com/clinical-genomics-uppsala/poppy_uppsala/issues/87)) ([f5a7838](https://github.com/clinical-genomics-uppsala/poppy_uppsala/commit/f5a7838470020ad66d04efc773ebc0d048d85b35))
+
 ## [2.1.0](https://github.com/clinical-genomics-uppsala/poppy_uppsala/compare/v2.0.0...v2.1.0) (2026-10-13)
 
 
