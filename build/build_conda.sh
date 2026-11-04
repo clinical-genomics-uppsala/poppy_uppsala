@@ -109,6 +109,24 @@ esac
 
 
 # ------------------------------------------------------------------------------
+# Logging
+# ------------------------------------------------------------------------------
+# Everything is also written to a log file. When the script ends (also on failure) the lines that
+# look like warnings or errors are printed again, so they do not get lost in the output.
+LOG_FILE="build_conda-$(date +%Y%m%d-%H%M%S).log"
+exec > >(tee -a "${LOG_FILE}") 2>&1
+
+print_summary() {
+    local status=$?
+    sleep 1   # let tee finish writing
+    echo
+    echo "=== Warnings and errors found in ${LOG_FILE} (exit status ${status}) ==="
+    grep -inE 'warning|error|fatal|failed|traceback' "${LOG_FILE}" | grep -v '^[0-9]*:=== Warnings' || echo "none"
+}
+trap print_summary EXIT
+
+
+# ------------------------------------------------------------------------------
 # Fixed settings (not options): folder layout, file names and the module list
 # ------------------------------------------------------------------------------
 # All paths are relative to the directory the script is run from.
@@ -135,43 +153,47 @@ HYDRA_MODULES=(
     alignment annotation cnv_sv filtering prealignment
     qc reports snv_indels
 )
-
+echo "Packaging Poppy UU ${POPPY_UU_VERSION} from ${POPPY_UU_REPO} and Poppy GMS ${POPPY_GMS_VERSION} from ${POPPY_GMS_REPO}"
+echo "Reference validation file used: ${REFERENCE_VALIDATION_FILE}. conda env python ${PYTHON_VERSION}"
 
 # ------------------------------------------------------------------------------
 # Step 1: conda environment
 # ------------------------------------------------------------------------------
-echo "Packaging Poppy UU ${POPPY_UU_VERSION} from ${POPPY_UU_REPO} and Poppy GMS ${POPPY_GMS_VERSION} from ${POPPY_GMS_REPO}"
-echo "Reference validation file used: ${REFERENCE_VALIDATION_FILE}. conda env python ${PYTHON_VERSION}"
-
+echo "------------------------------------------------------------------------------"
+echo "Step 1: conda environment"
+echo "------------------------------------------------------------------------------"
 # Clones poppy_uppsala (its requirements.txt is needed), creates the env, installs the requirements
 # and packs the env into env.tar.gz inside the repo folder. The env stays activated for the later steps.
 mkdir -p "${REPO_FOLDER}"
 
 eval "$(conda shell.bash hook)"
-conda create --prefix "${ENV_DIR}" python="${PYTHON_VERSION}" -y
+conda create -q --prefix "${ENV_DIR}" python="${PYTHON_VERSION}" -y
 conda activate "${ENV_DIR}"
-conda install -c conda-forge pip -y
+conda install -q -c conda-forge pip -y
 
-git clone --branch "${POPPY_UU_VERSION}" "${POPPY_UU_REPO}" "${UU_DIR}"
+git clone -q --branch "${POPPY_UU_VERSION}" "${POPPY_UU_REPO}" "${UU_DIR}"
 
-"${ENV_DIR}/bin/pip3" install --no-cache-dir -I --upgrade "pip<25" wheel
-"${ENV_DIR}/bin/pip3" install --no-cache-dir -I -r "${UU_DIR}/requirements.txt"
+"${ENV_DIR}/bin/pip3" install -q --no-cache-dir -I --upgrade "pip<25" wheel
+"${ENV_DIR}/bin/pip3" install -q --no-cache-dir -I -r "${UU_DIR}/requirements.txt"
 
 # needs conda-pack installed in the base conda
-conda pack --prefix "${ENV_DIR}" -o "./${REPO_FOLDER}/env.tar.gz"
+conda pack -q --prefix "${ENV_DIR}" -o "./${REPO_FOLDER}/env.tar.gz"
 
 
 # ------------------------------------------------------------------------------
 # Step 2: clone the remaining repositories
 # ------------------------------------------------------------------------------
+echo "------------------------------------------------------------------------------"
+echo "Step 2: clone the remaining repositories"
+echo "------------------------------------------------------------------------------"
 # Poppy GMS: only the chosen tag/branch
-git clone --single-branch --branch "${POPPY_GMS_VERSION}" "${POPPY_GMS_REPO}" "${GMS_DIR}"
+git clone -q --single-branch --branch "${POPPY_GMS_VERSION}" "${POPPY_GMS_REPO}" "${GMS_DIR}"
 
-git clone https://github.com/snakemake/snakemake-wrappers.git "./${REPO_FOLDER}/snakemake-wrappers"
+git clone -q https://github.com/snakemake/snakemake-wrappers.git "./${REPO_FOLDER}/snakemake-wrappers"
 
 mkdir -p "./${REPO_FOLDER}/hydra-genetics"
 for module in "${HYDRA_MODULES[@]}"; do
-    git clone "https://github.com/hydra-genetics/${module}.git" "./${REPO_FOLDER}/hydra-genetics/${module}"
+    git clone -q "https://github.com/hydra-genetics/${module}.git" "./${REPO_FOLDER}/hydra-genetics/${module}"
 done
 
 # The miarka profile has a placeholder for the folder the package is unpacked into on the cluster.
@@ -181,6 +203,9 @@ sed -i -E "s/REPO_FOLDER/${REPO_FOLDER}/g" "${PROFILE_CONFIG}"
 # ------------------------------------------------------------------------------
 # Step 3: apptainer images
 # ------------------------------------------------------------------------------
+echo "------------------------------------------------------------------------------"
+echo "Step 3: apptainer images, if -a build"
+echo "------------------------------------------------------------------------------"
 # Builds one .sif per container in the configs into apptainer_cache/ (only with -a build).
 # hydra-genetics ignores failed builds, so check the output for errors.
 if [ "${APPT_IMAGES,,}" == "build" ]; then
@@ -192,6 +217,9 @@ fi
 # ------------------------------------------------------------------------------
 # Step 4: offline configs
 # ------------------------------------------------------------------------------
+echo "------------------------------------------------------------------------------"
+echo "Step 4: offline configs"
+echo "------------------------------------------------------------------------------"
 # Replaces the docker:// containers with {{APPTAINER_CACHE}}/<image>.sif.
 hydra-genetics prepare-environment container-path-update \
     -c "${GMS_CONFIG}" -p '{{APPTAINER_CACHE}}' -n "${GMS_OFFLINE_CONFIG}"
@@ -220,6 +248,7 @@ hydra-genetics prepare-environment reference-path-update \
 # Add more if WARNING message from extract_reference_paths.py (step 4) gives other files to that should be included, then rerun the build script.
 sed -E -i 's#^( *- )/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/(.*)$#\1"{{DESIGN_REF_FOLDER}}/\2"#' \
     "${UU_OFFLINE_CONFIG}"
+echo "/projects/wp2/nobackup/Twist_Myeloid/Bed_files/HG38/ edited by sed"
 
 rm -f "${UU_TMP_CONFIG}"
 
@@ -227,19 +256,22 @@ rm -f "${UU_TMP_CONFIG}"
 # ------------------------------------------------------------------------------
 # Step 5: reference and design files
 # ------------------------------------------------------------------------------
+echo "------------------------------------------------------------------------------"
+echo "Step 5: reference and design files, if -R true"
+echo "------------------------------------------------------------------------------"
 # Downloads the files in the validation file into the design/reference folder and packs it (only with -R true).
 if [ "${REF_DOWNLOAD,,}" == "true" ]; then
     echo "Downloading references."
     # hydra-genetics only logs failed downloads and exits 0, so the log is checked.
     # The log is written next to the tar files, i.e. outside the folders that are packed.
-    hydra-genetics --debug references download -o "${DESIGN_REF_FOLDER}" -v "${REFERENCE_VALIDATION_FILE}" 2>&1 \
+    hydra-genetics references download -o "${DESIGN_REF_FOLDER}" -v "${REFERENCE_VALIDATION_FILE}" 2>&1 \
         | tee reference_download.log
     if grep -q "Failed to retrieve" reference_download.log; then
         echo "Reference download had failures, see reference_download.log" >&2
         exit 1
     fi
 
-    tar -zcvf "${DESIGN_REF_FOLDER}.tar.gz" "${DESIGN_REF_FOLDER}"
+    tar -zcf "${DESIGN_REF_FOLDER}.tar.gz" "${DESIGN_REF_FOLDER}"
     rm -rf "${DESIGN_REF_FOLDER}"
 fi
 
@@ -247,8 +279,11 @@ fi
 # ------------------------------------------------------------------------------
 # Step 6: package
 # ------------------------------------------------------------------------------
+echo "------------------------------------------------------------------------------"
+echo "Step 6: package"
+echo "------------------------------------------------------------------------------"
 # Packs the repo folder (repos, modules, conda env and the offline configs) and removes the folder.
-tar -zcvf "${REPO_FOLDER}.tar.gz" "${REPO_FOLDER}"
+tar -zcf "${REPO_FOLDER}.tar.gz" "${REPO_FOLDER}"
 rm -rf "${REPO_FOLDER}"
 
 

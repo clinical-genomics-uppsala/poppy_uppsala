@@ -36,7 +36,7 @@ bash build_conda.sh
 Build everything, including images and reference files, from a specific version:
 
 ```bash
-../poppy_uppsala/build/build_conda.sh \
+bash ./build_conda.sh \
     --poppy-uu-version v2.1.1 --poppy-gms-version v1.1.0 \
     --apptainer-images build --download-references true
 ```
@@ -49,6 +49,7 @@ All files are created in the directory the script is run from.
 
 | Output | Created | Content |
 |---|---|---|
+| `build_conda-<timestamp>.log` | always | logfile of all build_conda.sh output |
 | `repos-<date>.tar.gz` | always | the pipelines, modules, conda environment and the offline configs, see below |
 | `design_and_ref_files-<date>.tar.gz` | `-R true` | reference and design files, stored at the `path:` given for each file in the validation file |
 | `apptainer_cache/` | `-a build` | apptainer images (`.sif`), one per container in the configs. This folder is not part of the tar files and must be copied separately |
@@ -122,6 +123,7 @@ Activate the environment and start snakemake from the run directory. Variables u
 | `hydra_modules_path` | `repos-<date>/hydra-genetics`, the cloned modules. Given as `hydra_local_path`, otherwise the modules are fetched from GitHub | Specific for offline mode |
 | `apptainer_cache` | folder with the `.sif` images |  Specific for offline mode |
 | `design_ref_path` | extracted `design_and_ref_files-<date>`, replaces `{{DESIGN_REF_FOLDER}}` | Specific for offline mode |
+|`resources`| path to `resources.yaml` adapted to each cluster configuration e.g. `{{POPPY_UU_HOME}}/config/resources_<cluster>.yaml` |Specific for each cluster|
 
 ```bash
 source ${repos_path}/venv/bin/activate
@@ -136,13 +138,15 @@ snakemake --profile ${poppy_uu_path}/profile/miarka_drmaa -s ${poppy_uu_path}/wo
             sequenceid=${sequenceid} \
             hydra_local_path=${hydra_modules_path} \
             APPTAINER_CACHE=${apptainer_cache} \
-            DESIGN_REF_FOLDER=${design_ref_path}
+            DESIGN_REF_FOLDER=${design_ref_path} \
+            resources="{{POPPY_UU_HOME}}/config/resources_miarka.yaml"
 ```
 
 Notes:
 
 - Without internet access, the pipeline starts with a short wait while it tries to reach GitHub, and then uses `POPPY_HOME` for Poppy GMS.
 - The machine-specific files are stored in `NovaSeq/reference_files/` or `NextSeq/reference_files/` in the design and reference folder. `REFERENCE_DIRECTORY` should therefore point to `NovaSeq` or `NextSeq` in that folder.
+- Since resources depend on cluster configuration the `resources.yaml` will most likely need to be replaced with cluster specific file using the `--config` flag, see example above.
 - Any other config files used for a run (e.g. samples and units) are added to `--configfiles` as usual.
 
 ## Known limitations
