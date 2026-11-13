@@ -13,7 +13,14 @@ layout:
   local_rules_dir: workflow/rules
   local_scripts_dir: workflow/scripts
   schemas_dir: workflow/schemas
+  container_manifest: containers/manifest.yaml
   report: null
+
+site:
+  sites:
+    - marvin
+    - miarka
+  site_config_pattern: config/site_configs/site_config_{site}.yaml
 
 rule_groups:
   common: workflow/rules/common.smk
@@ -25,7 +32,7 @@ rule_groups:
 hydra_modules:
   source: config.modules
   loader: hydra_genetics.utils.misc.get_module_snakefile
-  local_module_root_config_key: module_root
+  local_module_root_config_key: hydra_local_path
   modules:
     - alignment
     - qc
@@ -52,3 +59,6 @@ harmonization_notes:
   - Module loading mixes module_root, POPPY_HOME, and get_module_snakefile fallback.
   - Results workbook helpers overlap with Neville and may belong in hydra-genetics/report later.
   - Keep external poppy module handling explicit in the manifest before changing loader behavior.
+  - Containers (phase 2) - poppy (GMS, upstream) sets its own docker URIs, so config/config_containers.yaml re-declares every rule container from the CGU library. Generated from poppy v1.0.0; regenerate on a poppy upgrade.
+  - hydra_local_path must contain hydra-genetics/<module> and poppy/ (get_module_snakefile resolves both under it).
+  - References are still the per-run-mode Marvin paths in config_uppsala_*.yaml until the D14 library is built (phase 3); there is no Miarka reference config in this repo (poppy_uppsala_config is stale and not a production input).

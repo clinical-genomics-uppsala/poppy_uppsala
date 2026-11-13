@@ -1,0 +1,14 @@
+# ---------------------------------------------------------------------------
+#  Site-config - miarka
+#
+#  Laggs sist. Allt som beror pa klustret men inte pa assayen.
+# ---------------------------------------------------------------------------
+
+# Containerbiblioteket. Fylls av tools/build_containers.sh vid installation.
+CONTAINER_DIR: /proj/ngi2024001/nobackup/cgu/library/containers
+
+# Katalogen innehaller hydra-genetics/<modul> OCH poppy/ (get_module_snakefile letar
+# bade hydra-genetics/alignment och genomic-medicine-sweden/poppy -> poppy/).
+# Taggarna maste finnas lokalt (klona med --tags). poppy_uu_version skickas med
+# --config av startscriptet.
+hydra_local_path: /proj/ngi2024001/nobackup/bin/wp2_tm/{{poppy_uu_version}}

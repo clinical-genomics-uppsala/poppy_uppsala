@@ -1,0 +1,62 @@
+# Genererad av tools/gen_container_manifest.py ur config/**/*.yaml.
+# Sif-namnen följer CGU:s offline-cache-konvention på Miarka.
+# Kör om verktyget när config ändras; CI kontrollerar med --check.
+
+containers:
+  bamsnap:
+    source: docker://hydragenetics/bamsnap:0.2.19
+    sif: hydragenetics__bamsnap_0.2.19.sif
+  bcbio-vc:
+    source: docker://hydragenetics/bcbio-vc:0.2.6
+    sif: hydragenetics__bcbio-vc_0.2.6.sif
+  bwa_mem:
+    source: docker://hydragenetics/bwa_mem:0.7.17
+    sif: hydragenetics__bwa_mem_0.7.17.sif
+  cnvkit:
+    source: docker://hydragenetics/cnvkit:0.9.9
+    sif: hydragenetics__cnvkit_0.9.9.sif
+  common_1_10_2:
+    source: docker://hydragenetics/common:1.10.2
+    sif: hydragenetics__common_1.10.2.sif
+  common_3_1_1_2:
+    source: docker://hydragenetics/common:3.1.1.2
+    sif: hydragenetics__common_3.1.1.2.sif
+  fastp:
+    source: docker://hydragenetics/fastp:0.20.1
+    sif: hydragenetics__fastp_0.20.1.sif
+  fastqc:
+    source: docker://hydragenetics/fastqc:0.11.9
+    sif: hydragenetics__fastqc_0.11.9.sif
+  gatk4:
+    source: docker://hydragenetics/gatk4:4.1.9.0
+    sif: hydragenetics__gatk4_4.1.9.0.sif
+  mosdepth:
+    source: docker://hydragenetics/mosdepth:0.3.2
+    sif: hydragenetics__mosdepth_0.3.2.sif
+  multiqc:
+    source: docker://hydragenetics/multiqc:1.21
+    sif: hydragenetics__multiqc_1.21.sif
+  picard_2_25_0:
+    source: docker://hydragenetics/picard:2.25.0
+    sif: hydragenetics__picard_2.25.0.sif
+  picard_2_25_4:
+    source: docker://hydragenetics/picard:2.25.4
+    sif: hydragenetics__picard_2.25.4.sif
+  pindel:
+    source: docker://hydragenetics/pindel:0.2.5b9
+    sif: hydragenetics__pindel_0.2.5b9.sif
+  purecn:
+    source: docker://hydragenetics/purecn:2.2.0
+    sif: hydragenetics__purecn_2.2.0.sif
+  svdb:
+    source: docker://hydragenetics/svdb:2.6.0
+    sif: hydragenetics__svdb_2.6.0.sif
+  vardict:
+    source: docker://hydragenetics/vardict:1.8.3
+    sif: hydragenetics__vardict_1.8.3.sif
+  vep:
+    source: docker://hydragenetics/vep:111.0
+    sif: hydragenetics__vep_111.0.sif
+  vt:
+    source: docker://hydragenetics/vt:2015.11.10
+    sif: hydragenetics__vt_2015.11.10.sif

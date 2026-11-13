@@ -1,0 +1,112 @@
+# ---------------------------------------------------------------------------
+#  Containrar for de regler som poppy (GMS, upstream) sjalv satter i sin config.
+#
+#  poppy agas av GMS och patchas inte. Dess config.yaml har docker-URI:er; har
+#  finns samma regler med containrar fran CGU:s containerbibliotek. Genererad
+#  ur poppy v1.0.0 config/config.yaml; kor om vid poppy-uppgradering.
+#  Laggs EFTER poppys config.yaml och config_uppsala_*.yaml. Regler som
+#  config_uppsala_*.yaml redan satter (bamsnap, bamsnap_downsample_bam) och
+#  default_container finns inte har.
+# ---------------------------------------------------------------------------
+
+bcbio_variation_recall_ensemble:
+  container: "{{CONTAINER_DIR}}/hydragenetics__bcbio-vc_0.2.6.sif"
+
+bwa_mem:
+  container: "{{CONTAINER_DIR}}/hydragenetics__bwa_mem_0.7.17.sif"
+
+cnvkit_batch:
+  container: "{{CONTAINER_DIR}}/hydragenetics__cnvkit_0.9.9.sif"
+
+cnvkit_call:
+  container: "{{CONTAINER_DIR}}/hydragenetics__cnvkit_0.9.9.sif"
+
+cnvkit_vcf:
+  container: "{{CONTAINER_DIR}}/hydragenetics__cnvkit_0.9.9.sif"
+
+fastp_pe:
+  container: "{{CONTAINER_DIR}}/hydragenetics__fastp_0.20.1.sif"
+
+fastqc:
+  container: "{{CONTAINER_DIR}}/hydragenetics__fastqc_0.11.9.sif"
+
+gatk_collect_allelic_counts:
+  container: "{{CONTAINER_DIR}}/hydragenetics__gatk4_4.1.9.0.sif"
+
+gatk_collect_read_counts:
+  container: "{{CONTAINER_DIR}}/hydragenetics__gatk4_4.1.9.0.sif"
+
+gatk_denoise_read_counts:
+  container: "{{CONTAINER_DIR}}/hydragenetics__gatk4_4.1.9.0.sif"
+
+gatk_model_segments:
+  container: "{{CONTAINER_DIR}}/hydragenetics__gatk4_4.1.9.0.sif"
+
+gatk_mutect2:
+  container: "{{CONTAINER_DIR}}/hydragenetics__gatk4_4.1.9.0.sif"
+
+gatk_mutect2_filter:
+  container: "{{CONTAINER_DIR}}/hydragenetics__gatk4_4.1.9.0.sif"
+
+gatk_mutect2_gvcf:
+  container: "{{CONTAINER_DIR}}/hydragenetics__gatk4_4.1.9.0.sif"
+
+gatk_mutect2_merge_stats:
+  container: "{{CONTAINER_DIR}}/hydragenetics__gatk4_4.1.9.0.sif"
+
+mosdepth_bed:
+  container: "{{CONTAINER_DIR}}/hydragenetics__mosdepth_0.3.2.sif"
+
+multiqc:
+  container: "{{CONTAINER_DIR}}/hydragenetics__multiqc_1.21.sif"
+
+picard_collect_alignment_summary_metrics:
+  container: "{{CONTAINER_DIR}}/hydragenetics__picard_2.25.0.sif"
+
+picard_collect_duplication_metrics:
+  container: "{{CONTAINER_DIR}}/hydragenetics__picard_2.25.0.sif"
+
+picard_collect_gc_bias_metrics:
+  container: "{{CONTAINER_DIR}}/hydragenetics__picard_2.25.0.sif"
+
+picard_collect_hs_metrics:
+  container: "{{CONTAINER_DIR}}/hydragenetics__picard_2.25.0.sif"
+
+picard_collect_insert_size_metrics:
+  container: "{{CONTAINER_DIR}}/hydragenetics__picard_2.25.0.sif"
+
+picard_mark_duplicates:
+  container: "{{CONTAINER_DIR}}/hydragenetics__picard_2.25.0.sif"
+
+pindel_call:
+  container: "{{CONTAINER_DIR}}/hydragenetics__pindel_0.2.5b9.sif"
+
+pindel_update_vcf:
+  container: "{{CONTAINER_DIR}}/hydragenetics__picard_2.25.4.sif"
+
+pindel2vcf:
+  container: "{{CONTAINER_DIR}}/hydragenetics__pindel_0.2.5b9.sif"
+
+purecn:
+  container: "{{CONTAINER_DIR}}/hydragenetics__purecn_2.2.0.sif"
+
+purecn_coverage:
+  container: "{{CONTAINER_DIR}}/hydragenetics__purecn_2.2.0.sif"
+
+svdb_merge:
+  container: "{{CONTAINER_DIR}}/hydragenetics__svdb_2.6.0.sif"
+
+svdb_query:
+  container: "{{CONTAINER_DIR}}/hydragenetics__svdb_2.6.0.sif"
+
+vardict:
+  container: "{{CONTAINER_DIR}}/hydragenetics__vardict_1.8.3.sif"
+
+vep:
+  container: "{{CONTAINER_DIR}}/hydragenetics__vep_111.0.sif"
+
+vt_decompose:
+  container: "{{CONTAINER_DIR}}/hydragenetics__vt_2015.11.10.sif"
+
+vt_normalize:
+  container: "{{CONTAINER_DIR}}/hydragenetics__vt_2015.11.10.sif"
